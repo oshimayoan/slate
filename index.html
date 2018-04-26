@@ -325,7 +325,7 @@
 const inputBody = '{
   "strategy": "otp",
   "phone": "08118289855",
-  "otp": "1234"
+  "code": "1234"
 }';
 const headers = {
   'Content-Type':'application/json',
@@ -358,7 +358,7 @@ fetch('https://api-staging.vospay.id/api/v2/authentication',
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"strategy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"otp"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"phone"</span><span class="p">:</span><span class="w"> </span><span class="s2">"08118289855"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"otp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234"</span><span class="w">
+  </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <h3 id="createAccessToken-parameters">Parameters</h3>
@@ -394,10 +394,10 @@ fetch('https://api-staging.vospay.id/api/v2/authentication',
 <td>No description</td>
 </tr>
 <tr>
-<td>» otp</td>
+<td>» code</td>
 <td>body</td>
 <td>string</td>
-<td>true</td>
+<td>false</td>
 <td>No description</td>
 </tr>
 </tbody></table>
