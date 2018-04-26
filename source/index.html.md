@@ -37,7 +37,7 @@ const request = require('node-fetch');
 const inputBody = '{
   "strategy": "otp",
   "phone": "08118289855",
-  "otp": "1234"
+  "code": "1234"
 }';
 const headers = {
   'Content-Type':'application/json',
@@ -71,7 +71,7 @@ Use this endpoint to verify every otp and get new accessToken
 {
   "strategy": "otp",
   "phone": "08118289855",
-  "otp": "1234"
+  "code": "1234"
 }
 ```
 
@@ -82,7 +82,7 @@ Use this endpoint to verify every otp and get new accessToken
 |body|body|object|true|No description|
 |» strategy|body|string|true|No description|
 |» phone|body|string|true|No description|
-|» otp|body|string|true|No description|
+|» code|body|string|false|No description|
 
 > Example responses
 
