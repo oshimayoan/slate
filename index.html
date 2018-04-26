@@ -307,7 +307,7 @@
 <p>Base URLs:</p>
 
 <ul>
-<li><a href="https://api-staging.vospay.id/api/v1">https://api-staging.vospay.id/api/v1</a></li>
+<li><a href="https://api-staging.vospay.id/api/v2">https://api-staging.vospay.id/api/v2</a></li>
 </ul>
 <h1 id='authentication'>Authentication</h1>
 <ul>
@@ -333,7 +333,7 @@ const headers = {
 
 };
 
-fetch('https://api-staging.vospay.id/api/v1/authentication',
+fetch('https://api-staging.vospay.id/api/v2/authentication',
 {
   method: 'POST',
   body: inputBody,
@@ -344,6 +344,7 @@ fetch('https://api-staging.vospay.id/api/v1/authentication',
 }).then(function(body) {
     console.log(body);
 });
+
 </code></pre>
 <p><code>POST /authentication</code></p>
 
@@ -405,8 +406,7 @@ fetch('https://api-staging.vospay.id/api/v1/authentication',
 <p>Example responses</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"accessToken"</span><span class="p">:</span><span class="w">
-    </span><span class="s2">"j91usej1ju983s1uen93du9e.ue9s831ue8913_EXAMPLE_uj38esu983eu98r.jf92ur982j3u8922932su392nc9j2e9"</span><span class="w">
+  </span><span class="s2">"accessToken"</span><span class="p">:</span><span class="w"> </span><span class="s2">"j91usej1ju983s1uen93du9e.ue9s831ue8913_EXAMPLE_uj38esu983eu98r.jf92ur982j3u8922932su392nc9j2e9"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
@@ -535,7 +535,7 @@ const headers = {
 
 };
 
-fetch('https://api-staging.vospay.id/api/v1/otp/{phoneNumber}',
+fetch('https://api-staging.vospay.id/api/v2/otp/{phoneNumber}',
 {
   method: 'GET',
 
@@ -546,6 +546,7 @@ fetch('https://api-staging.vospay.id/api/v1/otp/{phoneNumber}',
 }).then(function(body) {
     console.log(body);
 });
+
 </code></pre>
 <p><code>GET /otp/{phoneNumber}</code></p>
 
@@ -705,7 +706,7 @@ const headers = {
 
 };
 
-fetch('https://api-staging.vospay.id/api/v1/activation',
+fetch('https://api-staging.vospay.id/api/v2/activation',
 {
   method: 'POST',
   body: inputBody,
@@ -716,6 +717,7 @@ fetch('https://api-staging.vospay.id/api/v1/activation',
 }).then(function(body) {
     console.log(body);
 });
+
 </code></pre>
 <p><code>POST /activation</code></p>
 
@@ -913,7 +915,7 @@ const headers = {
 
 };
 
-fetch('https://api-staging.vospay.id/api/v1/registration',
+fetch('https://api-staging.vospay.id/api/v2/registration',
 {
   method: 'PATCH',
   body: inputBody,
@@ -924,6 +926,7 @@ fetch('https://api-staging.vospay.id/api/v1/registration',
 }).then(function(body) {
     console.log(body);
 });
+
 </code></pre>
 <p><code>PATCH /registration</code></p>
 
@@ -1087,7 +1090,7 @@ const headers = {
 
 };
 
-fetch('https://api-staging.vospay.id/api/v1/accounts?phone={phone}?phone=08118289855?phone=08118289855',
+fetch('https://api-staging.vospay.id/api/v2/accounts?phone={phone}?phone=08118289855?phone=08118289855',
 {
   method: 'GET',
 
@@ -1098,6 +1101,7 @@ fetch('https://api-staging.vospay.id/api/v1/accounts?phone={phone}?phone=0811828
 }).then(function(body) {
     console.log(body);
 });
+
 </code></pre>
 <p><code>GET /accounts?phone={phone}</code></p>
 
@@ -1343,7 +1347,7 @@ const headers = {
 
 };
 
-fetch('https://api-staging.vospay.id/api/v1/checkout/{vospayNumber}?merchantID={merchantID}?merchantID=1?merchantID=1',
+fetch('https://api-staging.vospay.id/api/v2/checkout/{vospayNumber}?merchantID={merchantID}?merchantID=1?merchantID=1',
 {
   method: 'GET',
 
@@ -1354,6 +1358,7 @@ fetch('https://api-staging.vospay.id/api/v1/checkout/{vospayNumber}?merchantID={
 }).then(function(body) {
     console.log(body);
 });
+
 </code></pre>
 <p><code>GET /checkout/{vospayNumber}?merchantID={merchantID}</code></p>
 
@@ -1601,7 +1606,7 @@ const headers = {
 
 };
 
-fetch('https://api-staging.vospay.id/api/v1/checkout',
+fetch('https://api-staging.vospay.id/api/v2/checkout',
 {
   method: 'POST',
   body: inputBody,
@@ -1612,6 +1617,7 @@ fetch('https://api-staging.vospay.id/api/v1/checkout',
 }).then(function(body) {
     console.log(body);
 });
+
 </code></pre>
 <p><code>POST /checkout</code></p>
 
@@ -1988,7 +1994,7 @@ const headers = {
 
 };
 
-fetch('https://api-staging.vospay.id/api/v1/verify-transaction',
+fetch('https://api-staging.vospay.id/api/v2/verify-transaction',
 {
   method: 'POST',
   body: inputBody,
@@ -1999,6 +2005,7 @@ fetch('https://api-staging.vospay.id/api/v1/verify-transaction',
 }).then(function(body) {
     console.log(body);
 });
+
 </code></pre>
 <p><code>POST /verify-transaction</code></p>
 
