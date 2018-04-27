@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>Vospay API Doc v0.1.5</title>
+    <title>Vospay API Doc v0.1.6</title>
 
     <style>
       .highlight table td { padding: 5px; }
@@ -219,7 +219,7 @@
         <ul class="search-results"></ul>
       <div id="toc" class="toc-list-h1">
           <li>
-            <a href="#Vospay-API-Doc" class="toc-h1 toc-link" data-title="vospay-api-doc-v0-1-5">Vospay API Doc v0.1.5</a>
+            <a href="#Vospay-API-Doc" class="toc-h1 toc-link" data-title="vospay-api-doc-v0-1-6">Vospay API Doc v0.1.6</a>
           </li>
           <li>
             <a href="#authentication" class="toc-h1 toc-link" data-title="authentication">Authentication</a>
@@ -257,10 +257,24 @@
               </ul>
           </li>
           <li>
-            <a href="#Vospay-API-Doc-Accounts" class="toc-h1 toc-link" data-title="accounts">Accounts</a>
+            <a href="#Vospay-API-Doc-Account" class="toc-h1 toc-link" data-title="account">Account</a>
               <ul class="toc-list-h2">
                   <li>
                     <a href="#fetchaccountlist" class="toc-h2 toc-link" data-title="fetchaccountlist">fetchAccountList</a>
+                  </li>
+                  <li>
+                    <a href="#fetchaccountlistbyphone" class="toc-h2 toc-link" data-title="fetchaccountlistbyphone">fetchAccountListByPhone</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#Vospay-API-Doc-Merchant" class="toc-h1 toc-link" data-title="merchant">Merchant</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#fetchmerchantlist" class="toc-h2 toc-link" data-title="fetchmerchantlist">fetchMerchantList</a>
+                  </li>
+                  <li>
+                    <a href="#fetchmerchantlistbymerchantkey" class="toc-h2 toc-link" data-title="fetchmerchantlistbymerchantkey">fetchMerchantListByMerchantKey</a>
                   </li>
               </ul>
           </li>
@@ -296,7 +310,7 @@
     <div class="page-wrapper">
       <div class="dark-box"></div>
       <div class="content">
-        <h1 id="Vospay-API-Doc">Vospay API Doc v0.1.5</h1>
+        <h1 id="Vospay-API-Doc">Vospay API Doc v0.1.6</h1>
 
 <blockquote>
 <p>Scroll down for code samples, example requests and responses. Select a language for code samples from the tabs above or the mobile navigation menu.</p>
@@ -344,13 +358,12 @@ fetch('https://api-staging.vospay.id/api/v2/authentication',
 }).then(function(body) {
     console.log(body);
 });
-
 </code></pre>
 <p><code>POST /authentication</code></p>
 
 <p><em>Create access token to access some protected endpoints</em></p>
 
-<p>Use this endpoint to verify every otp and get new accessToken</p>
+<p>Use this endpoint to verify every otp and get new accessToken. An accessToken consists userID inside it.</p>
 
 <blockquote>
 <p>Body parameter</p>
@@ -406,7 +419,8 @@ fetch('https://api-staging.vospay.id/api/v2/authentication',
 <p>Example responses</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"accessToken"</span><span class="p">:</span><span class="w"> </span><span class="s2">"j91usej1ju983s1uen93du9e.ue9s831ue8913_EXAMPLE_uj38esu983eu98r.jf92ur982j3u8922932su392nc9j2e9"</span><span class="w">
+  </span><span class="s2">"accessToken"</span><span class="p">:</span><span class="w">
+    </span><span class="s2">"j91usej1ju983s1uen93du9e.ue9s831ue8913_EXAMPLE_uj38esu983eu98r.jf92ur982j3u8922932su392nc9j2e9"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
@@ -546,13 +560,12 @@ fetch('https://api-staging.vospay.id/api/v2/otp/{phoneNumber}',
 }).then(function(body) {
     console.log(body);
 });
-
 </code></pre>
 <p><code>GET /otp/{phoneNumber}</code></p>
 
 <p><em>Trigger backend to resend otp</em></p>
 
-<p>Use this endpoint to trigger the backend for resend the otp to a user</p>
+<p>Use this endpoint to trigger the backend for send the otp to a user.</p>
 
 <h3 id="sendOTP-parameters">Parameters</h3>
 
@@ -717,13 +730,12 @@ fetch('https://api-staging.vospay.id/api/v2/activation',
 }).then(function(body) {
     console.log(body);
 });
-
 </code></pre>
 <p><code>POST /activation</code></p>
 
 <p><em>Post user&#39;s data to generate and activate account number</em></p>
 
-<p>Use this endpoint when user submit their data on activation process</p>
+<p>Use this endpoint when user submit their data on activation process.</p>
 
 <blockquote>
 <p>Body parameter</p>
@@ -801,6 +813,14 @@ fetch('https://api-staging.vospay.id/api/v2/activation',
   </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
   </span><span class="s2">"className"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w">
+  </span><span class="s2">"errors"</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"className"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"errors"</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
@@ -818,6 +838,12 @@ fetch('https://api-staging.vospay.id/api/v2/activation',
 <td>201</td>
 <td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.2">Created</a></td>
 <td>OK response</td>
+<td>Inline</td>
+</tr>
+<tr>
+<td>401</td>
+<td><a href="https://tools.ietf.org/html/rfc7235#section-3.1">Unauthorized</a></td>
+<td>Response when access token is not provided as Authorization on request header</td>
 <td>Inline</td>
 </tr>
 <tr>
@@ -845,6 +871,54 @@ fetch('https://api-staging.vospay.id/api/v2/activation',
 <td>string</td>
 <td>false</td>
 <td>Auto generated vospay account number</td>
+</tr>
+</tbody></table>
+
+<p>Status Code <strong>401</strong></p>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>» name</td>
+<td>string</td>
+<td>false</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>» message</td>
+<td>string</td>
+<td>false</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>» code</td>
+<td>number</td>
+<td>false</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>» className</td>
+<td>string</td>
+<td>false</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>» data</td>
+<td>object</td>
+<td>false</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>» errors</td>
+<td>object</td>
+<td>false</td>
+<td>No description</td>
 </tr>
 </tbody></table>
 
@@ -926,13 +1000,12 @@ fetch('https://api-staging.vospay.id/api/v2/registration',
 }).then(function(body) {
     console.log(body);
 });
-
 </code></pre>
 <p><code>PATCH /registration</code></p>
 
 <p><em>Post user&#39;s registration data</em></p>
 
-<p>Use this endpoint to send registrant data when register submit is clicked</p>
+<p>Use this endpoint to send registrant data when register submit is clicked.</p>
 
 <blockquote>
 <p>Body parameter</p>
@@ -981,6 +1054,14 @@ fetch('https://api-staging.vospay.id/api/v2/registration',
   </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
   </span><span class="s2">"className"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w">
+  </span><span class="s2">"errors"</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"className"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"errors"</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
@@ -998,6 +1079,12 @@ fetch('https://api-staging.vospay.id/api/v2/registration',
 <td>200</td>
 <td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
 <td>Backend successfuly store registrant data to database</td>
+<td>Inline</td>
+</tr>
+<tr>
+<td>401</td>
+<td><a href="https://tools.ietf.org/html/rfc7235#section-3.1">Unauthorized</a></td>
+<td>Response when access token is not provided as Authorization on request header</td>
 <td>Inline</td>
 </tr>
 <tr>
@@ -1023,6 +1110,54 @@ fetch('https://api-staging.vospay.id/api/v2/registration',
 <tr>
 <td>» message</td>
 <td>string</td>
+<td>false</td>
+<td>No description</td>
+</tr>
+</tbody></table>
+
+<p>Status Code <strong>401</strong></p>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>» name</td>
+<td>string</td>
+<td>false</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>» message</td>
+<td>string</td>
+<td>false</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>» code</td>
+<td>number</td>
+<td>false</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>» className</td>
+<td>string</td>
+<td>false</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>» data</td>
+<td>object</td>
+<td>false</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>» errors</td>
+<td>object</td>
 <td>false</td>
 <td>No description</td>
 </tr>
@@ -1075,7 +1210,7 @@ To perform this operation, you must be authenticated by means of one of the foll
 accessToken
 </aside>
 
-<h1 id="Vospay-API-Doc-Accounts">Accounts</h1>
+<h1 id="Vospay-API-Doc-Account">Account</h1>
 <h2 id='fetchaccountlist'>fetchAccountList</h2>
 <p><a id="opIdfetchAccountList"></a></p>
 
@@ -1090,7 +1225,7 @@ const headers = {
 
 };
 
-fetch('https://api-staging.vospay.id/api/v2/accounts?phone={phone}?phone=08118289855?phone=08118289855',
+fetch('https://api-staging.vospay.id/api/v2/accounts',
 {
   method: 'GET',
 
@@ -1101,13 +1236,12 @@ fetch('https://api-staging.vospay.id/api/v2/accounts?phone={phone}?phone=0811828
 }).then(function(body) {
     console.log(body);
 });
-
 </code></pre>
-<p><code>GET /accounts?phone={phone}</code></p>
+<p><code>GET /accounts</code></p>
 
-<p><em>Fetch all accounts using phone number</em></p>
+<p><em>Fetch all accounts</em></p>
 
-<p>This endpoint is for fetching all vospay accounts that certain phone number has. By default backend return list of existing accounts and send OTP if account isActived=true.</p>
+<p>This endpoint is for fetching all vospay accounts that certain user has.</p>
 
 <h3 id="fetchAccountList-parameters">Parameters</h3>
 
@@ -1121,13 +1255,6 @@ fetch('https://api-staging.vospay.id/api/v2/accounts?phone={phone}?phone=0811828
 </tr>
 </thead><tbody>
 <tr>
-<td>phone</td>
-<td>query</td>
-<td>string</td>
-<td>true</td>
-<td>User&#39;s phone number</td>
-</tr>
-<tr>
 <td>Authorization</td>
 <td>header</td>
 <td>string</td>
@@ -1140,22 +1267,45 @@ fetch('https://api-staging.vospay.id/api/v2/accounts?phone={phone}?phone=0811828
 <p>Example responses</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"vospayNumbers"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+  </span><span class="s2">"total"</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"limit"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"skip"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
     </span><span class="p">{</span><span class="w">
       </span><span class="s2">"vospayNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2340010000000001"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"mfcLogo"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://vospay.id/mfcLogo.png"</span><span class="w">
+      </span><span class="s2">"multifinance"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"logo"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://vospay.id/mpmLogo.png"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MPM"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"phone"</span><span class="p">:</span><span class="w"> </span><span class="s2">"02155512345"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cs-mpm@gmail.com"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
     </span><span class="p">},</span><span class="w">
     </span><span class="p">{</span><span class="w">
       </span><span class="s2">"vospayNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2340010000000002"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"mfcLogo"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://vospay.id/mfcLogo.png"</span><span class="w">
+      </span><span class="s2">"multifinance"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"logo"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://vospay.id/mpmLogo.png"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MPM"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"phone"</span><span class="p">:</span><span class="w"> </span><span class="s2">"02155512345"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cs-mpm@gmail.com"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
     </span><span class="p">},</span><span class="w">
     </span><span class="p">{</span><span class="w">
-      </span><span class="s2">"vospayNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2340010000000003"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"mfcLogo"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://vospay.id/mfcLogo.png"</span><span class="w">
+      </span><span class="s2">"vospayNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2350010000000003"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"multifinance"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"logo"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://vospay.id/maybankLogo.png"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Maybank"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"phone"</span><span class="p">:</span><span class="w"> </span><span class="s2">"02155554321"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cs-maybank@gmail.com"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
     </span><span class="p">},</span><span class="w">
     </span><span class="p">{</span><span class="w">
-      </span><span class="s2">"vospayNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2340010000000004"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"mfcLogo"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://vospay.id/mfcLogo.png"</span><span class="w">
+      </span><span class="s2">"vospayNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2360010000000004"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"multifinance"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"logo"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://vospay.id/bankMegaLogo.png"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bank Mega"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"phone"</span><span class="p">:</span><span class="w"> </span><span class="s2">"02155512321"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cs-mega@gmail.com"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
@@ -1164,6 +1314,7 @@ fetch('https://api-staging.vospay.id/api/v2/accounts?phone={phone}?phone=0811828
   </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
   </span><span class="s2">"className"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w">
   </span><span class="s2">"errors"</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
@@ -1171,7 +1322,6 @@ fetch('https://api-staging.vospay.id/api/v2/accounts?phone={phone}?phone=0811828
   </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
   </span><span class="s2">"className"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w">
   </span><span class="s2">"errors"</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
@@ -1192,15 +1342,15 @@ fetch('https://api-staging.vospay.id/api/v2/accounts?phone={phone}?phone=0811828
 <td>Inline</td>
 </tr>
 <tr>
-<td>404</td>
-<td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.4">Not Found</a></td>
-<td>Response when vospay account number is not found</td>
+<td>401</td>
+<td><a href="https://tools.ietf.org/html/rfc7235#section-3.1">Unauthorized</a></td>
+<td>Response when access token is not provided as Authorization on request header</td>
 <td>Inline</td>
 </tr>
 <tr>
-<td>500</td>
-<td><a href="https://tools.ietf.org/html/rfc7231#section-6.6.1">Internal Server Error</a></td>
-<td>Response when phone number is not provided or not found</td>
+<td>404</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.4">Not Found</a></td>
+<td>Response when user ID is not found</td>
 <td>Inline</td>
 </tr>
 </tbody></table>
@@ -1218,7 +1368,25 @@ fetch('https://api-staging.vospay.id/api/v2/accounts?phone={phone}?phone=0811828
 </tr>
 </thead><tbody>
 <tr>
-<td>» vospayNumbers</td>
+<td>» total</td>
+<td>number</td>
+<td>false</td>
+<td>Total accounts of certain user</td>
+</tr>
+<tr>
+<td>» limit</td>
+<td>number</td>
+<td>false</td>
+<td>Limit of accounts send by the backend to frontend (for pagination purpose)</td>
+</tr>
+<tr>
+<td>» skip</td>
+<td>number</td>
+<td>false</td>
+<td>Total accounts that skipped to not send by backend to frontend</td>
+</tr>
+<tr>
+<td>» data</td>
 <td>[object]</td>
 <td>false</td>
 <td>Array of vospay account numbers that one phone number had.</td>
@@ -1230,10 +1398,82 @@ fetch('https://api-staging.vospay.id/api/v2/accounts?phone={phone}?phone=0811828
 <td>Vospay account number</td>
 </tr>
 <tr>
-<td>»» mfcLogo</td>
+<td>»» multifinance</td>
+<td>object</td>
+<td>false</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>»»» logo</td>
 <td>string(uri)</td>
 <td>false</td>
 <td>URL of multifinance logo</td>
+</tr>
+<tr>
+<td>»»» name</td>
+<td>string</td>
+<td>false</td>
+<td>Name of multifinance</td>
+</tr>
+<tr>
+<td>»»» phone</td>
+<td>string</td>
+<td>false</td>
+<td>Phone number of multifinance</td>
+</tr>
+<tr>
+<td>»»» email</td>
+<td>string(email)</td>
+<td>false</td>
+<td>Email of multifinance</td>
+</tr>
+</tbody></table>
+
+<p>Status Code <strong>401</strong></p>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>» name</td>
+<td>string</td>
+<td>false</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>» message</td>
+<td>string</td>
+<td>false</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>» code</td>
+<td>number</td>
+<td>false</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>» className</td>
+<td>string</td>
+<td>false</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>» data</td>
+<td>object</td>
+<td>false</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>» errors</td>
+<td>object</td>
+<td>false</td>
+<td>No description</td>
 </tr>
 </tbody></table>
 
@@ -1279,7 +1519,759 @@ fetch('https://api-staging.vospay.id/api/v2/accounts?phone={phone}?phone=0811828
 </tr>
 </tbody></table>
 
-<p>Status Code <strong>500</strong></p>
+<aside class="warning">
+To perform this operation, you must be authenticated by means of one of the following methods:
+accessToken
+</aside>
+<h2 id='fetchaccountlistbyphone'>fetchAccountListByPhone</h2>
+<p><a id="opIdfetchAccountListByPhone"></a></p>
+
+<blockquote>
+<p>Code samples</p>
+</blockquote>
+<pre class="highlight plaintext"><code>const request = require('node-fetch');
+
+const headers = {
+  'Accept':'application/json',
+  'Authorization':'JWT &lt;&lt;accessToken&gt;&gt;'
+
+};
+
+fetch('https://api-staging.vospay.id/api/v2/accounts?phone={phone}?phone=08118289855?phone=08118289855',
+{
+  method: 'GET',
+
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+</code></pre>
+<p><code>GET /accounts?phone={phone}</code></p>
+
+<p><em>Fetch all accounts using phone number</em></p>
+
+<p>This endpoint is for fetching all vospay accounts that certain phone number has.</p>
+
+<h3 id="fetchAccountListByPhone-parameters">Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>In</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>phone</td>
+<td>query</td>
+<td>string</td>
+<td>true</td>
+<td>User&#39;s phone number</td>
+</tr>
+<tr>
+<td>Authorization</td>
+<td>header</td>
+<td>string</td>
+<td>true</td>
+<td>A generated JWT access token by <code>/authentication</code> endpoint</td>
+</tr>
+</tbody></table>
+
+<blockquote>
+<p>Example responses</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"total"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"limit"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"skip"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"vospayNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2340010000000001"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"multifinance"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"logo"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://vospay.id/mpmLogo.png"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MPM"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"phone"</span><span class="p">:</span><span class="w"> </span><span class="s2">"02155512345"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cs-mpm@gmail.com"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"vospayNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2340010000000002"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"multifinance"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"logo"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://vospay.id/mpmLogo.png"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MPM"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"phone"</span><span class="p">:</span><span class="w"> </span><span class="s2">"02155512345"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cs-mpm@gmail.com"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"className"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w">
+  </span><span class="s2">"errors"</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"className"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"errors"</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<h3 id="fetchAccountListByPhone-responses">Responses</h3>
+
+<table><thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>200</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
+<td>OK response</td>
+<td>Inline</td>
+</tr>
+<tr>
+<td>401</td>
+<td><a href="https://tools.ietf.org/html/rfc7235#section-3.1">Unauthorized</a></td>
+<td>Response when access token is not provided as Authorization on request header</td>
+<td>Inline</td>
+</tr>
+<tr>
+<td>404</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.4">Not Found</a></td>
+<td>Response when vospay account number is not found</td>
+<td>Inline</td>
+</tr>
+</tbody></table>
+
+<h3 id="fetchAccountListByPhone-responseschema">Response Schema</h3>
+
+<p>Status Code <strong>200</strong></p>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>» total</td>
+<td>number</td>
+<td>false</td>
+<td>Total accounts of certain phone number</td>
+</tr>
+<tr>
+<td>» limit</td>
+<td>number</td>
+<td>false</td>
+<td>Limit of accounts send by the backend to frontend (for pagination purpose)</td>
+</tr>
+<tr>
+<td>» skip</td>
+<td>number</td>
+<td>false</td>
+<td>Total accounts that skipped to not send by backend to frontend</td>
+</tr>
+<tr>
+<td>» data</td>
+<td>[object]</td>
+<td>false</td>
+<td>Array of vospay account numbers that one phone number had.</td>
+</tr>
+<tr>
+<td>»» vospayNumber</td>
+<td>string</td>
+<td>false</td>
+<td>Vospay account number</td>
+</tr>
+<tr>
+<td>»» multifinance</td>
+<td>object</td>
+<td>false</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>»»» logo</td>
+<td>string(uri)</td>
+<td>false</td>
+<td>URL of multifinance logo</td>
+</tr>
+<tr>
+<td>»»» name</td>
+<td>string</td>
+<td>false</td>
+<td>Name of multifinance</td>
+</tr>
+<tr>
+<td>»»» phone</td>
+<td>string</td>
+<td>false</td>
+<td>Phone number of multifinance</td>
+</tr>
+<tr>
+<td>»»» email</td>
+<td>string(email)</td>
+<td>false</td>
+<td>Email of multifinance</td>
+</tr>
+</tbody></table>
+
+<p>Status Code <strong>401</strong></p>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>» name</td>
+<td>string</td>
+<td>false</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>» message</td>
+<td>string</td>
+<td>false</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>» code</td>
+<td>number</td>
+<td>false</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>» className</td>
+<td>string</td>
+<td>false</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>» data</td>
+<td>object</td>
+<td>false</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>» errors</td>
+<td>object</td>
+<td>false</td>
+<td>No description</td>
+</tr>
+</tbody></table>
+
+<p>Status Code <strong>404</strong></p>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>» name</td>
+<td>string</td>
+<td>false</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>» message</td>
+<td>string</td>
+<td>false</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>» code</td>
+<td>number</td>
+<td>false</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>» className</td>
+<td>string</td>
+<td>false</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>» errors</td>
+<td>object</td>
+<td>false</td>
+<td>No description</td>
+</tr>
+</tbody></table>
+
+<aside class="warning">
+To perform this operation, you must be authenticated by means of one of the following methods:
+accessToken
+</aside>
+
+<h1 id="Vospay-API-Doc-Merchant">Merchant</h1>
+<h2 id='fetchmerchantlist'>fetchMerchantList</h2>
+<p><a id="opIdfetchMerchantList"></a></p>
+
+<blockquote>
+<p>Code samples</p>
+</blockquote>
+<pre class="highlight plaintext"><code>const request = require('node-fetch');
+
+const headers = {
+  'Accept':'application/json',
+  'Authorization':'JWT &lt;&lt;accessToken&gt;&gt;'
+
+};
+
+fetch('https://api-staging.vospay.id/api/v2/merchants',
+{
+  method: 'GET',
+
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+</code></pre>
+<p><code>GET /merchants</code></p>
+
+<p><em>Fetch all merchants</em></p>
+
+<p>This endpoint is for fetching all merchants.</p>
+
+<h3 id="fetchMerchantList-parameters">Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>In</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Authorization</td>
+<td>header</td>
+<td>string</td>
+<td>true</td>
+<td>A generated JWT access token by <code>/authentication</code> endpoint</td>
+</tr>
+</tbody></table>
+
+<blockquote>
+<p>Example responses</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"total"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3,"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"limit"</span><span class="p">:</span><span class="w"> </span><span class="s2">"10,"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"skip"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0,"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5ae2a756bfa800e3265ad82f"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bukalapak"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"icon"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://vospay.id/bukalapak-icon.png"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"logo"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://vospay.id/bukalapak-logo.png"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"merchantKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bukalapak123"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"secretKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bukalapak789"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"__v"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5ae2a756bfa800e3265ad831,"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Sociolla,"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"icon"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://vospay.id/sociolla-icon.png,"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"logo"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://vospay.id/sociolla-logo.png,"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"merchantKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sociolla123,"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"secretKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sociolla789,"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"__v"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5ae2a756bfa800e3265ad830,"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Tokopedia,"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"icon"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://vospay.id/tokopedia-icon.png,"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"logo"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://vospay.id/tokopedia-logo.png,"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"merchantKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"tokopedia123,"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"secretKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"tokopedia789,"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"__v"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"className"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w">
+  </span><span class="s2">"errors"</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<h3 id="fetchMerchantList-responses">Responses</h3>
+
+<table><thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>200</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
+<td>OK response</td>
+<td>Inline</td>
+</tr>
+<tr>
+<td>401</td>
+<td><a href="https://tools.ietf.org/html/rfc7235#section-3.1">Unauthorized</a></td>
+<td>Response when access token is not provided as Authorization on request header</td>
+<td>Inline</td>
+</tr>
+</tbody></table>
+
+<h3 id="fetchMerchantList-responseschema">Response Schema</h3>
+
+<p>Status Code <strong>200</strong></p>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>» total</td>
+<td>number</td>
+<td>false</td>
+<td>Total merchants</td>
+</tr>
+<tr>
+<td>» limit</td>
+<td>number</td>
+<td>false</td>
+<td>Limit of merchants send by the backend to frontend (for pagination purpose)</td>
+</tr>
+<tr>
+<td>» skip</td>
+<td>number</td>
+<td>false</td>
+<td>Total merchants that skipped to not send by backend to frontend</td>
+</tr>
+<tr>
+<td>» data</td>
+<td>[object]</td>
+<td>false</td>
+<td>Array of merchants.</td>
+</tr>
+<tr>
+<td>»» _id</td>
+<td>string</td>
+<td>false</td>
+<td>Merchant ID</td>
+</tr>
+<tr>
+<td>»» name</td>
+<td>string</td>
+<td>false</td>
+<td>Merchant Name</td>
+</tr>
+<tr>
+<td>»» icon</td>
+<td>string(uri)</td>
+<td>false</td>
+<td>Merchant Icon URL</td>
+</tr>
+<tr>
+<td>»» logo</td>
+<td>string(uri)</td>
+<td>false</td>
+<td>Merchant Logo URL</td>
+</tr>
+<tr>
+<td>»» merchantKey</td>
+<td>string</td>
+<td>false</td>
+<td>Merchant Key</td>
+</tr>
+<tr>
+<td>»» secretKey</td>
+<td>string</td>
+<td>false</td>
+<td>Merchant Secret Key</td>
+</tr>
+<tr>
+<td>»» __v</td>
+<td>number</td>
+<td>false</td>
+<td>No description</td>
+</tr>
+</tbody></table>
+
+<p>Status Code <strong>401</strong></p>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>» name</td>
+<td>string</td>
+<td>false</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>» message</td>
+<td>string</td>
+<td>false</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>» code</td>
+<td>number</td>
+<td>false</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>» className</td>
+<td>string</td>
+<td>false</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>» data</td>
+<td>object</td>
+<td>false</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>» errors</td>
+<td>object</td>
+<td>false</td>
+<td>No description</td>
+</tr>
+</tbody></table>
+
+<aside class="warning">
+To perform this operation, you must be authenticated by means of one of the following methods:
+accessToken
+</aside>
+<h2 id='fetchmerchantlistbymerchantkey'>fetchMerchantListByMerchantKey</h2>
+<p><a id="opIdfetchMerchantListByMerchantKey"></a></p>
+
+<blockquote>
+<p>Code samples</p>
+</blockquote>
+<pre class="highlight plaintext"><code>const request = require('node-fetch');
+
+const headers = {
+  'Accept':'application/json',
+  'Authorization':'JWT &lt;&lt;accessToken&gt;&gt;'
+
+};
+
+fetch('https://api-staging.vospay.id/api/v2/merchants?merchantKey={merchantKey}?merchantKey=bukalapak123',
+{
+  method: 'GET',
+
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+</code></pre>
+<p><code>GET /merchants?merchantKey={merchantKey}</code></p>
+
+<p><em>Fetch merchant by merchant key</em></p>
+
+<p>This endpoint is for fetching merchant by merchant key.</p>
+
+<h3 id="fetchMerchantListByMerchantKey-parameters">Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>In</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>merchantKey</td>
+<td>query</td>
+<td>string</td>
+<td>false</td>
+<td>A key assigned to merchant</td>
+</tr>
+<tr>
+<td>Authorization</td>
+<td>header</td>
+<td>string</td>
+<td>true</td>
+<td>A generated JWT access token by <code>/authentication</code> endpoint</td>
+</tr>
+</tbody></table>
+
+<blockquote>
+<p>Example responses</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"total"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1,"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"limit"</span><span class="p">:</span><span class="w"> </span><span class="s2">"10,"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"skip"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0,"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5ae2a756bfa800e3265ad82f"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bukalapak"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"icon"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://vospay.id/bukalapak-icon.png"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"logo"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://vospay.id/bukalapak-logo.png"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"merchantKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bukalapak123"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"secretKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bukalapak789"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"__v"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"className"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w">
+  </span><span class="s2">"errors"</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<h3 id="fetchMerchantListByMerchantKey-responses">Responses</h3>
+
+<table><thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>200</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
+<td>OK response</td>
+<td>Inline</td>
+</tr>
+<tr>
+<td>401</td>
+<td><a href="https://tools.ietf.org/html/rfc7235#section-3.1">Unauthorized</a></td>
+<td>Response when access token is not provided as Authorization on request header</td>
+<td>Inline</td>
+</tr>
+</tbody></table>
+
+<h3 id="fetchMerchantListByMerchantKey-responseschema">Response Schema</h3>
+
+<p>Status Code <strong>200</strong></p>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>» total</td>
+<td>number</td>
+<td>false</td>
+<td>Total merchants</td>
+</tr>
+<tr>
+<td>» limit</td>
+<td>number</td>
+<td>false</td>
+<td>Limit of merchants send by the backend to frontend (for pagination purpose)</td>
+</tr>
+<tr>
+<td>» skip</td>
+<td>number</td>
+<td>false</td>
+<td>Total merchants that skipped to not send by backend to frontend</td>
+</tr>
+<tr>
+<td>» data</td>
+<td>[object]</td>
+<td>false</td>
+<td>Array of merchants.</td>
+</tr>
+<tr>
+<td>»» _id</td>
+<td>string</td>
+<td>false</td>
+<td>Merchant ID</td>
+</tr>
+<tr>
+<td>»» name</td>
+<td>string</td>
+<td>false</td>
+<td>Merchant Name</td>
+</tr>
+<tr>
+<td>»» icon</td>
+<td>string(uri)</td>
+<td>false</td>
+<td>Merchant Icon URL</td>
+</tr>
+<tr>
+<td>»» logo</td>
+<td>string(uri)</td>
+<td>false</td>
+<td>Merchant Logo URL</td>
+</tr>
+<tr>
+<td>»» merchantKey</td>
+<td>string</td>
+<td>false</td>
+<td>Merchant Key</td>
+</tr>
+<tr>
+<td>»» secretKey</td>
+<td>string</td>
+<td>false</td>
+<td>Merchant Secret Key</td>
+</tr>
+<tr>
+<td>»» __v</td>
+<td>number</td>
+<td>false</td>
+<td>No description</td>
+</tr>
+</tbody></table>
+
+<p>Status Code <strong>401</strong></p>
 
 <table><thead>
 <tr>
@@ -1347,7 +2339,7 @@ const headers = {
 
 };
 
-fetch('https://api-staging.vospay.id/api/v2/checkout/{vospayNumber}?merchantID={merchantID}?merchantID=1?merchantID=1',
+fetch('https://api-staging.vospay.id/api/v2/checkout/{vospayNumber}?merchantID={merchantID}&amp;totalAmount={totalAmount}?merchantID=1&amp;totalAmount=100000?merchantID=1&amp;totalAmount=100000',
 {
   method: 'GET',
 
@@ -1358,9 +2350,8 @@ fetch('https://api-staging.vospay.id/api/v2/checkout/{vospayNumber}?merchantID={
 }).then(function(body) {
     console.log(body);
 });
-
 </code></pre>
-<p><code>GET /checkout/{vospayNumber}?merchantID={merchantID}</code></p>
+<p><code>GET /checkout/{vospayNumber}?merchantID={merchantID}&amp;totalAmount={totalAmount}</code></p>
 
 <p><em>Fetch installment plans given by the multifinance</em></p>
 
@@ -1387,7 +2378,14 @@ fetch('https://api-staging.vospay.id/api/v2/checkout/{vospayNumber}?merchantID={
 <td>query</td>
 <td>string</td>
 <td>true</td>
-<td>Assigned ID of the merchant, get this ID from merchantKey in SDK payNow()</td>
+<td>Get merchantID from endpoint <code>/merchants</code></td>
+</tr>
+<tr>
+<td>totalAmount</td>
+<td>query</td>
+<td>number</td>
+<td>true</td>
+<td>Total amount of purchase including shipping and additional cost</td>
 </tr>
 <tr>
 <td>Authorization</td>
@@ -1577,6 +2575,7 @@ accessToken
 </blockquote>
 <pre class="highlight plaintext"><code>const request = require('node-fetch');
 const inputBody = '{
+  "notifyEndpoint": "https://merchant.com/notify",
   "vospayNumber": "2340010000000001",
   "merchantID": 1,
   "orderID": "B0001",
@@ -1596,7 +2595,6 @@ const inputBody = '{
   "insuranceCost": 1000,
   "processingFee": 2500,
   "tax": 0,
-  "status": "Pending",
   "installmentID": 1
 }';
 const headers = {
@@ -1617,7 +2615,6 @@ fetch('https://api-staging.vospay.id/api/v2/checkout',
 }).then(function(body) {
     console.log(body);
 });
-
 </code></pre>
 <p><code>POST /checkout</code></p>
 
@@ -1629,6 +2626,7 @@ fetch('https://api-staging.vospay.id/api/v2/checkout',
 <p>Body parameter</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"notifyEndpoint"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://merchant.com/notify"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"vospayNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2340010000000001"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"merchantID"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
   </span><span class="s2">"orderID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"B0001"</span><span class="p">,</span><span class="w">
@@ -1648,7 +2646,6 @@ fetch('https://api-staging.vospay.id/api/v2/checkout',
   </span><span class="s2">"insuranceCost"</span><span class="p">:</span><span class="w"> </span><span class="mi">1000</span><span class="p">,</span><span class="w">
   </span><span class="s2">"processingFee"</span><span class="p">:</span><span class="w"> </span><span class="mi">2500</span><span class="p">,</span><span class="w">
   </span><span class="s2">"tax"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Pending"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"installmentID"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
@@ -1676,6 +2673,13 @@ fetch('https://api-staging.vospay.id/api/v2/checkout',
 <td>object</td>
 <td>true</td>
 <td>No description</td>
+</tr>
+<tr>
+<td>» notifyEndpoint</td>
+<td>body</td>
+<td>string(uri)</td>
+<td>false</td>
+<td>Merchant&#39;s endpoint to be accessed by backend after transaction finalized</td>
 </tr>
 <tr>
 <td>» vospayNumber</td>
@@ -1755,50 +2759,11 @@ fetch('https://api-staging.vospay.id/api/v2/checkout',
 <td>Tax or custom fee (e.g bea cukai) (if there is)</td>
 </tr>
 <tr>
-<td>» status</td>
-<td>body</td>
-<td>string</td>
-<td>false</td>
-<td>Status to tell backend about the transaction</td>
-</tr>
-<tr>
 <td>» installmentID</td>
 <td>body</td>
 <td>string</td>
 <td>true</td>
 <td>ID of selected installment plan for the transaction</td>
-</tr>
-</tbody></table>
-<h4 id='enumerated-values'>Enumerated Values</h4>
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Value</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>» status</td>
-<td>Pending</td>
-</tr>
-<tr>
-<td>» status</td>
-<td>Approved</td>
-</tr>
-<tr>
-<td>» status</td>
-<td>Fulfilled</td>
-</tr>
-<tr>
-<td>» status</td>
-<td>Edit/Cancelled</td>
-</tr>
-<tr>
-<td>» status</td>
-<td>Settled</td>
-</tr>
-<tr>
-<td>» status</td>
-<td>Refunded</td>
 </tr>
 </tbody></table>
 
@@ -2005,7 +2970,6 @@ fetch('https://api-staging.vospay.id/api/v2/verify-transaction',
 }).then(function(body) {
     console.log(body);
 });
-
 </code></pre>
 <p><code>POST /verify-transaction</code></p>
 
@@ -2132,7 +3096,7 @@ fetch('https://api-staging.vospay.id/api/v2/verify-transaction',
 <td>» timestamp</td>
 <td>string</td>
 <td>false</td>
-<td>The date and time the transaction was processed in ISO 8601 format. This will not be present if the status is not &quot;Valid&quot;.</td>
+<td>The date and time the transaction was processed in ISO 8601 format. This will not be present if the status is not Valid.</td>
 </tr>
 </tbody></table>
 
