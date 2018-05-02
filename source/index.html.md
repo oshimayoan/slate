@@ -1,5 +1,5 @@
 ---
-title: Vospay API Doc v0.1.6
+title: Vospay API Doc v0.1.7
 language_tabs:
   - nodejs: JavaScript
 toc_footers: []
@@ -10,7 +10,7 @@ headingLevel: 2
 
 ---
 
-<h1 id="Vospay-API-Doc">Vospay API Doc v0.1.6</h1>
+<h1 id="Vospay-API-Doc">Vospay API Doc v0.1.7</h1>
 
 > Scroll down for code samples, example requests and responses. Select a language for code samples from the tabs above or the mobile navigation menu.
 
@@ -79,10 +79,7 @@ Use this endpoint to verify every otp and get new accessToken. An accessToken co
 
 |Parameter|In|Type|Required|Description|
 |---|---|---|---|---|
-|body|body|object|true|No description|
-|» strategy|body|string|true|No description|
-|» phone|body|string|true|No description|
-|» code|body|string|false|No description|
+|body|body|any|true|No description|
 
 > Example responses
 
@@ -1478,6 +1475,66 @@ accessToken
 </aside>
 
 # Schemas
+
+<h2 id="tocSauthotp">AuthOTP</h2>
+
+<a id="schemaauthotp"></a>
+
+```json
+{
+  "strategy": "otp",
+  "phone": "08118289855",
+  "code": "1234"
+}
+```
+
+### Properties
+
+|Name|Type|Required|Description|
+|---|---|---|---|
+|strategy|string|true|No description|
+|phone|string|true|No description|
+|code|string|false|No description|
+
+<h2 id="tocSauthloginemail">AuthLoginEmail</h2>
+
+<a id="schemaauthloginemail"></a>
+
+```json
+{
+  "strategy": "email",
+  "email": "john@doe.com",
+  "password": "abcd1234"
+}
+```
+
+### Properties
+
+|Name|Type|Required|Description|
+|---|---|---|---|
+|strategy|string|true|No description|
+|email|string|true|No description|
+|password|string|true|No description|
+
+<h2 id="tocSauthloginphone">AuthLoginPhone</h2>
+
+<a id="schemaauthloginphone"></a>
+
+```json
+{
+  "strategy": "phone",
+  "phone": "08118289855",
+  "password": "abcd1234"
+}
+```
+
+### Properties
+
+|Name|Type|Required|Description|
+|---|---|---|---|
+|strategy|string|true|No description|
+|phone|string|true|No description|
+|password|string|true|No description|
 
 <h2 id="tocSregister">Register</h2>
 
