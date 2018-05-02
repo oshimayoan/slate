@@ -5,7 +5,8 @@
     <meta charset="utf-8">
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>Vospay API Doc v0.1.6</title>
+    <title>Vospay API Doc v0.1.7</title>
+    <link href="images/favicon.ico" rel="icon" type="image/ico" />
 
     <style>
       .highlight table td { padding: 5px; }
@@ -219,7 +220,7 @@
         <ul class="search-results"></ul>
       <div id="toc" class="toc-list-h1">
           <li>
-            <a href="#Vospay-API-Doc" class="toc-h1 toc-link" data-title="vospay-api-doc-v0-1-6">Vospay API Doc v0.1.6</a>
+            <a href="#Vospay-API-Doc" class="toc-h1 toc-link" data-title="vospay-api-doc-v0-1-7">Vospay API Doc v0.1.7</a>
           </li>
           <li>
             <a href="#authentication" class="toc-h1 toc-link" data-title="authentication">Authentication</a>
@@ -296,6 +297,15 @@
             <a href="#schemas" class="toc-h1 toc-link" data-title="schemas">Schemas</a>
               <ul class="toc-list-h2">
                   <li>
+                    <a href="#tocSauthotp" class="toc-h2 toc-link" data-title="authotp">AuthOTP</a>
+                  </li>
+                  <li>
+                    <a href="#tocSauthloginemail" class="toc-h2 toc-link" data-title="authloginemail">AuthLoginEmail</a>
+                  </li>
+                  <li>
+                    <a href="#tocSauthloginphone" class="toc-h2 toc-link" data-title="authloginphone">AuthLoginPhone</a>
+                  </li>
+                  <li>
                     <a href="#tocSregister" class="toc-h2 toc-link" data-title="register">Register</a>
                   </li>
                   <li>
@@ -310,7 +320,7 @@
     <div class="page-wrapper">
       <div class="dark-box"></div>
       <div class="content">
-        <h1 id="Vospay-API-Doc">Vospay API Doc v0.1.6</h1>
+        <h1 id="Vospay-API-Doc">Vospay API Doc v0.1.7</h1>
 
 <blockquote>
 <p>Scroll down for code samples, example requests and responses. Select a language for code samples from the tabs above or the mobile navigation menu.</p>
@@ -389,29 +399,8 @@ fetch('https://api-staging.vospay.id/api/v2/authentication',
 <tr>
 <td>body</td>
 <td>body</td>
-<td>object</td>
+<td>any</td>
 <td>true</td>
-<td>No description</td>
-</tr>
-<tr>
-<td>» strategy</td>
-<td>body</td>
-<td>string</td>
-<td>true</td>
-<td>No description</td>
-</tr>
-<tr>
-<td>» phone</td>
-<td>body</td>
-<td>string</td>
-<td>true</td>
-<td>No description</td>
-</tr>
-<tr>
-<td>» code</td>
-<td>body</td>
-<td>string</td>
-<td>false</td>
 <td>No description</td>
 </tr>
 </tbody></table>
@@ -3190,6 +3179,117 @@ To perform this operation, you must be authenticated by means of one of the foll
 accessToken
 </aside>
 <h1 id='schemas'>Schemas</h1>
+<h2 id="tocSauthotp">AuthOTP</h2>
+
+<p><a id="schemaauthotp"></a></p>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"strategy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"otp"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"phone"</span><span class="p">:</span><span class="w"> </span><span class="s2">"08118289855"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h3 id='properties'>Properties</h3>
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>strategy</td>
+<td>string</td>
+<td>true</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>phone</td>
+<td>string</td>
+<td>true</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>code</td>
+<td>string</td>
+<td>false</td>
+<td>No description</td>
+</tr>
+</tbody></table>
+
+<h2 id="tocSauthloginemail">AuthLoginEmail</h2>
+
+<p><a id="schemaauthloginemail"></a></p>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"strategy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"email"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"john@doe.com"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"password"</span><span class="p">:</span><span class="w"> </span><span class="s2">"abcd1234"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h3 id='properties-2'>Properties</h3>
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>strategy</td>
+<td>string</td>
+<td>true</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>email</td>
+<td>string</td>
+<td>true</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>password</td>
+<td>string</td>
+<td>true</td>
+<td>No description</td>
+</tr>
+</tbody></table>
+
+<h2 id="tocSauthloginphone">AuthLoginPhone</h2>
+
+<p><a id="schemaauthloginphone"></a></p>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"strategy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"phone"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"phone"</span><span class="p">:</span><span class="w"> </span><span class="s2">"08118289855"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"password"</span><span class="p">:</span><span class="w"> </span><span class="s2">"abcd1234"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h3 id='properties-3'>Properties</h3>
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>strategy</td>
+<td>string</td>
+<td>true</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>phone</td>
+<td>string</td>
+<td>true</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>password</td>
+<td>string</td>
+<td>true</td>
+<td>No description</td>
+</tr>
+</tbody></table>
+
 <h2 id="tocSregister">Register</h2>
 
 <p><a id="schemaregister"></a></p>
@@ -3198,7 +3298,7 @@ accessToken
   </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"john@doe.com"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"password"</span><span class="p">:</span><span class="w"> </span><span class="s2">"abcd1234"</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre><h3 id='properties'>Properties</h3>
+</span></code></pre><h3 id='properties-4'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -3234,7 +3334,7 @@ accessToken
   </span><span class="s2">"vospayNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2340010000000002"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"facebookAccount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"john@doe.com"</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre><h3 id='properties-2'>Properties</h3>
+</span></code></pre><h3 id='properties-5'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
