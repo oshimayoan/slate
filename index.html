@@ -268,17 +268,6 @@
               </ul>
           </li>
           <li>
-            <a href="#Vospay-API-Doc-Merchant" class="toc-h1 toc-link" data-title="merchant">Merchant</a>
-              <ul class="toc-list-h2">
-                  <li>
-                    <a href="#fetchmerchantlist" class="toc-h2 toc-link" data-title="fetchmerchantlist">fetchMerchantList</a>
-                  </li>
-                  <li>
-                    <a href="#fetchmerchantlistbymerchantkey" class="toc-h2 toc-link" data-title="fetchmerchantlistbymerchantkey">fetchMerchantListByMerchantKey</a>
-                  </li>
-              </ul>
-          </li>
-          <li>
             <a href="#Vospay-API-Doc-Transaction" class="toc-h1 toc-link" data-title="transaction">Transaction</a>
               <ul class="toc-list-h2">
                   <li>
@@ -289,6 +278,17 @@
                   </li>
                   <li>
                     <a href="#verifytransaction" class="toc-h2 toc-link" data-title="verifytransaction">verifyTransaction</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#Vospay-API-Doc-Merchant" class="toc-h1 toc-link" data-title="merchant">Merchant</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#fetchmerchantlist" class="toc-h2 toc-link" data-title="fetchmerchantlist">fetchMerchantList</a>
+                  </li>
+                  <li>
+                    <a href="#fetchmerchantlistbymerchantkey" class="toc-h2 toc-link" data-title="fetchmerchantlistbymerchantkey">fetchMerchantListByMerchantKey</a>
                   </li>
               </ul>
           </li>
@@ -358,6 +358,7 @@ fetch('https://api-staging.vospay.id/api/v2/authentication',
 }).then(function(body) {
     console.log(body);
 });
+
 </code></pre>
 <p><code>POST /authentication</code></p>
 
@@ -419,8 +420,7 @@ fetch('https://api-staging.vospay.id/api/v2/authentication',
 <p>Example responses</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"accessToken"</span><span class="p">:</span><span class="w">
-    </span><span class="s2">"j91usej1ju983s1uen93du9e.ue9s831ue8913_EXAMPLE_uj38esu983eu98r.jf92ur982j3u8922932su392nc9j2e9"</span><span class="w">
+  </span><span class="s2">"accessToken"</span><span class="p">:</span><span class="w"> </span><span class="s2">"j91usej1ju983s1uen93du9e.ue9s831ue8913_EXAMPLE_uj38esu983eu98r.jf92ur982j3u8922932su392nc9j2e9"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
@@ -560,6 +560,7 @@ fetch('https://api-staging.vospay.id/api/v2/otp/{phoneNumber}',
 }).then(function(body) {
     console.log(body);
 });
+
 </code></pre>
 <p><code>GET /otp/{phoneNumber}</code></p>
 
@@ -730,6 +731,7 @@ fetch('https://api-staging.vospay.id/api/v2/activation',
 }).then(function(body) {
     console.log(body);
 });
+
 </code></pre>
 <p><code>POST /activation</code></p>
 
@@ -806,7 +808,8 @@ fetch('https://api-staging.vospay.id/api/v2/activation',
 <p>Example responses</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"vospayNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2340010000000002"</span><span class="w">
+  </span><span class="s2">"vospayNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2340010000000002"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"isRegistered"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
@@ -871,6 +874,12 @@ fetch('https://api-staging.vospay.id/api/v2/activation',
 <td>string</td>
 <td>false</td>
 <td>Auto generated vospay account number</td>
+</tr>
+<tr>
+<td>» isRegistered</td>
+<td>boolean</td>
+<td>false</td>
+<td>Flag whether the user who activates new Vospay account number is registered or not</td>
 </tr>
 </tbody></table>
 
@@ -1000,6 +1009,7 @@ fetch('https://api-staging.vospay.id/api/v2/registration',
 }).then(function(body) {
     console.log(body);
 });
+
 </code></pre>
 <p><code>PATCH /registration</code></p>
 
@@ -1236,6 +1246,7 @@ fetch('https://api-staging.vospay.id/api/v2/accounts',
 }).then(function(body) {
     console.log(body);
 });
+
 </code></pre>
 <p><code>GET /accounts</code></p>
 
@@ -1548,6 +1559,7 @@ fetch('https://api-staging.vospay.id/api/v2/accounts?phone={phone}?phone=0811828
 }).then(function(body) {
     console.log(body);
 });
+
 </code></pre>
 <p><code>GET /accounts?phone={phone}</code></p>
 
@@ -1825,505 +1837,6 @@ To perform this operation, you must be authenticated by means of one of the foll
 accessToken
 </aside>
 
-<h1 id="Vospay-API-Doc-Merchant">Merchant</h1>
-<h2 id='fetchmerchantlist'>fetchMerchantList</h2>
-<p><a id="opIdfetchMerchantList"></a></p>
-
-<blockquote>
-<p>Code samples</p>
-</blockquote>
-<pre class="highlight plaintext"><code>const request = require('node-fetch');
-
-const headers = {
-  'Accept':'application/json',
-  'Authorization':'JWT &lt;&lt;accessToken&gt;&gt;'
-
-};
-
-fetch('https://api-staging.vospay.id/api/v2/merchants',
-{
-  method: 'GET',
-
-  headers: headers
-})
-.then(function(res) {
-    return res.json();
-}).then(function(body) {
-    console.log(body);
-});
-</code></pre>
-<p><code>GET /merchants</code></p>
-
-<p><em>Fetch all merchants</em></p>
-
-<p>This endpoint is for fetching all merchants.</p>
-
-<h3 id="fetchMerchantList-parameters">Parameters</h3>
-
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>In</th>
-<th>Type</th>
-<th>Required</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>Authorization</td>
-<td>header</td>
-<td>string</td>
-<td>true</td>
-<td>A generated JWT access token by <code>/authentication</code> endpoint</td>
-</tr>
-</tbody></table>
-
-<blockquote>
-<p>Example responses</p>
-</blockquote>
-<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"total"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3,"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"limit"</span><span class="p">:</span><span class="w"> </span><span class="s2">"10,"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"skip"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0,"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-    </span><span class="p">{</span><span class="w">
-      </span><span class="s2">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5ae2a756bfa800e3265ad82f"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bukalapak"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"icon"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://vospay.id/bukalapak-icon.png"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"logo"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://vospay.id/bukalapak-logo.png"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"merchantKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bukalapak123"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"secretKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bukalapak789"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"__v"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
-    </span><span class="p">},</span><span class="w">
-    </span><span class="p">{</span><span class="w">
-      </span><span class="s2">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5ae2a756bfa800e3265ad831,"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Sociolla,"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"icon"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://vospay.id/sociolla-icon.png,"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"logo"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://vospay.id/sociolla-logo.png,"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"merchantKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sociolla123,"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"secretKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sociolla789,"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"__v"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
-    </span><span class="p">},</span><span class="w">
-    </span><span class="p">{</span><span class="w">
-      </span><span class="s2">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5ae2a756bfa800e3265ad830,"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Tokopedia,"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"icon"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://vospay.id/tokopedia-icon.png,"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"logo"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://vospay.id/tokopedia-logo.png,"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"merchantKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"tokopedia123,"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"secretKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"tokopedia789,"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"__v"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
-    </span><span class="p">}</span><span class="w">
-  </span><span class="p">]</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"className"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w">
-  </span><span class="s2">"errors"</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-<h3 id="fetchMerchantList-responses">Responses</h3>
-
-<table><thead>
-<tr>
-<th>Status</th>
-<th>Meaning</th>
-<th>Description</th>
-<th>Schema</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>200</td>
-<td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
-<td>OK response</td>
-<td>Inline</td>
-</tr>
-<tr>
-<td>401</td>
-<td><a href="https://tools.ietf.org/html/rfc7235#section-3.1">Unauthorized</a></td>
-<td>Response when access token is not provided as Authorization on request header</td>
-<td>Inline</td>
-</tr>
-</tbody></table>
-
-<h3 id="fetchMerchantList-responseschema">Response Schema</h3>
-
-<p>Status Code <strong>200</strong></p>
-
-<table><thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Required</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>» total</td>
-<td>number</td>
-<td>false</td>
-<td>Total merchants</td>
-</tr>
-<tr>
-<td>» limit</td>
-<td>number</td>
-<td>false</td>
-<td>Limit of merchants send by the backend to frontend (for pagination purpose)</td>
-</tr>
-<tr>
-<td>» skip</td>
-<td>number</td>
-<td>false</td>
-<td>Total merchants that skipped to not send by backend to frontend</td>
-</tr>
-<tr>
-<td>» data</td>
-<td>[object]</td>
-<td>false</td>
-<td>Array of merchants.</td>
-</tr>
-<tr>
-<td>»» _id</td>
-<td>string</td>
-<td>false</td>
-<td>Merchant ID</td>
-</tr>
-<tr>
-<td>»» name</td>
-<td>string</td>
-<td>false</td>
-<td>Merchant Name</td>
-</tr>
-<tr>
-<td>»» icon</td>
-<td>string(uri)</td>
-<td>false</td>
-<td>Merchant Icon URL</td>
-</tr>
-<tr>
-<td>»» logo</td>
-<td>string(uri)</td>
-<td>false</td>
-<td>Merchant Logo URL</td>
-</tr>
-<tr>
-<td>»» merchantKey</td>
-<td>string</td>
-<td>false</td>
-<td>Merchant Key</td>
-</tr>
-<tr>
-<td>»» secretKey</td>
-<td>string</td>
-<td>false</td>
-<td>Merchant Secret Key</td>
-</tr>
-<tr>
-<td>»» __v</td>
-<td>number</td>
-<td>false</td>
-<td>No description</td>
-</tr>
-</tbody></table>
-
-<p>Status Code <strong>401</strong></p>
-
-<table><thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Required</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>» name</td>
-<td>string</td>
-<td>false</td>
-<td>No description</td>
-</tr>
-<tr>
-<td>» message</td>
-<td>string</td>
-<td>false</td>
-<td>No description</td>
-</tr>
-<tr>
-<td>» code</td>
-<td>number</td>
-<td>false</td>
-<td>No description</td>
-</tr>
-<tr>
-<td>» className</td>
-<td>string</td>
-<td>false</td>
-<td>No description</td>
-</tr>
-<tr>
-<td>» data</td>
-<td>object</td>
-<td>false</td>
-<td>No description</td>
-</tr>
-<tr>
-<td>» errors</td>
-<td>object</td>
-<td>false</td>
-<td>No description</td>
-</tr>
-</tbody></table>
-
-<aside class="warning">
-To perform this operation, you must be authenticated by means of one of the following methods:
-accessToken
-</aside>
-<h2 id='fetchmerchantlistbymerchantkey'>fetchMerchantListByMerchantKey</h2>
-<p><a id="opIdfetchMerchantListByMerchantKey"></a></p>
-
-<blockquote>
-<p>Code samples</p>
-</blockquote>
-<pre class="highlight plaintext"><code>const request = require('node-fetch');
-
-const headers = {
-  'Accept':'application/json',
-  'Authorization':'JWT &lt;&lt;accessToken&gt;&gt;'
-
-};
-
-fetch('https://api-staging.vospay.id/api/v2/merchants?merchantKey={merchantKey}?merchantKey=bukalapak123',
-{
-  method: 'GET',
-
-  headers: headers
-})
-.then(function(res) {
-    return res.json();
-}).then(function(body) {
-    console.log(body);
-});
-</code></pre>
-<p><code>GET /merchants?merchantKey={merchantKey}</code></p>
-
-<p><em>Fetch merchant by merchant key</em></p>
-
-<p>This endpoint is for fetching merchant by merchant key.</p>
-
-<h3 id="fetchMerchantListByMerchantKey-parameters">Parameters</h3>
-
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>In</th>
-<th>Type</th>
-<th>Required</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>merchantKey</td>
-<td>query</td>
-<td>string</td>
-<td>false</td>
-<td>A key assigned to merchant</td>
-</tr>
-<tr>
-<td>Authorization</td>
-<td>header</td>
-<td>string</td>
-<td>true</td>
-<td>A generated JWT access token by <code>/authentication</code> endpoint</td>
-</tr>
-</tbody></table>
-
-<blockquote>
-<p>Example responses</p>
-</blockquote>
-<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"total"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1,"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"limit"</span><span class="p">:</span><span class="w"> </span><span class="s2">"10,"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"skip"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0,"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-    </span><span class="p">{</span><span class="w">
-      </span><span class="s2">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5ae2a756bfa800e3265ad82f"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bukalapak"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"icon"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://vospay.id/bukalapak-icon.png"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"logo"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://vospay.id/bukalapak-logo.png"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"merchantKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bukalapak123"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"secretKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bukalapak789"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"__v"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
-    </span><span class="p">}</span><span class="w">
-  </span><span class="p">]</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"className"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w">
-  </span><span class="s2">"errors"</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-<h3 id="fetchMerchantListByMerchantKey-responses">Responses</h3>
-
-<table><thead>
-<tr>
-<th>Status</th>
-<th>Meaning</th>
-<th>Description</th>
-<th>Schema</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>200</td>
-<td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
-<td>OK response</td>
-<td>Inline</td>
-</tr>
-<tr>
-<td>401</td>
-<td><a href="https://tools.ietf.org/html/rfc7235#section-3.1">Unauthorized</a></td>
-<td>Response when access token is not provided as Authorization on request header</td>
-<td>Inline</td>
-</tr>
-</tbody></table>
-
-<h3 id="fetchMerchantListByMerchantKey-responseschema">Response Schema</h3>
-
-<p>Status Code <strong>200</strong></p>
-
-<table><thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Required</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>» total</td>
-<td>number</td>
-<td>false</td>
-<td>Total merchants</td>
-</tr>
-<tr>
-<td>» limit</td>
-<td>number</td>
-<td>false</td>
-<td>Limit of merchants send by the backend to frontend (for pagination purpose)</td>
-</tr>
-<tr>
-<td>» skip</td>
-<td>number</td>
-<td>false</td>
-<td>Total merchants that skipped to not send by backend to frontend</td>
-</tr>
-<tr>
-<td>» data</td>
-<td>[object]</td>
-<td>false</td>
-<td>Array of merchants.</td>
-</tr>
-<tr>
-<td>»» _id</td>
-<td>string</td>
-<td>false</td>
-<td>Merchant ID</td>
-</tr>
-<tr>
-<td>»» name</td>
-<td>string</td>
-<td>false</td>
-<td>Merchant Name</td>
-</tr>
-<tr>
-<td>»» icon</td>
-<td>string(uri)</td>
-<td>false</td>
-<td>Merchant Icon URL</td>
-</tr>
-<tr>
-<td>»» logo</td>
-<td>string(uri)</td>
-<td>false</td>
-<td>Merchant Logo URL</td>
-</tr>
-<tr>
-<td>»» merchantKey</td>
-<td>string</td>
-<td>false</td>
-<td>Merchant Key</td>
-</tr>
-<tr>
-<td>»» secretKey</td>
-<td>string</td>
-<td>false</td>
-<td>Merchant Secret Key</td>
-</tr>
-<tr>
-<td>»» __v</td>
-<td>number</td>
-<td>false</td>
-<td>No description</td>
-</tr>
-</tbody></table>
-
-<p>Status Code <strong>401</strong></p>
-
-<table><thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Required</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>» name</td>
-<td>string</td>
-<td>false</td>
-<td>No description</td>
-</tr>
-<tr>
-<td>» message</td>
-<td>string</td>
-<td>false</td>
-<td>No description</td>
-</tr>
-<tr>
-<td>» code</td>
-<td>number</td>
-<td>false</td>
-<td>No description</td>
-</tr>
-<tr>
-<td>» className</td>
-<td>string</td>
-<td>false</td>
-<td>No description</td>
-</tr>
-<tr>
-<td>» data</td>
-<td>object</td>
-<td>false</td>
-<td>No description</td>
-</tr>
-<tr>
-<td>» errors</td>
-<td>object</td>
-<td>false</td>
-<td>No description</td>
-</tr>
-</tbody></table>
-
-<aside class="warning">
-To perform this operation, you must be authenticated by means of one of the following methods:
-accessToken
-</aside>
-
 <h1 id="Vospay-API-Doc-Transaction">Transaction</h1>
 <h2 id='fetchinstallmentplans'>fetchInstallmentPlans</h2>
 <p><a id="opIdfetchInstallmentPlans"></a></p>
@@ -2350,6 +1863,7 @@ fetch('https://api-staging.vospay.id/api/v2/checkout/{vospayNumber}?merchantID={
 }).then(function(body) {
     console.log(body);
 });
+
 </code></pre>
 <p><code>GET /checkout/{vospayNumber}?merchantID={merchantID}&amp;totalAmount={totalAmount}</code></p>
 
@@ -2615,6 +2129,7 @@ fetch('https://api-staging.vospay.id/api/v2/checkout',
 }).then(function(body) {
     console.log(body);
 });
+
 </code></pre>
 <p><code>POST /checkout</code></p>
 
@@ -2970,6 +2485,7 @@ fetch('https://api-staging.vospay.id/api/v2/verify-transaction',
 }).then(function(body) {
     console.log(body);
 });
+
 </code></pre>
 <p><code>POST /verify-transaction</code></p>
 
@@ -3043,6 +2559,9 @@ fetch('https://api-staging.vospay.id/api/v2/verify-transaction',
   </span><span class="s2">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-04-25T07:35:16.891Z"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Invalid"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
@@ -3064,6 +2583,12 @@ fetch('https://api-staging.vospay.id/api/v2/verify-transaction',
 <td>200</td>
 <td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
 <td>OK response</td>
+<td>Inline</td>
+</tr>
+<tr>
+<td>404</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.4">Not Found</a></td>
+<td>Response when transaction is not found</td>
 <td>Inline</td>
 </tr>
 <tr>
@@ -3097,6 +2622,24 @@ fetch('https://api-staging.vospay.id/api/v2/verify-transaction',
 <td>string</td>
 <td>false</td>
 <td>The date and time the transaction was processed in ISO 8601 format. This will not be present if the status is not Valid.</td>
+</tr>
+</tbody></table>
+
+<p>Status Code <strong>404</strong></p>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>» status</td>
+<td>string</td>
+<td>false</td>
+<td>No description</td>
 </tr>
 </tbody></table>
 
@@ -3144,6 +2687,507 @@ fetch('https://api-staging.vospay.id/api/v2/verify-transaction',
 
 <aside class="success">
 This operation does not require authentication
+</aside>
+
+<h1 id="Vospay-API-Doc-Merchant">Merchant</h1>
+<h2 id='fetchmerchantlist'>fetchMerchantList</h2>
+<p><a id="opIdfetchMerchantList"></a></p>
+
+<blockquote>
+<p>Code samples</p>
+</blockquote>
+<pre class="highlight plaintext"><code>const request = require('node-fetch');
+
+const headers = {
+  'Accept':'application/json',
+  'Authorization':'JWT &lt;&lt;accessToken&gt;&gt;'
+
+};
+
+fetch('https://api-staging.vospay.id/api/v2/merchants',
+{
+  method: 'GET',
+
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+</code></pre>
+<p><code>GET /merchants</code></p>
+
+<p><em>Fetch all merchants</em></p>
+
+<p>This endpoint is for fetching all merchants.</p>
+
+<h3 id="fetchMerchantList-parameters">Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>In</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Authorization</td>
+<td>header</td>
+<td>string</td>
+<td>true</td>
+<td>A generated JWT access token by <code>/authentication</code> endpoint</td>
+</tr>
+</tbody></table>
+
+<blockquote>
+<p>Example responses</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"total"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3,"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"limit"</span><span class="p">:</span><span class="w"> </span><span class="s2">"10,"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"skip"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0,"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5ae2a756bfa800e3265ad82f"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bukalapak"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"icon"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://vospay.id/bukalapak-icon.png"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"logo"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://vospay.id/bukalapak-logo.png"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"merchantKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bukalapak123"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"secretKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bukalapak789"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"__v"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5ae2a756bfa800e3265ad831,"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Sociolla,"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"icon"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://vospay.id/sociolla-icon.png,"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"logo"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://vospay.id/sociolla-logo.png,"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"merchantKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sociolla123,"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"secretKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sociolla789,"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"__v"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5ae2a756bfa800e3265ad830,"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Tokopedia,"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"icon"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://vospay.id/tokopedia-icon.png,"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"logo"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://vospay.id/tokopedia-logo.png,"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"merchantKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"tokopedia123,"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"secretKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"tokopedia789,"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"__v"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"className"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w">
+  </span><span class="s2">"errors"</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<h3 id="fetchMerchantList-responses">Responses</h3>
+
+<table><thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>200</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
+<td>OK response</td>
+<td>Inline</td>
+</tr>
+<tr>
+<td>401</td>
+<td><a href="https://tools.ietf.org/html/rfc7235#section-3.1">Unauthorized</a></td>
+<td>Response when access token is not provided as Authorization on request header</td>
+<td>Inline</td>
+</tr>
+</tbody></table>
+
+<h3 id="fetchMerchantList-responseschema">Response Schema</h3>
+
+<p>Status Code <strong>200</strong></p>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>» total</td>
+<td>number</td>
+<td>false</td>
+<td>Total merchants</td>
+</tr>
+<tr>
+<td>» limit</td>
+<td>number</td>
+<td>false</td>
+<td>Limit of merchants send by the backend to frontend (for pagination purpose)</td>
+</tr>
+<tr>
+<td>» skip</td>
+<td>number</td>
+<td>false</td>
+<td>Total merchants that skipped to not send by backend to frontend</td>
+</tr>
+<tr>
+<td>» data</td>
+<td>[object]</td>
+<td>false</td>
+<td>Array of merchants.</td>
+</tr>
+<tr>
+<td>»» _id</td>
+<td>string</td>
+<td>false</td>
+<td>Merchant ID</td>
+</tr>
+<tr>
+<td>»» name</td>
+<td>string</td>
+<td>false</td>
+<td>Merchant Name</td>
+</tr>
+<tr>
+<td>»» icon</td>
+<td>string(uri)</td>
+<td>false</td>
+<td>Merchant Icon URL</td>
+</tr>
+<tr>
+<td>»» logo</td>
+<td>string(uri)</td>
+<td>false</td>
+<td>Merchant Logo URL</td>
+</tr>
+<tr>
+<td>»» merchantKey</td>
+<td>string</td>
+<td>false</td>
+<td>Merchant Key</td>
+</tr>
+<tr>
+<td>»» secretKey</td>
+<td>string</td>
+<td>false</td>
+<td>Merchant Secret Key</td>
+</tr>
+<tr>
+<td>»» __v</td>
+<td>number</td>
+<td>false</td>
+<td>No description</td>
+</tr>
+</tbody></table>
+
+<p>Status Code <strong>401</strong></p>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>» name</td>
+<td>string</td>
+<td>false</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>» message</td>
+<td>string</td>
+<td>false</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>» code</td>
+<td>number</td>
+<td>false</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>» className</td>
+<td>string</td>
+<td>false</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>» data</td>
+<td>object</td>
+<td>false</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>» errors</td>
+<td>object</td>
+<td>false</td>
+<td>No description</td>
+</tr>
+</tbody></table>
+
+<aside class="warning">
+To perform this operation, you must be authenticated by means of one of the following methods:
+accessToken
+</aside>
+<h2 id='fetchmerchantlistbymerchantkey'>fetchMerchantListByMerchantKey</h2>
+<p><a id="opIdfetchMerchantListByMerchantKey"></a></p>
+
+<blockquote>
+<p>Code samples</p>
+</blockquote>
+<pre class="highlight plaintext"><code>const request = require('node-fetch');
+
+const headers = {
+  'Accept':'application/json',
+  'Authorization':'JWT &lt;&lt;accessToken&gt;&gt;'
+
+};
+
+fetch('https://api-staging.vospay.id/api/v2/merchants?merchantKey={merchantKey}?merchantKey=bukalapak123',
+{
+  method: 'GET',
+
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+</code></pre>
+<p><code>GET /merchants?merchantKey={merchantKey}</code></p>
+
+<p><em>Fetch merchant by merchant key</em></p>
+
+<p>This endpoint is for fetching merchant by merchant key.</p>
+
+<h3 id="fetchMerchantListByMerchantKey-parameters">Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>In</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>merchantKey</td>
+<td>query</td>
+<td>string</td>
+<td>false</td>
+<td>A key assigned to merchant</td>
+</tr>
+<tr>
+<td>Authorization</td>
+<td>header</td>
+<td>string</td>
+<td>true</td>
+<td>A generated JWT access token by <code>/authentication</code> endpoint</td>
+</tr>
+</tbody></table>
+
+<blockquote>
+<p>Example responses</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"total"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1,"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"limit"</span><span class="p">:</span><span class="w"> </span><span class="s2">"10,"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"skip"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0,"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5ae2a756bfa800e3265ad82f"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bukalapak"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"icon"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://vospay.id/bukalapak-icon.png"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"logo"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://vospay.id/bukalapak-logo.png"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"merchantKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bukalapak123"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"secretKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bukalapak789"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"__v"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"className"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w">
+  </span><span class="s2">"errors"</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<h3 id="fetchMerchantListByMerchantKey-responses">Responses</h3>
+
+<table><thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>200</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
+<td>OK response</td>
+<td>Inline</td>
+</tr>
+<tr>
+<td>401</td>
+<td><a href="https://tools.ietf.org/html/rfc7235#section-3.1">Unauthorized</a></td>
+<td>Response when access token is not provided as Authorization on request header</td>
+<td>Inline</td>
+</tr>
+</tbody></table>
+
+<h3 id="fetchMerchantListByMerchantKey-responseschema">Response Schema</h3>
+
+<p>Status Code <strong>200</strong></p>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>» total</td>
+<td>number</td>
+<td>false</td>
+<td>Total merchants</td>
+</tr>
+<tr>
+<td>» limit</td>
+<td>number</td>
+<td>false</td>
+<td>Limit of merchants send by the backend to frontend (for pagination purpose)</td>
+</tr>
+<tr>
+<td>» skip</td>
+<td>number</td>
+<td>false</td>
+<td>Total merchants that skipped to not send by backend to frontend</td>
+</tr>
+<tr>
+<td>» data</td>
+<td>[object]</td>
+<td>false</td>
+<td>Array of merchants.</td>
+</tr>
+<tr>
+<td>»» _id</td>
+<td>string</td>
+<td>false</td>
+<td>Merchant ID</td>
+</tr>
+<tr>
+<td>»» name</td>
+<td>string</td>
+<td>false</td>
+<td>Merchant Name</td>
+</tr>
+<tr>
+<td>»» icon</td>
+<td>string(uri)</td>
+<td>false</td>
+<td>Merchant Icon URL</td>
+</tr>
+<tr>
+<td>»» logo</td>
+<td>string(uri)</td>
+<td>false</td>
+<td>Merchant Logo URL</td>
+</tr>
+<tr>
+<td>»» merchantKey</td>
+<td>string</td>
+<td>false</td>
+<td>Merchant Key</td>
+</tr>
+<tr>
+<td>»» secretKey</td>
+<td>string</td>
+<td>false</td>
+<td>Merchant Secret Key</td>
+</tr>
+<tr>
+<td>»» __v</td>
+<td>number</td>
+<td>false</td>
+<td>No description</td>
+</tr>
+</tbody></table>
+
+<p>Status Code <strong>401</strong></p>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>» name</td>
+<td>string</td>
+<td>false</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>» message</td>
+<td>string</td>
+<td>false</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>» code</td>
+<td>number</td>
+<td>false</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>» className</td>
+<td>string</td>
+<td>false</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>» data</td>
+<td>object</td>
+<td>false</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>» errors</td>
+<td>object</td>
+<td>false</td>
+<td>No description</td>
+</tr>
+</tbody></table>
+
+<aside class="warning">
+To perform this operation, you must be authenticated by means of one of the following methods:
+accessToken
 </aside>
 <h1 id='schemas'>Schemas</h1>
 <h2 id="tocSregister">Register</h2>
