@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>Vospay API Doc v0.1.7</title>
+    <title>Vospay API Doc v0.1.6</title>
     <link href="images/favicon.ico" rel="icon" type="image/ico" />
 
     <style>
@@ -220,7 +220,7 @@
         <ul class="search-results"></ul>
       <div id="toc" class="toc-list-h1">
           <li>
-            <a href="#Vospay-API-Doc" class="toc-h1 toc-link" data-title="vospay-api-doc-v0-1-7">Vospay API Doc v0.1.7</a>
+            <a href="#Vospay-API-Doc" class="toc-h1 toc-link" data-title="vospay-api-doc-v0-1-6">Vospay API Doc v0.1.6</a>
           </li>
           <li>
             <a href="#authentication" class="toc-h1 toc-link" data-title="authentication">Authentication</a>
@@ -269,6 +269,17 @@
               </ul>
           </li>
           <li>
+            <a href="#Vospay-API-Doc-Merchant" class="toc-h1 toc-link" data-title="merchant">Merchant</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#fetchmerchantlist" class="toc-h2 toc-link" data-title="fetchmerchantlist">fetchMerchantList</a>
+                  </li>
+                  <li>
+                    <a href="#fetchmerchantlistbymerchantkey" class="toc-h2 toc-link" data-title="fetchmerchantlistbymerchantkey">fetchMerchantListByMerchantKey</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
             <a href="#Vospay-API-Doc-Transaction" class="toc-h1 toc-link" data-title="transaction">Transaction</a>
               <ul class="toc-list-h2">
                   <li>
@@ -283,28 +294,8 @@
               </ul>
           </li>
           <li>
-            <a href="#Vospay-API-Doc-Merchant" class="toc-h1 toc-link" data-title="merchant">Merchant</a>
-              <ul class="toc-list-h2">
-                  <li>
-                    <a href="#fetchmerchantlist" class="toc-h2 toc-link" data-title="fetchmerchantlist">fetchMerchantList</a>
-                  </li>
-                  <li>
-                    <a href="#fetchmerchantlistbymerchantkey" class="toc-h2 toc-link" data-title="fetchmerchantlistbymerchantkey">fetchMerchantListByMerchantKey</a>
-                  </li>
-              </ul>
-          </li>
-          <li>
             <a href="#schemas" class="toc-h1 toc-link" data-title="schemas">Schemas</a>
               <ul class="toc-list-h2">
-                  <li>
-                    <a href="#tocSauthotp" class="toc-h2 toc-link" data-title="authotp">AuthOTP</a>
-                  </li>
-                  <li>
-                    <a href="#tocSauthloginemail" class="toc-h2 toc-link" data-title="authloginemail">AuthLoginEmail</a>
-                  </li>
-                  <li>
-                    <a href="#tocSauthloginphone" class="toc-h2 toc-link" data-title="authloginphone">AuthLoginPhone</a>
-                  </li>
                   <li>
                     <a href="#tocSregister" class="toc-h2 toc-link" data-title="register">Register</a>
                   </li>
@@ -320,7 +311,7 @@
     <div class="page-wrapper">
       <div class="dark-box"></div>
       <div class="content">
-        <h1 id="Vospay-API-Doc">Vospay API Doc v0.1.7</h1>
+        <h1 id="Vospay-API-Doc">Vospay API Doc v0.1.6</h1>
 
 <blockquote>
 <p>Scroll down for code samples, example requests and responses. Select a language for code samples from the tabs above or the mobile navigation menu.</p>
@@ -399,8 +390,29 @@ fetch('https://api-staging.vospay.id/api/v2/authentication',
 <tr>
 <td>body</td>
 <td>body</td>
-<td>any</td>
+<td>object</td>
 <td>true</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>» strategy</td>
+<td>body</td>
+<td>string</td>
+<td>true</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>» phone</td>
+<td>body</td>
+<td>string</td>
+<td>true</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>» code</td>
+<td>body</td>
+<td>string</td>
+<td>false</td>
 <td>No description</td>
 </tr>
 </tbody></table>
@@ -797,8 +809,7 @@ fetch('https://api-staging.vospay.id/api/v2/activation',
 <p>Example responses</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"vospayNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2340010000000002"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"isRegistered"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+  </span><span class="s2">"vospayNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2340010000000002"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
@@ -863,12 +874,6 @@ fetch('https://api-staging.vospay.id/api/v2/activation',
 <td>string</td>
 <td>false</td>
 <td>Auto generated vospay account number</td>
-</tr>
-<tr>
-<td>» isRegistered</td>
-<td>boolean</td>
-<td>false</td>
-<td>Flag whether the user who activates new Vospay account number is registered or not</td>
 </tr>
 </tbody></table>
 
@@ -1826,858 +1831,6 @@ To perform this operation, you must be authenticated by means of one of the foll
 accessToken
 </aside>
 
-<h1 id="Vospay-API-Doc-Transaction">Transaction</h1>
-<h2 id='fetchinstallmentplans'>fetchInstallmentPlans</h2>
-<p><a id="opIdfetchInstallmentPlans"></a></p>
-
-<blockquote>
-<p>Code samples</p>
-</blockquote>
-<pre class="highlight plaintext"><code>const request = require('node-fetch');
-
-const headers = {
-  'Accept':'application/json',
-  'Authorization':'JWT &lt;&lt;accessToken&gt;&gt;'
-
-};
-
-fetch('https://api-staging.vospay.id/api/v2/checkout/{vospayNumber}?merchantID={merchantID}&amp;totalAmount={totalAmount}?merchantID=1&amp;totalAmount=100000?merchantID=1&amp;totalAmount=100000',
-{
-  method: 'GET',
-
-  headers: headers
-})
-.then(function(res) {
-    return res.json();
-}).then(function(body) {
-    console.log(body);
-});
-
-</code></pre>
-<p><code>GET /checkout/{vospayNumber}?merchantID={merchantID}&amp;totalAmount={totalAmount}</code></p>
-
-<p><em>Fetch installment plans given by the multifinance</em></p>
-
-<h3 id="fetchInstallmentPlans-parameters">Parameters</h3>
-
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>In</th>
-<th>Type</th>
-<th>Required</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>vospayNumber</td>
-<td>path</td>
-<td>string</td>
-<td>true</td>
-<td>User&#39;s selected vospay number</td>
-</tr>
-<tr>
-<td>merchantID</td>
-<td>query</td>
-<td>string</td>
-<td>true</td>
-<td>Get merchantID from endpoint <code>/merchants</code></td>
-</tr>
-<tr>
-<td>totalAmount</td>
-<td>query</td>
-<td>number</td>
-<td>true</td>
-<td>Total amount of purchase including shipping and additional cost</td>
-</tr>
-<tr>
-<td>Authorization</td>
-<td>header</td>
-<td>string</td>
-<td>true</td>
-<td>A generated JWT access token by <code>/authentication</code> endpoint</td>
-</tr>
-</tbody></table>
-
-<blockquote>
-<p>Example responses</p>
-</blockquote>
-<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"merchantLogo"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://vospay.id/merchantLogo.png"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"mfcLogo"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://vospay.id/mfcLogo.png"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"fullName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Dominggus Sirius Octovianus"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"installments"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-    </span><span class="p">{</span><span class="w">
-      </span><span class="s2">"installmentID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"period"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"monthlyPayment"</span><span class="p">:</span><span class="w"> </span><span class="mi">58333</span><span class="w">
-    </span><span class="p">},</span><span class="w">
-    </span><span class="p">{</span><span class="w">
-      </span><span class="s2">"installmentID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"period"</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"monthlyPayment"</span><span class="p">:</span><span class="w"> </span><span class="mi">27083</span><span class="w">
-    </span><span class="p">},</span><span class="w">
-    </span><span class="p">{</span><span class="w">
-      </span><span class="s2">"installmentID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"period"</span><span class="p">:</span><span class="w"> </span><span class="mi">9</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"monthlyPayment"</span><span class="p">:</span><span class="w"> </span><span class="mi">16667</span><span class="w">
-    </span><span class="p">},</span><span class="w">
-    </span><span class="p">{</span><span class="w">
-      </span><span class="s2">"installmentID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"period"</span><span class="p">:</span><span class="w"> </span><span class="mi">12</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"monthlyPayment"</span><span class="p">:</span><span class="w"> </span><span class="mi">11458</span><span class="w">
-    </span><span class="p">}</span><span class="w">
-  </span><span class="p">]</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"className"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w">
-  </span><span class="s2">"errors"</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-<h3 id="fetchInstallmentPlans-responses">Responses</h3>
-
-<table><thead>
-<tr>
-<th>Status</th>
-<th>Meaning</th>
-<th>Description</th>
-<th>Schema</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>200</td>
-<td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
-<td>OK response</td>
-<td>Inline</td>
-</tr>
-<tr>
-<td>401</td>
-<td><a href="https://tools.ietf.org/html/rfc7235#section-3.1">Unauthorized</a></td>
-<td>Response when access token is not provided as Authorization on request header</td>
-<td>Inline</td>
-</tr>
-</tbody></table>
-
-<h3 id="fetchInstallmentPlans-responseschema">Response Schema</h3>
-
-<p>Status Code <strong>200</strong></p>
-
-<table><thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Required</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>» merchantLogo</td>
-<td>string(uri)</td>
-<td>false</td>
-<td>No description</td>
-</tr>
-<tr>
-<td>» mfcLogo</td>
-<td>string(uri)</td>
-<td>false</td>
-<td>No description</td>
-</tr>
-<tr>
-<td>» fullName</td>
-<td>string</td>
-<td>false</td>
-<td>No description</td>
-</tr>
-<tr>
-<td>» installments</td>
-<td>[object]</td>
-<td>false</td>
-<td>No description</td>
-</tr>
-<tr>
-<td>»» installmentID</td>
-<td>string</td>
-<td>false</td>
-<td>No description</td>
-</tr>
-<tr>
-<td>»» period</td>
-<td>number</td>
-<td>false</td>
-<td>No description</td>
-</tr>
-<tr>
-<td>»» monthlyPayment</td>
-<td>number</td>
-<td>false</td>
-<td>No description</td>
-</tr>
-</tbody></table>
-
-<p>Status Code <strong>401</strong></p>
-
-<table><thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Required</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>» name</td>
-<td>string</td>
-<td>false</td>
-<td>No description</td>
-</tr>
-<tr>
-<td>» message</td>
-<td>string</td>
-<td>false</td>
-<td>No description</td>
-</tr>
-<tr>
-<td>» code</td>
-<td>number</td>
-<td>false</td>
-<td>No description</td>
-</tr>
-<tr>
-<td>» className</td>
-<td>string</td>
-<td>false</td>
-<td>No description</td>
-</tr>
-<tr>
-<td>» data</td>
-<td>object</td>
-<td>false</td>
-<td>No description</td>
-</tr>
-<tr>
-<td>» errors</td>
-<td>object</td>
-<td>false</td>
-<td>No description</td>
-</tr>
-</tbody></table>
-
-<aside class="warning">
-To perform this operation, you must be authenticated by means of one of the following methods:
-accessToken
-</aside>
-<h2 id='finalizetransaction'>finalizeTransaction</h2>
-<p><a id="opIdfinalizeTransaction"></a></p>
-
-<blockquote>
-<p>Code samples</p>
-</blockquote>
-<pre class="highlight plaintext"><code>const request = require('node-fetch');
-const inputBody = '{
-  "notifyEndpoint": "https://merchant.com/notify",
-  "vospayNumber": "2340010000000001",
-  "merchantID": 1,
-  "orderID": "B0001",
-  "items": [
-    {
-      "name": "Product A",
-      "quantity": 2,
-      "price": 10000
-    },
-    {
-      "name": "Product B",
-      "quantity": 1,
-      "price": 5000
-    }
-  ],
-  "shippingCost": 5000,
-  "insuranceCost": 1000,
-  "processingFee": 2500,
-  "tax": 0,
-  "installmentID": 1
-}';
-const headers = {
-  'Content-Type':'application/json',
-  'Accept':'application/json',
-  'Authorization':'JWT &lt;&lt;accessToken&gt;&gt;'
-
-};
-
-fetch('https://api-staging.vospay.id/api/v2/checkout',
-{
-  method: 'POST',
-  body: inputBody,
-  headers: headers
-})
-.then(function(res) {
-    return res.json();
-}).then(function(body) {
-    console.log(body);
-});
-
-</code></pre>
-<p><code>POST /checkout</code></p>
-
-<p><em>Post transaction data</em></p>
-
-<p>Use this endpoint to send transaction detail on submit a checkout</p>
-
-<blockquote>
-<p>Body parameter</p>
-</blockquote>
-<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"notifyEndpoint"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://merchant.com/notify"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"vospayNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2340010000000001"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"merchantID"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"orderID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"B0001"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"items"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-    </span><span class="p">{</span><span class="w">
-      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Product A"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">10000</span><span class="w">
-    </span><span class="p">},</span><span class="w">
-    </span><span class="p">{</span><span class="w">
-      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Product B"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">5000</span><span class="w">
-    </span><span class="p">}</span><span class="w">
-  </span><span class="p">],</span><span class="w">
-  </span><span class="s2">"shippingCost"</span><span class="p">:</span><span class="w"> </span><span class="mi">5000</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"insuranceCost"</span><span class="p">:</span><span class="w"> </span><span class="mi">1000</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"processingFee"</span><span class="p">:</span><span class="w"> </span><span class="mi">2500</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"tax"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"installmentID"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-<h3 id="finalizeTransaction-parameters">Parameters</h3>
-
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>In</th>
-<th>Type</th>
-<th>Required</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>Authorization</td>
-<td>header</td>
-<td>string</td>
-<td>true</td>
-<td>A generated JWT access token by <code>/authentication</code> endpoint</td>
-</tr>
-<tr>
-<td>body</td>
-<td>body</td>
-<td>object</td>
-<td>true</td>
-<td>No description</td>
-</tr>
-<tr>
-<td>» notifyEndpoint</td>
-<td>body</td>
-<td>string(uri)</td>
-<td>false</td>
-<td>Merchant&#39;s endpoint to be accessed by backend after transaction finalized</td>
-</tr>
-<tr>
-<td>» vospayNumber</td>
-<td>body</td>
-<td>string</td>
-<td>true</td>
-<td>Vospay account number that used for transaction</td>
-</tr>
-<tr>
-<td>» merchantID</td>
-<td>body</td>
-<td>string</td>
-<td>true</td>
-<td>Merchant ID where transaction happens</td>
-</tr>
-<tr>
-<td>» orderID</td>
-<td>body</td>
-<td>string</td>
-<td>true</td>
-<td>Order ID from the merchant</td>
-</tr>
-<tr>
-<td>» items</td>
-<td>body</td>
-<td>[object]</td>
-<td>true</td>
-<td>List of purchased items</td>
-</tr>
-<tr>
-<td>»» name</td>
-<td>body</td>
-<td>string</td>
-<td>false</td>
-<td>Name of purchased item</td>
-</tr>
-<tr>
-<td>»» quantity</td>
-<td>body</td>
-<td>string</td>
-<td>false</td>
-<td>Quantity of purchased item</td>
-</tr>
-<tr>
-<td>»» price</td>
-<td>body</td>
-<td>number</td>
-<td>false</td>
-<td>Total price of purchased item</td>
-</tr>
-<tr>
-<td>» shippingCost</td>
-<td>body</td>
-<td>number</td>
-<td>true</td>
-<td>Shipping cost from transaction</td>
-</tr>
-<tr>
-<td>» insuranceCost</td>
-<td>body</td>
-<td>number</td>
-<td>false</td>
-<td>Insurance cost from transaction</td>
-</tr>
-<tr>
-<td>» processingFee</td>
-<td>body</td>
-<td>number</td>
-<td>false</td>
-<td>Additional fees from transaction (if there is)</td>
-</tr>
-<tr>
-<td>» tax</td>
-<td>body</td>
-<td>number</td>
-<td>false</td>
-<td>Tax or custom fee (e.g bea cukai) (if there is)</td>
-</tr>
-<tr>
-<td>» installmentID</td>
-<td>body</td>
-<td>string</td>
-<td>true</td>
-<td>ID of selected installment plan for the transaction</td>
-</tr>
-</tbody></table>
-
-<blockquote>
-<p>Example responses</p>
-</blockquote>
-<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Success"</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"className"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w">
-  </span><span class="s2">"errors"</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"className"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w">
-  </span><span class="s2">"errors"</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-<h3 id="finalizeTransaction-responses">Responses</h3>
-
-<table><thead>
-<tr>
-<th>Status</th>
-<th>Meaning</th>
-<th>Description</th>
-<th>Schema</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>200</td>
-<td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
-<td>OK response</td>
-<td>Inline</td>
-</tr>
-<tr>
-<td>401</td>
-<td><a href="https://tools.ietf.org/html/rfc7235#section-3.1">Unauthorized</a></td>
-<td>Response when access token is not provided as Authorization on request header</td>
-<td>Inline</td>
-</tr>
-<tr>
-<td>500</td>
-<td><a href="https://tools.ietf.org/html/rfc7231#section-6.6.1">Internal Server Error</a></td>
-<td>Response when Content-Type is not provided on request header or required request body not provided</td>
-<td>Inline</td>
-</tr>
-</tbody></table>
-
-<h3 id="finalizeTransaction-responseschema">Response Schema</h3>
-
-<p>Status Code <strong>200</strong></p>
-
-<table><thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Required</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>» message</td>
-<td>string</td>
-<td>false</td>
-<td>No description</td>
-</tr>
-</tbody></table>
-
-<p>Status Code <strong>401</strong></p>
-
-<table><thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Required</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>» name</td>
-<td>string</td>
-<td>false</td>
-<td>No description</td>
-</tr>
-<tr>
-<td>» message</td>
-<td>string</td>
-<td>false</td>
-<td>No description</td>
-</tr>
-<tr>
-<td>» code</td>
-<td>number</td>
-<td>false</td>
-<td>No description</td>
-</tr>
-<tr>
-<td>» className</td>
-<td>string</td>
-<td>false</td>
-<td>No description</td>
-</tr>
-<tr>
-<td>» data</td>
-<td>object</td>
-<td>false</td>
-<td>No description</td>
-</tr>
-<tr>
-<td>» errors</td>
-<td>object</td>
-<td>false</td>
-<td>No description</td>
-</tr>
-</tbody></table>
-
-<p>Status Code <strong>500</strong></p>
-
-<table><thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Required</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>» name</td>
-<td>string</td>
-<td>false</td>
-<td>No description</td>
-</tr>
-<tr>
-<td>» message</td>
-<td>string</td>
-<td>false</td>
-<td>No description</td>
-</tr>
-<tr>
-<td>» code</td>
-<td>number</td>
-<td>false</td>
-<td>No description</td>
-</tr>
-<tr>
-<td>» className</td>
-<td>string</td>
-<td>false</td>
-<td>No description</td>
-</tr>
-<tr>
-<td>» data</td>
-<td>object</td>
-<td>false</td>
-<td>No description</td>
-</tr>
-<tr>
-<td>» errors</td>
-<td>object</td>
-<td>false</td>
-<td>No description</td>
-</tr>
-</tbody></table>
-
-<aside class="warning">
-To perform this operation, you must be authenticated by means of one of the following methods:
-accessToken
-</aside>
-<h2 id='verifytransaction'>verifyTransaction</h2>
-<p><a id="opIdverifyTransaction"></a></p>
-
-<blockquote>
-<p>Code samples</p>
-</blockquote>
-<pre class="highlight plaintext"><code>const request = require('node-fetch');
-const inputBody = '{
-  "transactionID": "12ux0912examplej309128js01",
-  "orderID": "01441-EXAMPLE-7615",
-  "currency": "IDR",
-  "grossAmount": 49500
-}';
-const headers = {
-  'Content-Type':'application/json',
-  'Accept':'application/json'
-
-};
-
-fetch('https://api-staging.vospay.id/api/v2/verify-transaction',
-{
-  method: 'POST',
-  body: inputBody,
-  headers: headers
-})
-.then(function(res) {
-    return res.json();
-}).then(function(body) {
-    console.log(body);
-});
-
-</code></pre>
-<p><code>POST /verify-transaction</code></p>
-
-<p><em>Verify transaction ID and order details</em></p>
-
-<p>Use this endpoint verify the transaction ID and order details with VOSPAY to ensure the integrity of the result received by the JavaScript callback</p>
-
-<blockquote>
-<p>Body parameter</p>
-</blockquote>
-<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"transactionID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"12ux0912examplej309128js01"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"orderID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"01441-EXAMPLE-7615"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"IDR"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"grossAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">49500</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-<h3 id="verifyTransaction-parameters">Parameters</h3>
-
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>In</th>
-<th>Type</th>
-<th>Required</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>body</td>
-<td>body</td>
-<td>object</td>
-<td>true</td>
-<td>No description</td>
-</tr>
-<tr>
-<td>» transactionID</td>
-<td>body</td>
-<td>string</td>
-<td>true</td>
-<td>This is obtained from the TransactionResult</td>
-</tr>
-<tr>
-<td>» orderID</td>
-<td>body</td>
-<td>string</td>
-<td>true</td>
-<td>A unique (per merchant) identifier for this order</td>
-</tr>
-<tr>
-<td>» currency</td>
-<td>body</td>
-<td>string</td>
-<td>true</td>
-<td>Used currency for the transaction</td>
-</tr>
-<tr>
-<td>» grossAmount</td>
-<td>body</td>
-<td>number</td>
-<td>true</td>
-<td>The total amount of the order</td>
-</tr>
-</tbody></table>
-
-<blockquote>
-<p>Example responses</p>
-</blockquote>
-<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Valid"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-04-25T07:35:16.891Z"</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Invalid"</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"className"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"errors"</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-<h3 id="verifyTransaction-responses">Responses</h3>
-
-<table><thead>
-<tr>
-<th>Status</th>
-<th>Meaning</th>
-<th>Description</th>
-<th>Schema</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>200</td>
-<td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
-<td>OK response</td>
-<td>Inline</td>
-</tr>
-<tr>
-<td>404</td>
-<td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.4">Not Found</a></td>
-<td>Response when transaction is not found</td>
-<td>Inline</td>
-</tr>
-<tr>
-<td>500</td>
-<td><a href="https://tools.ietf.org/html/rfc7231#section-6.6.1">Internal Server Error</a></td>
-<td>Response when Content-Type is not provided on request header or required request body is not provided</td>
-<td>Inline</td>
-</tr>
-</tbody></table>
-
-<h3 id="verifyTransaction-responseschema">Response Schema</h3>
-
-<p>Status Code <strong>200</strong></p>
-
-<table><thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Required</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>» status</td>
-<td>string</td>
-<td>false</td>
-<td>Status of the transaction</td>
-</tr>
-<tr>
-<td>» timestamp</td>
-<td>string</td>
-<td>false</td>
-<td>The date and time the transaction was processed in ISO 8601 format. This will not be present if the status is not Valid.</td>
-</tr>
-</tbody></table>
-
-<p>Status Code <strong>404</strong></p>
-
-<table><thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Required</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>» status</td>
-<td>string</td>
-<td>false</td>
-<td>No description</td>
-</tr>
-</tbody></table>
-
-<p>Status Code <strong>500</strong></p>
-
-<table><thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Required</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>» name</td>
-<td>string</td>
-<td>false</td>
-<td>No description</td>
-</tr>
-<tr>
-<td>» message</td>
-<td>string</td>
-<td>false</td>
-<td>No description</td>
-</tr>
-<tr>
-<td>» code</td>
-<td>number</td>
-<td>false</td>
-<td>No description</td>
-</tr>
-<tr>
-<td>» className</td>
-<td>string</td>
-<td>false</td>
-<td>No description</td>
-</tr>
-<tr>
-<td>» errors</td>
-<td>object</td>
-<td>false</td>
-<td>No description</td>
-</tr>
-</tbody></table>
-
-<aside class="success">
-This operation does not require authentication
-</aside>
-
 <h1 id="Vospay-API-Doc-Merchant">Merchant</h1>
 <h2 id='fetchmerchantlist'>fetchMerchantList</h2>
 <p><a id="opIdfetchMerchantList"></a></p>
@@ -3178,16 +2331,147 @@ fetch('https://api-staging.vospay.id/api/v2/merchants?merchantKey={merchantKey}?
 To perform this operation, you must be authenticated by means of one of the following methods:
 accessToken
 </aside>
-<h1 id='schemas'>Schemas</h1>
-<h2 id="tocSauthotp">AuthOTP</h2>
 
-<p><a id="schemaauthotp"></a></p>
+<h1 id="Vospay-API-Doc-Transaction">Transaction</h1>
+<h2 id='fetchinstallmentplans'>fetchInstallmentPlans</h2>
+<p><a id="opIdfetchInstallmentPlans"></a></p>
+
+<blockquote>
+<p>Code samples</p>
+</blockquote>
+<pre class="highlight plaintext"><code>const request = require('node-fetch');
+
+const headers = {
+  'Accept':'application/json',
+  'Authorization':'JWT &lt;&lt;accessToken&gt;&gt;'
+
+};
+
+fetch('https://api-staging.vospay.id/api/v2/checkout/{vospayNumber}?merchantKey={merchantKey}&amp;totalAmount={totalAmount}?merchantKey=1&amp;totalAmount=100000?merchantKey=1&amp;totalAmount=100000',
+{
+  method: 'GET',
+
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+</code></pre>
+<p><code>GET /checkout/{vospayNumber}?merchantKey={merchantKey}&amp;totalAmount={totalAmount}</code></p>
+
+<p><em>Fetch installment plans given by the multifinance</em></p>
+
+<h3 id="fetchInstallmentPlans-parameters">Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>In</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>vospayNumber</td>
+<td>path</td>
+<td>string</td>
+<td>true</td>
+<td>User&#39;s selected vospay number</td>
+</tr>
+<tr>
+<td>merchantKey</td>
+<td>query</td>
+<td>string</td>
+<td>true</td>
+<td>Get merchantKey from endpoint <code>/merchants</code> or https://gist.github.com/sstur/521ea6259dee40e2da2a9d7ea782fdc7</td>
+</tr>
+<tr>
+<td>totalAmount</td>
+<td>query</td>
+<td>number</td>
+<td>true</td>
+<td>Total amount of purchase including shipping and additional cost</td>
+</tr>
+<tr>
+<td>Authorization</td>
+<td>header</td>
+<td>string</td>
+<td>true</td>
+<td>A generated JWT access token by <code>/authentication</code> endpoint</td>
+</tr>
+</tbody></table>
+
+<blockquote>
+<p>Example responses</p>
+</blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"strategy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"otp"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"phone"</span><span class="p">:</span><span class="w"> </span><span class="s2">"08118289855"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234"</span><span class="w">
+  </span><span class="s2">"merchantLogo"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://vospay.id/merchantLogo.png"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"mfcLogo"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://vospay.id/mfcLogo.png"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"fullName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Dominggus Sirius Octovianus"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"installments"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"installmentID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"period"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"monthlyPayment"</span><span class="p">:</span><span class="w"> </span><span class="mi">58333</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"installmentID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"period"</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"monthlyPayment"</span><span class="p">:</span><span class="w"> </span><span class="mi">27083</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"installmentID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"period"</span><span class="p">:</span><span class="w"> </span><span class="mi">9</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"monthlyPayment"</span><span class="p">:</span><span class="w"> </span><span class="mi">16667</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"installmentID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"period"</span><span class="p">:</span><span class="w"> </span><span class="mi">12</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"monthlyPayment"</span><span class="p">:</span><span class="w"> </span><span class="mi">11458</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre><h3 id='properties'>Properties</h3>
+</span></code></pre><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"className"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w">
+  </span><span class="s2">"errors"</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<h3 id="fetchInstallmentPlans-responses">Responses</h3>
+
+<table><thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>200</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
+<td>OK response</td>
+<td>Inline</td>
+</tr>
+<tr>
+<td>401</td>
+<td><a href="https://tools.ietf.org/html/rfc7235#section-3.1">Unauthorized</a></td>
+<td>Response when access token is not provided as Authorization on request header</td>
+<td>Inline</td>
+</tr>
+</tbody></table>
+
+<h3 id="fetchInstallmentPlans-responseschema">Response Schema</h3>
+
+<p>Status Code <strong>200</strong></p>
+
 <table><thead>
 <tr>
 <th>Name</th>
@@ -3197,34 +2481,377 @@ accessToken
 </tr>
 </thead><tbody>
 <tr>
-<td>strategy</td>
+<td>» merchantLogo</td>
+<td>string(uri)</td>
+<td>false</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>» mfcLogo</td>
+<td>string(uri)</td>
+<td>false</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>» fullName</td>
 <td>string</td>
+<td>false</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>» installments</td>
+<td>[object]</td>
+<td>false</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>»» installmentID</td>
+<td>string</td>
+<td>false</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>»» period</td>
+<td>number</td>
+<td>false</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>»» monthlyPayment</td>
+<td>number</td>
+<td>false</td>
+<td>No description</td>
+</tr>
+</tbody></table>
+
+<p>Status Code <strong>401</strong></p>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>» name</td>
+<td>string</td>
+<td>false</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>» message</td>
+<td>string</td>
+<td>false</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>» code</td>
+<td>number</td>
+<td>false</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>» className</td>
+<td>string</td>
+<td>false</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>» data</td>
+<td>object</td>
+<td>false</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>» errors</td>
+<td>object</td>
+<td>false</td>
+<td>No description</td>
+</tr>
+</tbody></table>
+
+<aside class="warning">
+To perform this operation, you must be authenticated by means of one of the following methods:
+accessToken
+</aside>
+<h2 id='finalizetransaction'>finalizeTransaction</h2>
+<p><a id="opIdfinalizeTransaction"></a></p>
+
+<blockquote>
+<p>Code samples</p>
+</blockquote>
+<pre class="highlight plaintext"><code>const request = require('node-fetch');
+const inputBody = '{
+  "notifyEndpoint": "https://merchant.com/notify",
+  "vospayNumber": "2340010000000001",
+  "merchantKey": "f72e04d62fcbb5_EXAMPLE_2a8bcad8ac6be048",
+  "orderID": "B0001",
+  "items": [
+    {
+      "name": "Product A",
+      "quantity": 2,
+      "price": 10000
+    },
+    {
+      "name": "Product B",
+      "quantity": 1,
+      "price": 5000
+    }
+  ],
+  "shippingCost": 5000,
+  "insuranceCost": 1000,
+  "processingFee": 2500,
+  "tax": 0,
+  "installmentID": 1
+}';
+const headers = {
+  'Content-Type':'application/json',
+  'Accept':'application/json',
+  'Authorization':'JWT &lt;&lt;accessToken&gt;&gt;'
+
+};
+
+fetch('https://api-staging.vospay.id/api/v2/checkout',
+{
+  method: 'POST',
+  body: inputBody,
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+</code></pre>
+<p><code>POST /checkout</code></p>
+
+<p><em>Post transaction data</em></p>
+
+<p>Use this endpoint to send transaction detail on submit a checkout</p>
+
+<blockquote>
+<p>Body parameter</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"notifyEndpoint"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://merchant.com/notify"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"vospayNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2340010000000001"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"merchantKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"f72e04d62fcbb5_EXAMPLE_2a8bcad8ac6be048"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"orderID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"B0001"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"items"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Product A"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">10000</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Product B"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">5000</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="s2">"shippingCost"</span><span class="p">:</span><span class="w"> </span><span class="mi">5000</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"insuranceCost"</span><span class="p">:</span><span class="w"> </span><span class="mi">1000</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"processingFee"</span><span class="p">:</span><span class="w"> </span><span class="mi">2500</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"tax"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"installmentID"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<h3 id="finalizeTransaction-parameters">Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>In</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Authorization</td>
+<td>header</td>
+<td>string</td>
+<td>true</td>
+<td>A generated JWT access token by <code>/authentication</code> endpoint</td>
+</tr>
+<tr>
+<td>body</td>
+<td>body</td>
+<td>object</td>
 <td>true</td>
 <td>No description</td>
 </tr>
 <tr>
-<td>phone</td>
-<td>string</td>
-<td>true</td>
-<td>No description</td>
+<td>» notifyEndpoint</td>
+<td>body</td>
+<td>string(uri)</td>
+<td>false</td>
+<td>Merchant&#39;s endpoint to be accessed by backend after transaction finalized</td>
 </tr>
 <tr>
-<td>code</td>
+<td>» vospayNumber</td>
+<td>body</td>
+<td>string</td>
+<td>true</td>
+<td>Vospay account number that used for transaction</td>
+</tr>
+<tr>
+<td>» merchantKey</td>
+<td>body</td>
+<td>string</td>
+<td>true</td>
+<td>Merchant Key where transaction happens</td>
+</tr>
+<tr>
+<td>» orderID</td>
+<td>body</td>
+<td>string</td>
+<td>true</td>
+<td>Order ID from the merchant</td>
+</tr>
+<tr>
+<td>» items</td>
+<td>body</td>
+<td>[object]</td>
+<td>true</td>
+<td>List of purchased items</td>
+</tr>
+<tr>
+<td>»» name</td>
+<td>body</td>
+<td>string</td>
+<td>false</td>
+<td>Name of purchased item</td>
+</tr>
+<tr>
+<td>»» quantity</td>
+<td>body</td>
+<td>string</td>
+<td>false</td>
+<td>Quantity of purchased item</td>
+</tr>
+<tr>
+<td>»» price</td>
+<td>body</td>
+<td>number</td>
+<td>false</td>
+<td>Total price of purchased item</td>
+</tr>
+<tr>
+<td>» shippingCost</td>
+<td>body</td>
+<td>number</td>
+<td>true</td>
+<td>Shipping cost from transaction</td>
+</tr>
+<tr>
+<td>» insuranceCost</td>
+<td>body</td>
+<td>number</td>
+<td>false</td>
+<td>Insurance cost from transaction</td>
+</tr>
+<tr>
+<td>» processingFee</td>
+<td>body</td>
+<td>number</td>
+<td>false</td>
+<td>Additional fees from transaction (if there is)</td>
+</tr>
+<tr>
+<td>» tax</td>
+<td>body</td>
+<td>number</td>
+<td>false</td>
+<td>Tax or custom fee (e.g bea cukai) (if there is)</td>
+</tr>
+<tr>
+<td>» installmentID</td>
+<td>body</td>
+<td>string</td>
+<td>true</td>
+<td>ID of selected installment plan for the transaction</td>
+</tr>
+</tbody></table>
+
+<blockquote>
+<p>Example responses</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Success"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"className"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w">
+  </span><span class="s2">"errors"</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"className"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w">
+  </span><span class="s2">"errors"</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<h3 id="finalizeTransaction-responses">Responses</h3>
+
+<table><thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>200</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
+<td>OK response</td>
+<td>Inline</td>
+</tr>
+<tr>
+<td>401</td>
+<td><a href="https://tools.ietf.org/html/rfc7235#section-3.1">Unauthorized</a></td>
+<td>Response when access token is not provided as Authorization on request header</td>
+<td>Inline</td>
+</tr>
+<tr>
+<td>500</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.6.1">Internal Server Error</a></td>
+<td>Response when Content-Type is not provided on request header or required request body not provided</td>
+<td>Inline</td>
+</tr>
+</tbody></table>
+
+<h3 id="finalizeTransaction-responseschema">Response Schema</h3>
+
+<p>Status Code <strong>200</strong></p>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>» message</td>
 <td>string</td>
 <td>false</td>
 <td>No description</td>
 </tr>
 </tbody></table>
 
-<h2 id="tocSauthloginemail">AuthLoginEmail</h2>
+<p>Status Code <strong>401</strong></p>
 
-<p><a id="schemaauthloginemail"></a></p>
-<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"strategy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"email"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"john@doe.com"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"password"</span><span class="p">:</span><span class="w"> </span><span class="s2">"abcd1234"</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre><h3 id='properties-2'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -3234,34 +2861,45 @@ accessToken
 </tr>
 </thead><tbody>
 <tr>
-<td>strategy</td>
+<td>» name</td>
 <td>string</td>
-<td>true</td>
+<td>false</td>
 <td>No description</td>
 </tr>
 <tr>
-<td>email</td>
+<td>» message</td>
 <td>string</td>
-<td>true</td>
+<td>false</td>
 <td>No description</td>
 </tr>
 <tr>
-<td>password</td>
+<td>» code</td>
+<td>number</td>
+<td>false</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>» className</td>
 <td>string</td>
-<td>true</td>
+<td>false</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>» data</td>
+<td>object</td>
+<td>false</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>» errors</td>
+<td>object</td>
+<td>false</td>
 <td>No description</td>
 </tr>
 </tbody></table>
 
-<h2 id="tocSauthloginphone">AuthLoginPhone</h2>
+<p>Status Code <strong>500</strong></p>
 
-<p><a id="schemaauthloginphone"></a></p>
-<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"strategy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"phone"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"phone"</span><span class="p">:</span><span class="w"> </span><span class="s2">"08118289855"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"password"</span><span class="p">:</span><span class="w"> </span><span class="s2">"abcd1234"</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre><h3 id='properties-3'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -3271,25 +2909,254 @@ accessToken
 </tr>
 </thead><tbody>
 <tr>
-<td>strategy</td>
+<td>» name</td>
 <td>string</td>
-<td>true</td>
+<td>false</td>
 <td>No description</td>
 </tr>
 <tr>
-<td>phone</td>
+<td>» message</td>
 <td>string</td>
-<td>true</td>
+<td>false</td>
 <td>No description</td>
 </tr>
 <tr>
-<td>password</td>
+<td>» code</td>
+<td>number</td>
+<td>false</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>» className</td>
 <td>string</td>
-<td>true</td>
+<td>false</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>» data</td>
+<td>object</td>
+<td>false</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>» errors</td>
+<td>object</td>
+<td>false</td>
 <td>No description</td>
 </tr>
 </tbody></table>
 
+<aside class="warning">
+To perform this operation, you must be authenticated by means of one of the following methods:
+accessToken
+</aside>
+<h2 id='verifytransaction'>verifyTransaction</h2>
+<p><a id="opIdverifyTransaction"></a></p>
+
+<blockquote>
+<p>Code samples</p>
+</blockquote>
+<pre class="highlight plaintext"><code>const request = require('node-fetch');
+const inputBody = '{
+  "transactionID": "12ux0912examplej309128js01",
+  "orderID": "01441-EXAMPLE-7615",
+  "currency": "IDR",
+  "grossAmount": 49500
+}';
+const headers = {
+  'Content-Type':'application/json',
+  'Accept':'application/json'
+
+};
+
+fetch('https://api-staging.vospay.id/api/v2/verify-transaction',
+{
+  method: 'POST',
+  body: inputBody,
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+</code></pre>
+<p><code>POST /verify-transaction</code></p>
+
+<p><em>Verify transaction ID and order details</em></p>
+
+<p>Use this endpoint verify the transaction ID and order details with VOSPAY to ensure the integrity of the result received by the JavaScript callback</p>
+
+<blockquote>
+<p>Body parameter</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"transactionID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"12ux0912examplej309128js01"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"orderID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"01441-EXAMPLE-7615"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"IDR"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"grossAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">49500</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<h3 id="verifyTransaction-parameters">Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>In</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>body</td>
+<td>body</td>
+<td>object</td>
+<td>true</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>» transactionID</td>
+<td>body</td>
+<td>string</td>
+<td>true</td>
+<td>This is obtained from the TransactionResult</td>
+</tr>
+<tr>
+<td>» orderID</td>
+<td>body</td>
+<td>string</td>
+<td>true</td>
+<td>A unique (per merchant) identifier for this order</td>
+</tr>
+<tr>
+<td>» currency</td>
+<td>body</td>
+<td>string</td>
+<td>true</td>
+<td>Used currency for the transaction</td>
+</tr>
+<tr>
+<td>» grossAmount</td>
+<td>body</td>
+<td>number</td>
+<td>true</td>
+<td>The total amount of the order</td>
+</tr>
+</tbody></table>
+
+<blockquote>
+<p>Example responses</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Valid"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-04-25T07:35:16.891Z"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"className"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"errors"</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<h3 id="verifyTransaction-responses">Responses</h3>
+
+<table><thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>200</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
+<td>OK response</td>
+<td>Inline</td>
+</tr>
+<tr>
+<td>500</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.6.1">Internal Server Error</a></td>
+<td>Response when Content-Type is not provided on request header or required request body is not provided</td>
+<td>Inline</td>
+</tr>
+</tbody></table>
+
+<h3 id="verifyTransaction-responseschema">Response Schema</h3>
+
+<p>Status Code <strong>200</strong></p>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>» status</td>
+<td>string</td>
+<td>false</td>
+<td>Status of the transaction</td>
+</tr>
+<tr>
+<td>» timestamp</td>
+<td>string</td>
+<td>false</td>
+<td>The date and time the transaction was processed in ISO 8601 format. This will not be present if the status is not Valid.</td>
+</tr>
+</tbody></table>
+
+<p>Status Code <strong>500</strong></p>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>» name</td>
+<td>string</td>
+<td>false</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>» message</td>
+<td>string</td>
+<td>false</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>» code</td>
+<td>number</td>
+<td>false</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>» className</td>
+<td>string</td>
+<td>false</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>» errors</td>
+<td>object</td>
+<td>false</td>
+<td>No description</td>
+</tr>
+</tbody></table>
+
+<aside class="success">
+This operation does not require authentication
+</aside>
+<h1 id='schemas'>Schemas</h1>
 <h2 id="tocSregister">Register</h2>
 
 <p><a id="schemaregister"></a></p>
@@ -3298,7 +3165,7 @@ accessToken
   </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"john@doe.com"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"password"</span><span class="p">:</span><span class="w"> </span><span class="s2">"abcd1234"</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre><h3 id='properties-4'>Properties</h3>
+</span></code></pre><h3 id='properties'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -3334,7 +3201,7 @@ accessToken
   </span><span class="s2">"vospayNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2340010000000002"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"facebookAccount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"john@doe.com"</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre><h3 id='properties-5'>Properties</h3>
+</span></code></pre><h3 id='properties-2'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
