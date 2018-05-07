@@ -1,5 +1,5 @@
 ---
-title: Vospay API Doc v0.1.7
+title: Vospay API Doc v0.1.6
 language_tabs:
   - nodejs: JavaScript
 toc_footers: []
@@ -10,7 +10,7 @@ headingLevel: 2
 
 ---
 
-<h1 id="Vospay-API-Doc">Vospay API Doc v0.1.7</h1>
+<h1 id="Vospay-API-Doc">Vospay API Doc v0.1.6</h1>
 
 > Scroll down for code samples, example requests and responses. Select a language for code samples from the tabs above or the mobile navigation menu.
 
@@ -79,7 +79,10 @@ Use this endpoint to verify every otp and get new accessToken. An accessToken co
 
 |Parameter|In|Type|Required|Description|
 |---|---|---|---|---|
-|body|body|any|true|No description|
+|body|body|object|true|No description|
+|» strategy|body|string|true|No description|
+|» phone|body|string|true|No description|
+|» code|body|string|false|No description|
 
 > Example responses
 
@@ -293,8 +296,7 @@ Use this endpoint when user submit their data on activation process.
 
 ```json
 {
-  "vospayNumber": "2340010000000002",
-  "isRegistered": false
+  "vospayNumber": "2340010000000002"
 }
 ```
 
@@ -334,7 +336,6 @@ Status Code **201**
 |Name|Type|Required|Description|
 |---|---|---|---|
 |» vospayNumber|string|false|Auto generated vospay account number|
-|» isRegistered|boolean|false|Flag whether the user who activates new Vospay account number is registered or not|
 
 Status Code **401**
 
@@ -799,432 +800,6 @@ To perform this operation, you must be authenticated by means of one of the foll
 accessToken
 </aside>
 
-<h1 id="Vospay-API-Doc-Transaction">Transaction</h1>
-
-## fetchInstallmentPlans
-
-<a id="opIdfetchInstallmentPlans"></a>
-
-> Code samples
-
-```nodejs
-const request = require('node-fetch');
-
-const headers = {
-  'Accept':'application/json',
-  'Authorization':'JWT <<accessToken>>'
-
-};
-
-fetch('https://api-staging.vospay.id/api/v2/checkout/{vospayNumber}?merchantID={merchantID}&totalAmount={totalAmount}?merchantID=1&totalAmount=100000?merchantID=1&totalAmount=100000',
-{
-  method: 'GET',
-
-  headers: headers
-})
-.then(function(res) {
-    return res.json();
-}).then(function(body) {
-    console.log(body);
-});
-
-```
-
-`GET /checkout/{vospayNumber}?merchantID={merchantID}&totalAmount={totalAmount}`
-
-*Fetch installment plans given by the multifinance*
-
-<h3 id="fetchInstallmentPlans-parameters">Parameters</h3>
-
-|Parameter|In|Type|Required|Description|
-|---|---|---|---|---|
-|vospayNumber|path|string|true|User's selected vospay number|
-|merchantID|query|string|true|Get merchantID from endpoint `/merchants`|
-|totalAmount|query|number|true|Total amount of purchase including shipping and additional cost|
-|Authorization|header|string|true|A generated JWT access token by `/authentication` endpoint|
-
-> Example responses
-
-```json
-{
-  "merchantLogo": "https://vospay.id/merchantLogo.png",
-  "mfcLogo": "https://vospay.id/mfcLogo.png",
-  "fullName": "Dominggus Sirius Octovianus",
-  "installments": [
-    {
-      "installmentID": "1",
-      "period": 3,
-      "monthlyPayment": 58333
-    },
-    {
-      "installmentID": "2",
-      "period": 6,
-      "monthlyPayment": 27083
-    },
-    {
-      "installmentID": "3",
-      "period": 9,
-      "monthlyPayment": 16667
-    },
-    {
-      "installmentID": "4",
-      "period": 12,
-      "monthlyPayment": 11458
-    }
-  ]
-}
-```
-
-```json
-{
-  "name": "string",
-  "message": "string",
-  "code": 0,
-  "className": "string",
-  "data": {},
-  "errors": {}
-}
-```
-
-<h3 id="fetchInstallmentPlans-responses">Responses</h3>
-
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|OK response|Inline|
-|401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|Response when access token is not provided as Authorization on request header|Inline|
-
-<h3 id="fetchInstallmentPlans-responseschema">Response Schema</h3>
-
-Status Code **200**
-
-|Name|Type|Required|Description|
-|---|---|---|---|
-|» merchantLogo|string(uri)|false|No description|
-|» mfcLogo|string(uri)|false|No description|
-|» fullName|string|false|No description|
-|» installments|[object]|false|No description|
-|»» installmentID|string|false|No description|
-|»» period|number|false|No description|
-|»» monthlyPayment|number|false|No description|
-
-Status Code **401**
-
-|Name|Type|Required|Description|
-|---|---|---|---|
-|» name|string|false|No description|
-|» message|string|false|No description|
-|» code|number|false|No description|
-|» className|string|false|No description|
-|» data|object|false|No description|
-|» errors|object|false|No description|
-
-<aside class="warning">
-To perform this operation, you must be authenticated by means of one of the following methods:
-accessToken
-</aside>
-
-## finalizeTransaction
-
-<a id="opIdfinalizeTransaction"></a>
-
-> Code samples
-
-```nodejs
-const request = require('node-fetch');
-const inputBody = '{
-  "notifyEndpoint": "https://merchant.com/notify",
-  "vospayNumber": "2340010000000001",
-  "merchantID": 1,
-  "orderID": "B0001",
-  "items": [
-    {
-      "name": "Product A",
-      "quantity": 2,
-      "price": 10000
-    },
-    {
-      "name": "Product B",
-      "quantity": 1,
-      "price": 5000
-    }
-  ],
-  "shippingCost": 5000,
-  "insuranceCost": 1000,
-  "processingFee": 2500,
-  "tax": 0,
-  "installmentID": 1
-}';
-const headers = {
-  'Content-Type':'application/json',
-  'Accept':'application/json',
-  'Authorization':'JWT <<accessToken>>'
-
-};
-
-fetch('https://api-staging.vospay.id/api/v2/checkout',
-{
-  method: 'POST',
-  body: inputBody,
-  headers: headers
-})
-.then(function(res) {
-    return res.json();
-}).then(function(body) {
-    console.log(body);
-});
-
-```
-
-`POST /checkout`
-
-*Post transaction data*
-
-Use this endpoint to send transaction detail on submit a checkout
-
-> Body parameter
-
-```json
-{
-  "notifyEndpoint": "https://merchant.com/notify",
-  "vospayNumber": "2340010000000001",
-  "merchantID": 1,
-  "orderID": "B0001",
-  "items": [
-    {
-      "name": "Product A",
-      "quantity": 2,
-      "price": 10000
-    },
-    {
-      "name": "Product B",
-      "quantity": 1,
-      "price": 5000
-    }
-  ],
-  "shippingCost": 5000,
-  "insuranceCost": 1000,
-  "processingFee": 2500,
-  "tax": 0,
-  "installmentID": 1
-}
-```
-
-<h3 id="finalizeTransaction-parameters">Parameters</h3>
-
-|Parameter|In|Type|Required|Description|
-|---|---|---|---|---|
-|Authorization|header|string|true|A generated JWT access token by `/authentication` endpoint|
-|body|body|object|true|No description|
-|» notifyEndpoint|body|string(uri)|false|Merchant's endpoint to be accessed by backend after transaction finalized|
-|» vospayNumber|body|string|true|Vospay account number that used for transaction|
-|» merchantID|body|string|true|Merchant ID where transaction happens|
-|» orderID|body|string|true|Order ID from the merchant|
-|» items|body|[object]|true|List of purchased items|
-|»» name|body|string|false|Name of purchased item|
-|»» quantity|body|string|false|Quantity of purchased item|
-|»» price|body|number|false|Total price of purchased item|
-|» shippingCost|body|number|true|Shipping cost from transaction|
-|» insuranceCost|body|number|false|Insurance cost from transaction|
-|» processingFee|body|number|false|Additional fees from transaction (if there is)|
-|» tax|body|number|false|Tax or custom fee (e.g bea cukai) (if there is)|
-|» installmentID|body|string|true|ID of selected installment plan for the transaction|
-
-> Example responses
-
-```json
-{
-  "message": "Success"
-}
-```
-
-```json
-{
-  "name": "string",
-  "message": "string",
-  "code": 0,
-  "className": "string",
-  "data": {},
-  "errors": {}
-}
-```
-
-```json
-{
-  "name": "string",
-  "message": "string",
-  "code": 0,
-  "className": "string",
-  "data": {},
-  "errors": {}
-}
-```
-
-<h3 id="finalizeTransaction-responses">Responses</h3>
-
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|OK response|Inline|
-|401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|Response when access token is not provided as Authorization on request header|Inline|
-|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|Response when Content-Type is not provided on request header or required request body not provided|Inline|
-
-<h3 id="finalizeTransaction-responseschema">Response Schema</h3>
-
-Status Code **200**
-
-|Name|Type|Required|Description|
-|---|---|---|---|
-|» message|string|false|No description|
-
-Status Code **401**
-
-|Name|Type|Required|Description|
-|---|---|---|---|
-|» name|string|false|No description|
-|» message|string|false|No description|
-|» code|number|false|No description|
-|» className|string|false|No description|
-|» data|object|false|No description|
-|» errors|object|false|No description|
-
-Status Code **500**
-
-|Name|Type|Required|Description|
-|---|---|---|---|
-|» name|string|false|No description|
-|» message|string|false|No description|
-|» code|number|false|No description|
-|» className|string|false|No description|
-|» data|object|false|No description|
-|» errors|object|false|No description|
-
-<aside class="warning">
-To perform this operation, you must be authenticated by means of one of the following methods:
-accessToken
-</aside>
-
-## verifyTransaction
-
-<a id="opIdverifyTransaction"></a>
-
-> Code samples
-
-```nodejs
-const request = require('node-fetch');
-const inputBody = '{
-  "transactionID": "12ux0912examplej309128js01",
-  "orderID": "01441-EXAMPLE-7615",
-  "currency": "IDR",
-  "grossAmount": 49500
-}';
-const headers = {
-  'Content-Type':'application/json',
-  'Accept':'application/json'
-
-};
-
-fetch('https://api-staging.vospay.id/api/v2/verify-transaction',
-{
-  method: 'POST',
-  body: inputBody,
-  headers: headers
-})
-.then(function(res) {
-    return res.json();
-}).then(function(body) {
-    console.log(body);
-});
-
-```
-
-`POST /verify-transaction`
-
-*Verify transaction ID and order details*
-
-Use this endpoint verify the transaction ID and order details with VOSPAY to ensure the integrity of the result received by the JavaScript callback
-
-> Body parameter
-
-```json
-{
-  "transactionID": "12ux0912examplej309128js01",
-  "orderID": "01441-EXAMPLE-7615",
-  "currency": "IDR",
-  "grossAmount": 49500
-}
-```
-
-<h3 id="verifyTransaction-parameters">Parameters</h3>
-
-|Parameter|In|Type|Required|Description|
-|---|---|---|---|---|
-|body|body|object|true|No description|
-|» transactionID|body|string|true|This is obtained from the TransactionResult|
-|» orderID|body|string|true|A unique (per merchant) identifier for this order|
-|» currency|body|string|true|Used currency for the transaction|
-|» grossAmount|body|number|true|The total amount of the order|
-
-> Example responses
-
-```json
-{
-  "status": "Valid",
-  "timestamp": "2018-04-25T07:35:16.891Z"
-}
-```
-
-```json
-{
-  "status": "Invalid"
-}
-```
-
-```json
-{
-  "name": "string",
-  "message": "string",
-  "code": 0,
-  "className": "string",
-  "errors": {}
-}
-```
-
-<h3 id="verifyTransaction-responses">Responses</h3>
-
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|OK response|Inline|
-|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Response when transaction is not found|Inline|
-|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|Response when Content-Type is not provided on request header or required request body is not provided|Inline|
-
-<h3 id="verifyTransaction-responseschema">Response Schema</h3>
-
-Status Code **200**
-
-|Name|Type|Required|Description|
-|---|---|---|---|
-|» status|string|false|Status of the transaction|
-|» timestamp|string|false|The date and time the transaction was processed in ISO 8601 format. This will not be present if the status is not Valid.|
-
-Status Code **404**
-
-|Name|Type|Required|Description|
-|---|---|---|---|
-|» status|string|false|No description|
-
-Status Code **500**
-
-|Name|Type|Required|Description|
-|---|---|---|---|
-|» name|string|false|No description|
-|» message|string|false|No description|
-|» code|number|false|No description|
-|» className|string|false|No description|
-|» errors|object|false|No description|
-
-<aside class="success">
-This operation does not require authentication
-</aside>
-
 <h1 id="Vospay-API-Doc-Merchant">Merchant</h1>
 
 ## fetchMerchantList
@@ -1474,67 +1049,420 @@ To perform this operation, you must be authenticated by means of one of the foll
 accessToken
 </aside>
 
+<h1 id="Vospay-API-Doc-Transaction">Transaction</h1>
+
+## fetchInstallmentPlans
+
+<a id="opIdfetchInstallmentPlans"></a>
+
+> Code samples
+
+```nodejs
+const request = require('node-fetch');
+
+const headers = {
+  'Accept':'application/json',
+  'Authorization':'JWT <<accessToken>>'
+
+};
+
+fetch('https://api-staging.vospay.id/api/v2/checkout/{vospayNumber}?merchantKey={merchantKey}&totalAmount={totalAmount}?merchantKey=1&totalAmount=100000?merchantKey=1&totalAmount=100000',
+{
+  method: 'GET',
+
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
+
+`GET /checkout/{vospayNumber}?merchantKey={merchantKey}&totalAmount={totalAmount}`
+
+*Fetch installment plans given by the multifinance*
+
+<h3 id="fetchInstallmentPlans-parameters">Parameters</h3>
+
+|Parameter|In|Type|Required|Description|
+|---|---|---|---|---|
+|vospayNumber|path|string|true|User's selected vospay number|
+|merchantKey|query|string|true|Get merchantKey from endpoint `/merchants` or https://gist.github.com/sstur/521ea6259dee40e2da2a9d7ea782fdc7|
+|totalAmount|query|number|true|Total amount of purchase including shipping and additional cost|
+|Authorization|header|string|true|A generated JWT access token by `/authentication` endpoint|
+
+> Example responses
+
+```json
+{
+  "merchantLogo": "https://vospay.id/merchantLogo.png",
+  "mfcLogo": "https://vospay.id/mfcLogo.png",
+  "fullName": "Dominggus Sirius Octovianus",
+  "installments": [
+    {
+      "installmentID": "1",
+      "period": 3,
+      "monthlyPayment": 58333
+    },
+    {
+      "installmentID": "2",
+      "period": 6,
+      "monthlyPayment": 27083
+    },
+    {
+      "installmentID": "3",
+      "period": 9,
+      "monthlyPayment": 16667
+    },
+    {
+      "installmentID": "4",
+      "period": 12,
+      "monthlyPayment": 11458
+    }
+  ]
+}
+```
+
+```json
+{
+  "name": "string",
+  "message": "string",
+  "code": 0,
+  "className": "string",
+  "data": {},
+  "errors": {}
+}
+```
+
+<h3 id="fetchInstallmentPlans-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|OK response|Inline|
+|401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|Response when access token is not provided as Authorization on request header|Inline|
+
+<h3 id="fetchInstallmentPlans-responseschema">Response Schema</h3>
+
+Status Code **200**
+
+|Name|Type|Required|Description|
+|---|---|---|---|
+|» merchantLogo|string(uri)|false|No description|
+|» mfcLogo|string(uri)|false|No description|
+|» fullName|string|false|No description|
+|» installments|[object]|false|No description|
+|»» installmentID|string|false|No description|
+|»» period|number|false|No description|
+|»» monthlyPayment|number|false|No description|
+
+Status Code **401**
+
+|Name|Type|Required|Description|
+|---|---|---|---|
+|» name|string|false|No description|
+|» message|string|false|No description|
+|» code|number|false|No description|
+|» className|string|false|No description|
+|» data|object|false|No description|
+|» errors|object|false|No description|
+
+<aside class="warning">
+To perform this operation, you must be authenticated by means of one of the following methods:
+accessToken
+</aside>
+
+## finalizeTransaction
+
+<a id="opIdfinalizeTransaction"></a>
+
+> Code samples
+
+```nodejs
+const request = require('node-fetch');
+const inputBody = '{
+  "notifyEndpoint": "https://merchant.com/notify",
+  "vospayNumber": "2340010000000001",
+  "merchantKey": "f72e04d62fcbb5_EXAMPLE_2a8bcad8ac6be048",
+  "orderID": "B0001",
+  "items": [
+    {
+      "name": "Product A",
+      "quantity": 2,
+      "price": 10000
+    },
+    {
+      "name": "Product B",
+      "quantity": 1,
+      "price": 5000
+    }
+  ],
+  "shippingCost": 5000,
+  "insuranceCost": 1000,
+  "processingFee": 2500,
+  "tax": 0,
+  "installmentID": 1
+}';
+const headers = {
+  'Content-Type':'application/json',
+  'Accept':'application/json',
+  'Authorization':'JWT <<accessToken>>'
+
+};
+
+fetch('https://api-staging.vospay.id/api/v2/checkout',
+{
+  method: 'POST',
+  body: inputBody,
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
+
+`POST /checkout`
+
+*Post transaction data*
+
+Use this endpoint to send transaction detail on submit a checkout
+
+> Body parameter
+
+```json
+{
+  "notifyEndpoint": "https://merchant.com/notify",
+  "vospayNumber": "2340010000000001",
+  "merchantKey": "f72e04d62fcbb5_EXAMPLE_2a8bcad8ac6be048",
+  "orderID": "B0001",
+  "items": [
+    {
+      "name": "Product A",
+      "quantity": 2,
+      "price": 10000
+    },
+    {
+      "name": "Product B",
+      "quantity": 1,
+      "price": 5000
+    }
+  ],
+  "shippingCost": 5000,
+  "insuranceCost": 1000,
+  "processingFee": 2500,
+  "tax": 0,
+  "installmentID": 1
+}
+```
+
+<h3 id="finalizeTransaction-parameters">Parameters</h3>
+
+|Parameter|In|Type|Required|Description|
+|---|---|---|---|---|
+|Authorization|header|string|true|A generated JWT access token by `/authentication` endpoint|
+|body|body|object|true|No description|
+|» notifyEndpoint|body|string(uri)|false|Merchant's endpoint to be accessed by backend after transaction finalized|
+|» vospayNumber|body|string|true|Vospay account number that used for transaction|
+|» merchantKey|body|string|true|Merchant Key where transaction happens|
+|» orderID|body|string|true|Order ID from the merchant|
+|» items|body|[object]|true|List of purchased items|
+|»» name|body|string|false|Name of purchased item|
+|»» quantity|body|string|false|Quantity of purchased item|
+|»» price|body|number|false|Total price of purchased item|
+|» shippingCost|body|number|true|Shipping cost from transaction|
+|» insuranceCost|body|number|false|Insurance cost from transaction|
+|» processingFee|body|number|false|Additional fees from transaction (if there is)|
+|» tax|body|number|false|Tax or custom fee (e.g bea cukai) (if there is)|
+|» installmentID|body|string|true|ID of selected installment plan for the transaction|
+
+> Example responses
+
+```json
+{
+  "message": "Success"
+}
+```
+
+```json
+{
+  "name": "string",
+  "message": "string",
+  "code": 0,
+  "className": "string",
+  "data": {},
+  "errors": {}
+}
+```
+
+```json
+{
+  "name": "string",
+  "message": "string",
+  "code": 0,
+  "className": "string",
+  "data": {},
+  "errors": {}
+}
+```
+
+<h3 id="finalizeTransaction-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|OK response|Inline|
+|401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|Response when access token is not provided as Authorization on request header|Inline|
+|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|Response when Content-Type is not provided on request header or required request body not provided|Inline|
+
+<h3 id="finalizeTransaction-responseschema">Response Schema</h3>
+
+Status Code **200**
+
+|Name|Type|Required|Description|
+|---|---|---|---|
+|» message|string|false|No description|
+
+Status Code **401**
+
+|Name|Type|Required|Description|
+|---|---|---|---|
+|» name|string|false|No description|
+|» message|string|false|No description|
+|» code|number|false|No description|
+|» className|string|false|No description|
+|» data|object|false|No description|
+|» errors|object|false|No description|
+
+Status Code **500**
+
+|Name|Type|Required|Description|
+|---|---|---|---|
+|» name|string|false|No description|
+|» message|string|false|No description|
+|» code|number|false|No description|
+|» className|string|false|No description|
+|» data|object|false|No description|
+|» errors|object|false|No description|
+
+<aside class="warning">
+To perform this operation, you must be authenticated by means of one of the following methods:
+accessToken
+</aside>
+
+## verifyTransaction
+
+<a id="opIdverifyTransaction"></a>
+
+> Code samples
+
+```nodejs
+const request = require('node-fetch');
+const inputBody = '{
+  "transactionID": "12ux0912examplej309128js01",
+  "orderID": "01441-EXAMPLE-7615",
+  "currency": "IDR",
+  "grossAmount": 49500
+}';
+const headers = {
+  'Content-Type':'application/json',
+  'Accept':'application/json'
+
+};
+
+fetch('https://api-staging.vospay.id/api/v2/verify-transaction',
+{
+  method: 'POST',
+  body: inputBody,
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
+
+`POST /verify-transaction`
+
+*Verify transaction ID and order details*
+
+Use this endpoint verify the transaction ID and order details with VOSPAY to ensure the integrity of the result received by the JavaScript callback
+
+> Body parameter
+
+```json
+{
+  "transactionID": "12ux0912examplej309128js01",
+  "orderID": "01441-EXAMPLE-7615",
+  "currency": "IDR",
+  "grossAmount": 49500
+}
+```
+
+<h3 id="verifyTransaction-parameters">Parameters</h3>
+
+|Parameter|In|Type|Required|Description|
+|---|---|---|---|---|
+|body|body|object|true|No description|
+|» transactionID|body|string|true|This is obtained from the TransactionResult|
+|» orderID|body|string|true|A unique (per merchant) identifier for this order|
+|» currency|body|string|true|Used currency for the transaction|
+|» grossAmount|body|number|true|The total amount of the order|
+
+> Example responses
+
+```json
+{
+  "status": "Valid",
+  "timestamp": "2018-04-25T07:35:16.891Z"
+}
+```
+
+```json
+{
+  "name": "string",
+  "message": "string",
+  "code": 0,
+  "className": "string",
+  "errors": {}
+}
+```
+
+<h3 id="verifyTransaction-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|OK response|Inline|
+|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|Response when Content-Type is not provided on request header or required request body is not provided|Inline|
+
+<h3 id="verifyTransaction-responseschema">Response Schema</h3>
+
+Status Code **200**
+
+|Name|Type|Required|Description|
+|---|---|---|---|
+|» status|string|false|Status of the transaction|
+|» timestamp|string|false|The date and time the transaction was processed in ISO 8601 format. This will not be present if the status is not Valid.|
+
+Status Code **500**
+
+|Name|Type|Required|Description|
+|---|---|---|---|
+|» name|string|false|No description|
+|» message|string|false|No description|
+|» code|number|false|No description|
+|» className|string|false|No description|
+|» errors|object|false|No description|
+
+<aside class="success">
+This operation does not require authentication
+</aside>
+
 # Schemas
-
-<h2 id="tocSauthotp">AuthOTP</h2>
-
-<a id="schemaauthotp"></a>
-
-```json
-{
-  "strategy": "otp",
-  "phone": "08118289855",
-  "code": "1234"
-}
-```
-
-### Properties
-
-|Name|Type|Required|Description|
-|---|---|---|---|
-|strategy|string|true|No description|
-|phone|string|true|No description|
-|code|string|false|No description|
-
-<h2 id="tocSauthloginemail">AuthLoginEmail</h2>
-
-<a id="schemaauthloginemail"></a>
-
-```json
-{
-  "strategy": "email",
-  "email": "john@doe.com",
-  "password": "abcd1234"
-}
-```
-
-### Properties
-
-|Name|Type|Required|Description|
-|---|---|---|---|
-|strategy|string|true|No description|
-|email|string|true|No description|
-|password|string|true|No description|
-
-<h2 id="tocSauthloginphone">AuthLoginPhone</h2>
-
-<a id="schemaauthloginphone"></a>
-
-```json
-{
-  "strategy": "phone",
-  "phone": "08118289855",
-  "password": "abcd1234"
-}
-```
-
-### Properties
-
-|Name|Type|Required|Description|
-|---|---|---|---|
-|strategy|string|true|No description|
-|phone|string|true|No description|
-|password|string|true|No description|
 
 <h2 id="tocSregister">Register</h2>
 
