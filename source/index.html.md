@@ -1,5 +1,5 @@
 ---
-title: Vospay API Doc v0.1.6
+title: Vospay API Doc v0.1.9
 language_tabs:
   - nodejs: JavaScript
 toc_footers: []
@@ -10,7 +10,7 @@ headingLevel: 2
 
 ---
 
-<h1 id="Vospay-API-Doc">Vospay API Doc v0.1.6</h1>
+<h1 id="Vospay-API-Doc">Vospay API Doc v0.1.9</h1>
 
 > Scroll down for code samples, example requests and responses. Select a language for code samples from the tabs above or the mobile navigation menu.
 
@@ -1227,7 +1227,7 @@ fetch('https://api-staging.vospay.id/api/v2/checkout',
 
 `POST /checkout`
 
-*Post transaction data*
+*Finalize transaction data*
 
 Use this endpoint to send transaction detail on submit a checkout
 
@@ -1501,4 +1501,85 @@ This operation does not require authentication
 |---|---|---|---|
 |vospayNumber|string|true|Registrant vospay account number|
 |facebookAccount|string(email)|true|Registrant facebook email if registrant registering with facebook account|
+
+<h2 id="tocSfinalizetransactionsuccess">FinalizeTransactionSuccess</h2>
+
+<a id="schemafinalizetransactionsuccess"></a>
+
+```json
+{
+  "message": "Success"
+}
+```
+
+### Properties
+
+|Name|Type|Required|Description|
+|---|---|---|---|
+|message|string|false|No description|
+
+#### Enumerated Values
+
+|Property|Value|
+|---|---|
+|message|Success|
+|message|Fail|
+
+<h2 id="tocSfinalizetransactionlocked">FinalizeTransactionLocked</h2>
+
+<a id="schemafinalizetransactionlocked"></a>
+
+```json
+{
+  "message": "Fail",
+  "vospayNumber": "2340010000000001",
+  "isLocked": true,
+  "isLimited": false
+}
+```
+
+### Properties
+
+|Name|Type|Required|Description|
+|---|---|---|---|
+|message|string|false|No description|
+|vospayNumber|string|false|Vospay account number used for transaction|
+|isLocked|boolean|false|Flag whether Vospay account number is locked or not|
+|isLimited|boolean|false|No description|
+
+#### Enumerated Values
+
+|Property|Value|
+|---|---|
+|message|Success|
+|message|Fail|
+
+<h2 id="tocSfinalizetransactionlimited">FinalizeTransactionLimited</h2>
+
+<a id="schemafinalizetransactionlimited"></a>
+
+```json
+{
+  "message": "Fail",
+  "vospayNumber": "2340010000000001",
+  "isLocked": false,
+  "isLimited": true
+}
+```
+
+### Properties
+
+|Name|Type|Required|Description|
+|---|---|---|---|
+|message|string|false|No description|
+|vospayNumber|string|false|Vospay account number used for transaction|
+|isLocked|boolean|false|Flag whether Vospay account number is locked or not|
+|isLimited|boolean|false|No description|
+
+#### Enumerated Values
+
+|Property|Value|
+|---|---|
+|message|Success|
+|message|Fail|
 
