@@ -79,10 +79,7 @@ Use this endpoint to verify every otp and get new accessToken. An accessToken co
 
 |Parameter|In|Type|Required|Description|
 |---|---|---|---|---|
-|body|body|object|true|No description|
-|» strategy|body|string|true|No description|
-|» phone|body|string|true|No description|
-|» code|body|string|false|No description|
+|body|body|any|true|No description|
 
 > Example responses
 
@@ -296,7 +293,8 @@ Use this endpoint when user submit their data on activation process.
 
 ```json
 {
-  "vospayNumber": "2340010000000002"
+  "vospayNumber": "2340010000000002",
+  "isRegistered": false
 }
 ```
 
@@ -336,6 +334,7 @@ Status Code **201**
 |Name|Type|Required|Description|
 |---|---|---|---|
 |» vospayNumber|string|false|Auto generated vospay account number|
+|» isRegistered|boolean|false|Flag whether the user who activates new Vospay account number is registered or not|
 
 Status Code **401**
 
@@ -1424,6 +1423,12 @@ Use this endpoint verify the transaction ID and order details with VOSPAY to ens
 
 ```json
 {
+  "status": "Invalid"
+}
+```
+
+```json
+{
   "name": "string",
   "message": "string",
   "code": 0,
@@ -1437,6 +1442,7 @@ Use this endpoint verify the transaction ID and order details with VOSPAY to ens
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|OK response|Inline|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Response when transaction is not found|Inline|
 |500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|Response when Content-Type is not provided on request header or required request body is not provided|Inline|
 
 <h3 id="verifyTransaction-responseschema">Response Schema</h3>
@@ -1447,6 +1453,12 @@ Status Code **200**
 |---|---|---|---|
 |» status|string|false|Status of the transaction|
 |» timestamp|string|false|The date and time the transaction was processed in ISO 8601 format. This will not be present if the status is not Valid.|
+
+Status Code **404**
+
+|Name|Type|Required|Description|
+|---|---|---|---|
+|» status|string|false|No description|
 
 Status Code **500**
 
@@ -1463,6 +1475,66 @@ This operation does not require authentication
 </aside>
 
 # Schemas
+
+<h2 id="tocSauthotp">AuthOTP</h2>
+
+<a id="schemaauthotp"></a>
+
+```json
+{
+  "strategy": "otp",
+  "phone": "08118289855",
+  "code": "1234"
+}
+```
+
+### Properties
+
+|Name|Type|Required|Description|
+|---|---|---|---|
+|strategy|string|true|No description|
+|phone|string|true|No description|
+|code|string|false|No description|
+
+<h2 id="tocSauthloginemail">AuthLoginEmail</h2>
+
+<a id="schemaauthloginemail"></a>
+
+```json
+{
+  "strategy": "email",
+  "email": "john@doe.com",
+  "password": "abcd1234"
+}
+```
+
+### Properties
+
+|Name|Type|Required|Description|
+|---|---|---|---|
+|strategy|string|true|No description|
+|email|string|true|No description|
+|password|string|true|No description|
+
+<h2 id="tocSauthloginphone">AuthLoginPhone</h2>
+
+<a id="schemaauthloginphone"></a>
+
+```json
+{
+  "strategy": "phone",
+  "phone": "08118289855",
+  "password": "abcd1234"
+}
+```
+
+### Properties
+
+|Name|Type|Required|Description|
+|---|---|---|---|
+|strategy|string|true|No description|
+|phone|string|true|No description|
+|password|string|true|No description|
 
 <h2 id="tocSregister">Register</h2>
 
