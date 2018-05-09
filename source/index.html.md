@@ -857,6 +857,7 @@ This endpoint is for fetching all merchants.
       "logo": "https://vospay.id/bukalapak-logo.png",
       "merchantKey": "bukalapak123",
       "secretKey": "bukalapak789",
+      "site": "https://www.bukalapak.com/",
       "__v": 0
     },
     {
@@ -866,6 +867,7 @@ This endpoint is for fetching all merchants.
       "logo": "https://vospay.id/sociolla-logo.png,",
       "merchantKey": "sociolla123,",
       "secretKey": "sociolla789,",
+      "site": "https://www.sociolla.com/",
       "__v": 0
     },
     {
@@ -875,6 +877,7 @@ This endpoint is for fetching all merchants.
       "logo": "https://vospay.id/tokopedia-logo.png,",
       "merchantKey": "tokopedia123,",
       "secretKey": "tokopedia789,",
+      "site": "https://www.tokopedia.com/",
       "__v": 0
     }
   ]
@@ -915,6 +918,7 @@ Status Code **200**
 |»» logo|string(uri)|false|Merchant Logo URL|
 |»» merchantKey|string|false|Merchant Key|
 |»» secretKey|string|false|Merchant Secret Key|
+|»» site|string(uri)|false|Merchant Site URL|
 |»» __v|number|false|No description|
 
 Status Code **401**
@@ -1472,6 +1476,315 @@ Status Code **500**
 
 <aside class="success">
 This operation does not require authentication
+</aside>
+
+<h1 id="Vospay-API-Doc-User-Dashboard">User Dashboard</h1>
+
+## fetchUserProfile
+
+<a id="opIdfetchUserProfile"></a>
+
+> Code samples
+
+```nodejs
+const request = require('node-fetch');
+
+const headers = {
+  'Accept':'application/json',
+  'Authorization':'JWT <<accessToken>>'
+
+};
+
+fetch('https://api-staging.vospay.id/api/v2/my-profile',
+{
+  method: 'GET',
+
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
+
+`GET /my-profile`
+
+*Fetch user profile data*
+
+This endpoint is for fetching user profie.
+
+<h3 id="fetchUserProfile-parameters">Parameters</h3>
+
+|Parameter|In|Type|Required|Description|
+|---|---|---|---|---|
+|Authorization|header|string|true|A generated JWT access token by `/authentication` endpoint|
+
+> Example responses
+
+```json
+{
+  "nik": "6301044309680001",
+  "fullName": "Siti Rohanah",
+  "email": "siti@gmail.com",
+  "accounts": [
+    {
+      "activatedAt": "2018-05-09T07:11:15.217Z",
+      "isLocked": false,
+      "creditLimit": 50000000,
+      "availableCredit": 50000000,
+      "mfcCode": "234",
+      "phone": "08110000002",
+      "dateOfBirth": "19881002",
+      "accountExpiry": "2018-11-30T17:00:00.000Z",
+      "vospayNumber": "234001000000001",
+      "multifinance": {
+        "logo": "https://vospay.id/mpmLogo.png",
+        "name": "MPM",
+        "phone": "02155512345",
+        "email": "cs-mpm@gmail.com"
+      }
+    }
+  ]
+}
+```
+
+```json
+{
+  "name": "string",
+  "message": "string",
+  "code": 0,
+  "className": "string",
+  "data": {},
+  "errors": {}
+}
+```
+
+<h3 id="fetchUserProfile-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|OK response|Inline|
+|401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|Response when access token is not provided as Authorization on request header|Inline|
+
+<h3 id="fetchUserProfile-responseschema">Response Schema</h3>
+
+Status Code **200**
+
+|Name|Type|Required|Description|
+|---|---|---|---|
+|» nik|string|false|User NIK / Citizen ID Number|
+|» fullName|string|false|User full name|
+|» email|string(email)|false|User registered email|
+|» accounts|[object]|false|List of vospay account number owned by the user|
+|»» activatedAt|string|false|Account's activated date in ISO string format|
+|»» isLocked|boolean|false|Flag whether the account number is being locked or not|
+|»» creditLimit|number|false|Account's credit limit|
+|»» availableCredit|number|false|Account's available credit|
+|»» mfcCode|string|false|Multifinance ID that issue the account number|
+|»» phone|string|false|Phone number that connected to the account number|
+|»» dateOfBirth|string|false|Birth of date that connected to the account number|
+|»» accountExpiry|string|false|Account's expiry date in ISO string format|
+|»» vospayNumber|string|false|Account number|
+|»» multifinance|object|false|No description|
+|»»» logo|string(uri)|false|Multifinance logo URL|
+|»»» name|string|false|Multifinance name|
+|»»» phone|string|false|Multifinance phone|
+|»»» email|string(email)|false|Multifinance email|
+
+Status Code **401**
+
+|Name|Type|Required|Description|
+|---|---|---|---|
+|» name|string|false|No description|
+|» message|string|false|No description|
+|» code|number|false|No description|
+|» className|string|false|No description|
+|» data|object|false|No description|
+|» errors|object|false|No description|
+
+<aside class="warning">
+To perform this operation, you must be authenticated by means of one of the following methods:
+accessToken
+</aside>
+
+## fetchUserContracts
+
+<a id="opIdfetchUserContracts"></a>
+
+> Code samples
+
+```nodejs
+const request = require('node-fetch');
+
+const headers = {
+  'Accept':'application/json',
+  'Authorization':'JWT <<accessToken>>'
+
+};
+
+fetch('https://api-staging.vospay.id/api/v2/my-contracts',
+{
+  method: 'GET',
+
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
+
+`GET /my-contracts`
+
+*Fetch user contract list*
+
+This endpoint is for fetching user contract list.
+
+<h3 id="fetchUserContracts-parameters">Parameters</h3>
+
+|Parameter|In|Type|Required|Description|
+|---|---|---|---|---|
+|Authorization|header|string|true|A generated JWT access token by `/authentication` endpoint|
+
+> Example responses
+
+```json
+{
+  "total": 1,
+  "limit": 10,
+  "skip": 0,
+  "data": [
+    {
+      "_id": "5af192e30568b451b001188d",
+      "revision": 1,
+      "currency": "IDR",
+      "status": "Pending",
+      "vospayNumber": "2343060149428282",
+      "orderID": "BL009",
+      "items": [
+        {
+          "_id": "5af192e30568b451b001188f",
+          "name": "Charger Samsung A5",
+          "price": 100000,
+          "quantity": 1
+        },
+        {
+          "_id": "5af192e30568b451b001188e",
+          "name": "Cover HeadPhone",
+          "price": 15000,
+          "quantity": 1
+        }
+      ],
+      "grossAmount": 125000,
+      "shippingCost": 10000,
+      "insuranceCost": 0,
+      "processingFee": 0,
+      "tax": 0,
+      "createdAt": "2018-05-08T12:07:00.000Z",
+      "merchant": {
+        "_id": "5af29f13e1bb9456a734bb21",
+        "name": "Sociolla",
+        "icon": "https://api-staging.vospay.id/api/v2/sociolla-icon.png",
+        "logo": "https://api-staging.vospay.id/api/v2/sociolla-logo.png",
+        "site": "https://www.sociolla.com/"
+      },
+      "multifinance": {
+        "mfcID": "234",
+        "period": 6,
+        "rate": 0.08,
+        "monthlyPayment": 22500
+      }
+    }
+  ]
+}
+```
+
+```json
+{
+  "name": "string",
+  "message": "string",
+  "code": 0,
+  "className": "string",
+  "data": {},
+  "errors": {}
+}
+```
+
+<h3 id="fetchUserContracts-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|OK response|Inline|
+|401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|Response when access token is not provided as Authorization on request header|Inline|
+
+<h3 id="fetchUserContracts-responseschema">Response Schema</h3>
+
+Status Code **200**
+
+|Name|Type|Required|Description|
+|---|---|---|---|
+|» total|number|false|Total contracts owned by user|
+|» limit|number|false|Limit of contracts send by the backend to frontend (for pagination purpose)|
+|» skip|number|false|Total contracts that skipped to not send by backend to frontend (for pagination purpose)|
+|» data|[object]|false|List of contract owned by user|
+|»» _Id|string|false|Transaction ID / No. Contract|
+|»» revision|number|false|Revision ID|
+|»» currency|string|false|Currency used for the transaction|
+|»» status|string|false|Status of transaction / contract|
+|»» vospayNumber|string|false|Vospay account number used for the transaction|
+|»» orderID|string|false|Merchant's order ID|
+|»» grossAmount|number|false|Transaction / Contract gross amount|
+|»» shippingCost|number|false|Transaction shipping cost|
+|»» insuranceCost|number|false|Transaction insurance cost|
+|»» processingFee|number|false|Transaction additional cost|
+|»» tax|number|false|Transaction tax or custom cost (for import purchase)|
+|»» items|[object]|false|Purchased items|
+|»»» _id|string|false|Item ID|
+|»»» name|string|false|Item Name|
+|»»» price|number|false|Item Price|
+|»»» quantity|number|false|Item Quantity|
+|»» merchant|object|false|No description|
+|»»» _id|string|false|Merchant ID|
+|»»» name|string|false|Merchant Name|
+|»»» icon|string(uri)|false|Merchant icon URL|
+|»»» logo|string(uri)|false|Merchant logo URL|
+|»»» site|string(uri)|false|Merchant site URL|
+|»» multifinance|object|false|No description|
+|»»» mfcID|string|false|Multifinance code|
+|»»» period|number|false|Contract period|
+|»»» rate|number|false|Contract payment rate|
+|»»» monthlyPayment|number|false|Contract monthyly payment including rate|
+
+#### Enumerated Values
+
+|Property|Value|
+|---|---|
+|status|Pending|
+|status|Approved|
+|status|Edited|
+|status|Cancelled|
+|status|Refund|
+|status|Fulfilled|
+|status|Settled|
+
+Status Code **401**
+
+|Name|Type|Required|Description|
+|---|---|---|---|
+|» name|string|false|No description|
+|» message|string|false|No description|
+|» code|number|false|No description|
+|» className|string|false|No description|
+|» data|object|false|No description|
+|» errors|object|false|No description|
+
+<aside class="warning">
+To perform this operation, you must be authenticated by means of one of the following methods:
+accessToken
 </aside>
 
 # Schemas
