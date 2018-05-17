@@ -1,5 +1,5 @@
 ---
-title: Vospay API Doc v2.1.0
+title: Vospay API Doc v2.1.2
 language_tabs:
   - nodejs: JavaScript
 toc_footers: []
@@ -10,7 +10,7 @@ headingLevel: 2
 
 ---
 
-<h1 id="Vospay-API-Doc">Vospay API Doc v2.1.0</h1>
+<h1 id="Vospay-API-Doc">Vospay API Doc v2.1.2</h1>
 
 > Scroll down for code samples, example requests and responses. Select a language for code samples from the tabs above or the mobile navigation menu.
 
@@ -1354,7 +1354,44 @@ Status Code **200**
 
 |Name|Type|Required|Description|
 |---|---|---|---|
-|» message|string|false|No description|
+
+*oneOf*
+
+|Name|Type|Required|Description|
+|---|---|---|---|
+|» *anonymous*|[FinalizeTransactionSuccess](#schemafinalizetransactionsuccess)|false|No description|
+|»» message|string|false|No description|
+
+*xor*
+
+|Name|Type|Required|Description|
+|---|---|---|---|
+|» *anonymous*|[FinalizeTransactionLocked](#schemafinalizetransactionlocked)|false|No description|
+|»» message|string|false|No description|
+|»» vospayNumber|string|false|Vospay account number used for transaction|
+|»» isLocked|boolean|false|Flag whether Vospay account number is locked or not|
+|»» isLimited|boolean|false|No description|
+
+*xor*
+
+|Name|Type|Required|Description|
+|---|---|---|---|
+|» *anonymous*|[FinalizeTransactionLimited](#schemafinalizetransactionlimited)|false|No description|
+|»» message|string|false|No description|
+|»» vospayNumber|string|false|Vospay account number used for transaction|
+|»» isLocked|boolean|false|Flag whether Vospay account number is locked or not|
+|»» isLimited|boolean|false|No description|
+
+#### Enumerated Values
+
+|Property|Value|
+|---|---|
+|message|Success|
+|message|Fail|
+|message|Success|
+|message|Fail|
+|message|Success|
+|message|Fail|
 
 Status Code **401**
 
@@ -1806,6 +1843,131 @@ Status Code **401**
 |» code|number|false|No description|
 |» className|string|false|No description|
 |» data|object|false|No description|
+|» errors|object|false|No description|
+
+<aside class="warning">
+To perform this operation, you must be authenticated by means of one of the following methods:
+accessToken
+</aside>
+
+## changeAccessCode
+
+<a id="opIdchangeAccessCode"></a>
+
+> Code samples
+
+```nodejs
+const request = require('node-fetch');
+const inputBody = '{
+  "password": "1234abcd"
+}';
+const headers = {
+  'Content-Type':'application/json',
+  'Accept':'application/json',
+  'Authorization':'JWT <<accessToken>>'
+
+};
+
+fetch('https://api-staging.vospay.id/api/v2/change-password',
+{
+  method: 'POST',
+  body: inputBody,
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
+
+`POST /change-password`
+
+*Change user's access code*
+
+Use this endpoint to change user's access code.
+
+> Body parameter
+
+```json
+{
+  "password": "1234abcd"
+}
+```
+
+<h3 id="changeAccessCode-parameters">Parameters</h3>
+
+|Parameter|In|Type|Required|Description|
+|---|---|---|---|---|
+|Authorization|header|string|true|A generated JWT access token by `/authentication` endpoint|
+|body|body|object|true|No description|
+|» password|body|string|false|User's new access code|
+
+> Example responses
+
+```json
+{
+  "message": "Success"
+}
+```
+
+```json
+{
+  "name": "string",
+  "message": "string",
+  "code": 0,
+  "className": "string",
+  "data": {},
+  "errors": {}
+}
+```
+
+```json
+{
+  "name": "string",
+  "message": "string",
+  "code": 0,
+  "className": "string",
+  "errors": {}
+}
+```
+
+<h3 id="changeAccessCode-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Backend successfuly change user's access code|Inline|
+|401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|Response when access token is not provided as Authorization on request header|Inline|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Response when vospay account number is not provided or not found|Inline|
+
+<h3 id="changeAccessCode-responseschema">Response Schema</h3>
+
+Status Code **200**
+
+|Name|Type|Required|Description|
+|---|---|---|---|
+|» message|string|false|No description|
+
+Status Code **401**
+
+|Name|Type|Required|Description|
+|---|---|---|---|
+|» name|string|false|No description|
+|» message|string|false|No description|
+|» code|number|false|No description|
+|» className|string|false|No description|
+|» data|object|false|No description|
+|» errors|object|false|No description|
+
+Status Code **404**
+
+|Name|Type|Required|Description|
+|---|---|---|---|
+|» name|string|false|No description|
+|» message|string|false|No description|
+|» code|number|false|No description|
+|» className|string|false|No description|
 |» errors|object|false|No description|
 
 <aside class="warning">
