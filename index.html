@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>Vospay API Doc v0.1.9</title>
+    <title>Vospay API Doc v2.1.0</title>
     <link href="images/favicon.ico" rel="icon" type="image/ico" />
 
     <style>
@@ -220,7 +220,7 @@
         <ul class="search-results"></ul>
       <div id="toc" class="toc-list-h1">
           <li>
-            <a href="#Vospay-API-Doc" class="toc-h1 toc-link" data-title="vospay-api-doc-v0-1-9">Vospay API Doc v0.1.9</a>
+            <a href="#Vospay-API-Doc" class="toc-h1 toc-link" data-title="vospay-api-doc-v2-1-0">Vospay API Doc v2.1.0</a>
           </li>
           <li>
             <a href="#authentication" class="toc-h1 toc-link" data-title="authentication">Authentication</a>
@@ -283,7 +283,7 @@
             <a href="#Vospay-API-Doc-Transaction" class="toc-h1 toc-link" data-title="transaction">Transaction</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#fetchinstallmentplans" class="toc-h2 toc-link" data-title="fetchinstallmentplans">fetchInstallmentPlans</a>
+                    <a href="#authorizetransaction" class="toc-h2 toc-link" data-title="authorizetransaction">authorizeTransaction</a>
                   </li>
                   <li>
                     <a href="#finalizetransaction" class="toc-h2 toc-link" data-title="finalizetransaction">finalizeTransaction</a>
@@ -298,9 +298,6 @@
               <ul class="toc-list-h2">
                   <li>
                     <a href="#fetchuserprofile" class="toc-h2 toc-link" data-title="fetchuserprofile">fetchUserProfile</a>
-                  </li>
-                  <li>
-                    <a href="#fetchusercontracts" class="toc-h2 toc-link" data-title="fetchusercontracts">fetchUserContracts</a>
                   </li>
               </ul>
           </li>
@@ -340,7 +337,7 @@
     <div class="page-wrapper">
       <div class="dark-box"></div>
       <div class="content">
-        <h1 id="Vospay-API-Doc">Vospay API Doc v0.1.9</h1>
+        <h1 id="Vospay-API-Doc">Vospay API Doc v2.1.0</h1>
 
 <blockquote>
 <p>Scroll down for code samples, example requests and responses. Select a language for code samples from the tabs above or the mobile navigation menu.</p>
@@ -717,15 +714,14 @@ This operation does not require authentication
 </blockquote>
 <pre class="highlight plaintext"><code>const request = require('node-fetch');
 const inputBody = '{
-  "mfcID": "234",
+  "mfcCode": "234",
   "nik": "6308044810820001",
   "phone": "08118289855",
-  "dateOfBirth": "1988-10-02"
+  "dateOfBirth": "19881002"
 }';
 const headers = {
   'Content-Type':'application/json',
-  'Accept':'application/json',
-  'Authorization':'JWT &lt;&lt;accessToken&gt;&gt;'
+  'Accept':'application/json'
 
 };
 
@@ -752,10 +748,10 @@ fetch('https://api-staging.vospay.id/api/v2/activation',
 <p>Body parameter</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"mfcID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"234"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"mfcCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"234"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"nik"</span><span class="p">:</span><span class="w"> </span><span class="s2">"6308044810820001"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"phone"</span><span class="p">:</span><span class="w"> </span><span class="s2">"08118289855"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"dateOfBirth"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1988-10-02"</span><span class="w">
+  </span><span class="s2">"dateOfBirth"</span><span class="p">:</span><span class="w"> </span><span class="s2">"19881002"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <h3 id="activateNewVospayNumber-parameters">Parameters</h3>
@@ -770,13 +766,6 @@ fetch('https://api-staging.vospay.id/api/v2/activation',
 </tr>
 </thead><tbody>
 <tr>
-<td>Authorization</td>
-<td>header</td>
-<td>string</td>
-<td>true</td>
-<td>A generated JWT access token by <code>/authentication</code> endpoint</td>
-</tr>
-<tr>
 <td>body</td>
 <td>body</td>
 <td>object</td>
@@ -784,11 +773,11 @@ fetch('https://api-staging.vospay.id/api/v2/activation',
 <td>No description</td>
 </tr>
 <tr>
-<td>» mfcID</td>
+<td>» mfcCode</td>
 <td>body</td>
 <td>string</td>
 <td>true</td>
-<td>MFC&#39;s ID that sent the activation link to user</td>
+<td>MFC&#39;s Code that sent the activation link to user</td>
 </tr>
 <tr>
 <td>» nik</td>
@@ -809,7 +798,7 @@ fetch('https://api-staging.vospay.id/api/v2/activation',
 <td>body</td>
 <td>string</td>
 <td>true</td>
-<td>User&#39;s date of birth</td>
+<td>User&#39;s date of birth in format YYYYMMDD</td>
 </tr>
 </tbody></table>
 
@@ -817,8 +806,7 @@ fetch('https://api-staging.vospay.id/api/v2/activation',
 <p>Example responses</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"vospayNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2340010000000002"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"isRegistered"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+  </span><span class="s2">"hasRegistered"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
@@ -879,13 +867,7 @@ fetch('https://api-staging.vospay.id/api/v2/activation',
 </tr>
 </thead><tbody>
 <tr>
-<td>» vospayNumber</td>
-<td>string</td>
-<td>false</td>
-<td>Auto generated vospay account number</td>
-</tr>
-<tr>
-<td>» isRegistered</td>
+<td>» hsaRegistered</td>
 <td>boolean</td>
 <td>false</td>
 <td>Flag whether the user who activates new Vospay account number is registered or not</td>
@@ -982,9 +964,8 @@ fetch('https://api-staging.vospay.id/api/v2/activation',
 </tr>
 </tbody></table>
 
-<aside class="warning">
-To perform this operation, you must be authenticated by means of one of the following methods:
-accessToken
+<aside class="success">
+This operation does not require authentication
 </aside>
 
 <h1 id="Vospay-API-Doc-Registration">Registration</h1>
@@ -2357,24 +2338,47 @@ accessToken
 </aside>
 
 <h1 id="Vospay-API-Doc-Transaction">Transaction</h1>
-<h2 id='fetchinstallmentplans'>fetchInstallmentPlans</h2>
-<p><a id="opIdfetchInstallmentPlans"></a></p>
+<h2 id='authorizetransaction'>authorizeTransaction</h2>
+<p><a id="opIdauthorizeTransaction"></a></p>
 
 <blockquote>
 <p>Code samples</p>
 </blockquote>
 <pre class="highlight plaintext"><code>const request = require('node-fetch');
-
+const inputBody = '{
+  "vospayNumber": "2340010000000001",
+  "merchantKey": "f72e04d62fcbb5_EXAMPLE_2a8bcad8ac6be048",
+  "orderID": "B0001",
+  "currency": "IDR",
+  "items": [
+    {
+      "name": "Product A",
+      "quantity": 2,
+      "price": 10000
+    },
+    {
+      "name": "Product B",
+      "quantity": 1,
+      "price": 5000
+    }
+  ],
+  "shippingCost": 5000,
+  "insuranceCost": 100,
+  "processingFee": 0,
+  "tax": 0,
+  "grossAmount": 30100
+}';
 const headers = {
+  'Content-Type':'application/json',
   'Accept':'application/json',
   'Authorization':'JWT &lt;&lt;accessToken&gt;&gt;'
 
 };
 
-fetch('https://api-staging.vospay.id/api/v2/checkout/{vospayNumber}?merchantKey={merchantKey}&amp;totalAmount={totalAmount}?merchantKey=1&amp;totalAmount=100000?merchantKey=1&amp;totalAmount=100000',
+fetch('https://api-staging.vospay.id/api/v2/authorize-transaction',
 {
-  method: 'GET',
-
+  method: 'POST',
+  body: inputBody,
   headers: headers
 })
 .then(function(res) {
@@ -2384,11 +2388,38 @@ fetch('https://api-staging.vospay.id/api/v2/checkout/{vospayNumber}?merchantKey=
 });
 
 </code></pre>
-<p><code>GET /checkout/{vospayNumber}?merchantKey={merchantKey}&amp;totalAmount={totalAmount}</code></p>
+<p><code>POST /authorize-transaction</code></p>
 
 <p><em>Fetch installment plans given by the multifinance</em></p>
 
-<h3 id="fetchInstallmentPlans-parameters">Parameters</h3>
+<blockquote>
+<p>Body parameter</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"vospayNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2340010000000001"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"merchantKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"f72e04d62fcbb5_EXAMPLE_2a8bcad8ac6be048"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"orderID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"B0001"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"IDR"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"items"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Product A"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">10000</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Product B"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">5000</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="s2">"shippingCost"</span><span class="p">:</span><span class="w"> </span><span class="mi">5000</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"insuranceCost"</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"processingFee"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"tax"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"grossAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">30100</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<h3 id="authorizeTransaction-parameters">Parameters</h3>
 
 <table><thead>
 <tr>
@@ -2400,32 +2431,109 @@ fetch('https://api-staging.vospay.id/api/v2/checkout/{vospayNumber}?merchantKey=
 </tr>
 </thead><tbody>
 <tr>
-<td>vospayNumber</td>
-<td>path</td>
-<td>string</td>
-<td>true</td>
-<td>User&#39;s selected vospay number</td>
-</tr>
-<tr>
-<td>merchantKey</td>
-<td>query</td>
-<td>string</td>
-<td>true</td>
-<td>Get merchantKey from endpoint <code>/merchants</code> or https://gist.github.com/sstur/521ea6259dee40e2da2a9d7ea782fdc7</td>
-</tr>
-<tr>
-<td>totalAmount</td>
-<td>query</td>
-<td>number</td>
-<td>true</td>
-<td>Total amount of purchase including shipping and additional cost</td>
-</tr>
-<tr>
 <td>Authorization</td>
 <td>header</td>
 <td>string</td>
 <td>true</td>
 <td>A generated JWT access token by <code>/authentication</code> endpoint</td>
+</tr>
+<tr>
+<td>body</td>
+<td>body</td>
+<td>object</td>
+<td>true</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>» vospayNumber</td>
+<td>body</td>
+<td>string</td>
+<td>true</td>
+<td>Vospay account number that used for transaction</td>
+</tr>
+<tr>
+<td>» merchantKey</td>
+<td>body</td>
+<td>string</td>
+<td>true</td>
+<td>Merchant Key where transaction happens</td>
+</tr>
+<tr>
+<td>» orderID</td>
+<td>body</td>
+<td>string</td>
+<td>true</td>
+<td>Order ID from the merchant</td>
+</tr>
+<tr>
+<td>» currency</td>
+<td>body</td>
+<td>string</td>
+<td>true</td>
+<td>Currency used in the transaction</td>
+</tr>
+<tr>
+<td>» items</td>
+<td>body</td>
+<td>[object]</td>
+<td>true</td>
+<td>List of purchased items</td>
+</tr>
+<tr>
+<td>»» name</td>
+<td>body</td>
+<td>string</td>
+<td>false</td>
+<td>Name of purchased item</td>
+</tr>
+<tr>
+<td>»» quantity</td>
+<td>body</td>
+<td>string</td>
+<td>false</td>
+<td>Quantity of purchased item</td>
+</tr>
+<tr>
+<td>»» price</td>
+<td>body</td>
+<td>number</td>
+<td>false</td>
+<td>Total price of purchased item</td>
+</tr>
+<tr>
+<td>» shippingCost</td>
+<td>body</td>
+<td>number</td>
+<td>true</td>
+<td>Shipping cost from transaction</td>
+</tr>
+<tr>
+<td>» insuranceCost</td>
+<td>body</td>
+<td>number</td>
+<td>true</td>
+<td>Insurance cost from transaction</td>
+</tr>
+<tr>
+<td>» processingFee</td>
+<td>body</td>
+<td>number</td>
+<td>true</td>
+<td>Additional fees from transaction (if there is)</td>
+</tr>
+<tr>
+<td>» tax</td>
+<td>body</td>
+<td>number</td>
+<td>true</td>
+<td>Tax or custom fee (e.g bea cukai) (if there is)</td>
+</tr>
+<tr>
+<td>» grossAmount</td>
+<td>body</td>
+<td>number</td>
+<td>true</td>
+<td>Gross amount of the transaction, including shippingCost, insuranceCost, processingFee, and tax/custom</td>
 </tr>
 </tbody></table>
 
@@ -2433,29 +2541,39 @@ fetch('https://api-staging.vospay.id/api/v2/checkout/{vospayNumber}?merchantKey=
 <p>Example responses</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"vospayNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2340010000000001"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"merchantIcon"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://vospay.id/merchantIcon.png"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"merchantLogo"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://vospay.id/merchantLogo.png"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"mfcLogo"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://vospay.id/mfcLogo.png"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"fullName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Dominggus Sirius Octovianus"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"transactionID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5afcfc4424c4cc0b829f0dee"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"availableCredit"</span><span class="p">:</span><span class="w"> </span><span class="mi">750000</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"creditLimit"</span><span class="p">:</span><span class="w"> </span><span class="mi">1000000</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"accountExpiry"</span><span class="p">:</span><span class="w"> </span><span class="s2">"20181231"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"installments"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
     </span><span class="p">{</span><span class="w">
       </span><span class="s2">"installmentID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"rate"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.4</span><span class="p">,</span><span class="w">
       </span><span class="s2">"period"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"monthlyPayment"</span><span class="p">:</span><span class="w"> </span><span class="mi">58333</span><span class="w">
+      </span><span class="s2">"monthlyPayment"</span><span class="p">:</span><span class="w"> </span><span class="mf">52500.23</span><span class="w">
     </span><span class="p">},</span><span class="w">
     </span><span class="p">{</span><span class="w">
       </span><span class="s2">"installmentID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"rate"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.3</span><span class="p">,</span><span class="w">
       </span><span class="s2">"period"</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"monthlyPayment"</span><span class="p">:</span><span class="w"> </span><span class="mi">27083</span><span class="w">
+      </span><span class="s2">"monthlyPayment"</span><span class="p">:</span><span class="w"> </span><span class="mf">44232.33</span><span class="w">
     </span><span class="p">},</span><span class="w">
     </span><span class="p">{</span><span class="w">
       </span><span class="s2">"installmentID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"rate"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.2</span><span class="p">,</span><span class="w">
       </span><span class="s2">"period"</span><span class="p">:</span><span class="w"> </span><span class="mi">9</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"monthlyPayment"</span><span class="p">:</span><span class="w"> </span><span class="mi">16667</span><span class="w">
+      </span><span class="s2">"monthlyPayment"</span><span class="p">:</span><span class="w"> </span><span class="mf">30455.13</span><span class="w">
     </span><span class="p">},</span><span class="w">
     </span><span class="p">{</span><span class="w">
       </span><span class="s2">"installmentID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"rate"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.1</span><span class="p">,</span><span class="w">
       </span><span class="s2">"period"</span><span class="p">:</span><span class="w"> </span><span class="mi">12</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"monthlyPayment"</span><span class="p">:</span><span class="w"> </span><span class="mi">11458</span><span class="w">
+      </span><span class="s2">"monthlyPayment"</span><span class="p">:</span><span class="w"> </span><span class="mf">25023.56</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
@@ -2468,7 +2586,7 @@ fetch('https://api-staging.vospay.id/api/v2/checkout/{vospayNumber}?merchantKey=
   </span><span class="s2">"errors"</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
-<h3 id="fetchInstallmentPlans-responses">Responses</h3>
+<h3 id="authorizeTransaction-responses">Responses</h3>
 
 <table><thead>
 <tr>
@@ -2492,7 +2610,7 @@ fetch('https://api-staging.vospay.id/api/v2/checkout/{vospayNumber}?merchantKey=
 </tr>
 </tbody></table>
 
-<h3 id="fetchInstallmentPlans-responseschema">Response Schema</h3>
+<h3 id="authorizeTransaction-responseschema">Response Schema</h3>
 
 <p>Status Code <strong>200</strong></p>
 
@@ -2504,6 +2622,18 @@ fetch('https://api-staging.vospay.id/api/v2/checkout/{vospayNumber}?merchantKey=
 <th>Description</th>
 </tr>
 </thead><tbody>
+<tr>
+<td>» vospayNumber</td>
+<td>string</td>
+<td>false</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>» merchantIcon</td>
+<td>string(uri)</td>
+<td>false</td>
+<td>No description</td>
+</tr>
 <tr>
 <td>» merchantLogo</td>
 <td>string(uri)</td>
@@ -2523,6 +2653,30 @@ fetch('https://api-staging.vospay.id/api/v2/checkout/{vospayNumber}?merchantKey=
 <td>No description</td>
 </tr>
 <tr>
+<td>» transactionID</td>
+<td>string</td>
+<td>false</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>» availableCredit</td>
+<td>number</td>
+<td>false</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>» creditLimit</td>
+<td>number</td>
+<td>false</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>» accountExpiry</td>
+<td>string</td>
+<td>false</td>
+<td>No description</td>
+</tr>
+<tr>
 <td>» installments</td>
 <td>[object]</td>
 <td>false</td>
@@ -2531,6 +2685,12 @@ fetch('https://api-staging.vospay.id/api/v2/checkout/{vospayNumber}?merchantKey=
 <tr>
 <td>»» installmentID</td>
 <td>string</td>
+<td>false</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>»» rate</td>
+<td>number</td>
 <td>false</td>
 <td>No description</td>
 </tr>
@@ -2609,26 +2769,8 @@ accessToken
 <pre class="highlight plaintext"><code>const request = require('node-fetch');
 const inputBody = '{
   "notifyEndpoint": "https://merchant.com/notify",
-  "vospayNumber": "2340010000000001",
-  "merchantKey": "f72e04d62fcbb5_EXAMPLE_2a8bcad8ac6be048",
-  "orderID": "B0001",
-  "items": [
-    {
-      "name": "Product A",
-      "quantity": 2,
-      "price": 10000
-    },
-    {
-      "name": "Product B",
-      "quantity": 1,
-      "price": 5000
-    }
-  ],
-  "shippingCost": 5000,
-  "insuranceCost": 1000,
-  "processingFee": 2500,
-  "tax": 0,
-  "installmentID": 1
+  "transactionID": "5afcfc4424c4cc0b829f0dee",
+  "installmentID": "1"
 }';
 const headers = {
   'Content-Type':'application/json',
@@ -2637,7 +2779,7 @@ const headers = {
 
 };
 
-fetch('https://api-staging.vospay.id/api/v2/checkout',
+fetch('https://api-staging.vospay.id/api/v2/finalize-transaction',
 {
   method: 'POST',
   body: inputBody,
@@ -2650,7 +2792,7 @@ fetch('https://api-staging.vospay.id/api/v2/checkout',
 });
 
 </code></pre>
-<p><code>POST /checkout</code></p>
+<p><code>POST /finalize-transaction</code></p>
 
 <p><em>Finalize transaction data</em></p>
 
@@ -2661,26 +2803,8 @@ fetch('https://api-staging.vospay.id/api/v2/checkout',
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"notifyEndpoint"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://merchant.com/notify"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"vospayNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2340010000000001"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"merchantKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"f72e04d62fcbb5_EXAMPLE_2a8bcad8ac6be048"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"orderID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"B0001"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"items"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-    </span><span class="p">{</span><span class="w">
-      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Product A"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">10000</span><span class="w">
-    </span><span class="p">},</span><span class="w">
-    </span><span class="p">{</span><span class="w">
-      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Product B"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">5000</span><span class="w">
-    </span><span class="p">}</span><span class="w">
-  </span><span class="p">],</span><span class="w">
-  </span><span class="s2">"shippingCost"</span><span class="p">:</span><span class="w"> </span><span class="mi">5000</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"insuranceCost"</span><span class="p">:</span><span class="w"> </span><span class="mi">1000</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"processingFee"</span><span class="p">:</span><span class="w"> </span><span class="mi">2500</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"tax"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"installmentID"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+  </span><span class="s2">"transactionID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5afcfc4424c4cc0b829f0dee"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"installmentID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <h3 id="finalizeTransaction-parameters">Parameters</h3>
@@ -2712,85 +2836,15 @@ fetch('https://api-staging.vospay.id/api/v2/checkout',
 <td>» notifyEndpoint</td>
 <td>body</td>
 <td>string(uri)</td>
-<td>false</td>
+<td>true</td>
 <td>Merchant&#39;s endpoint to be accessed by backend after transaction finalized</td>
 </tr>
 <tr>
-<td>» vospayNumber</td>
+<td>» transactionID</td>
 <td>body</td>
 <td>string</td>
 <td>true</td>
-<td>Vospay account number that used for transaction</td>
-</tr>
-<tr>
-<td>» merchantKey</td>
-<td>body</td>
-<td>string</td>
-<td>true</td>
-<td>Merchant Key where transaction happens</td>
-</tr>
-<tr>
-<td>» orderID</td>
-<td>body</td>
-<td>string</td>
-<td>true</td>
-<td>Order ID from the merchant</td>
-</tr>
-<tr>
-<td>» items</td>
-<td>body</td>
-<td>[object]</td>
-<td>true</td>
-<td>List of purchased items</td>
-</tr>
-<tr>
-<td>»» name</td>
-<td>body</td>
-<td>string</td>
-<td>false</td>
-<td>Name of purchased item</td>
-</tr>
-<tr>
-<td>»» quantity</td>
-<td>body</td>
-<td>string</td>
-<td>false</td>
-<td>Quantity of purchased item</td>
-</tr>
-<tr>
-<td>»» price</td>
-<td>body</td>
-<td>number</td>
-<td>false</td>
-<td>Total price of purchased item</td>
-</tr>
-<tr>
-<td>» shippingCost</td>
-<td>body</td>
-<td>number</td>
-<td>true</td>
-<td>Shipping cost from transaction</td>
-</tr>
-<tr>
-<td>» insuranceCost</td>
-<td>body</td>
-<td>number</td>
-<td>false</td>
-<td>Insurance cost from transaction</td>
-</tr>
-<tr>
-<td>» processingFee</td>
-<td>body</td>
-<td>number</td>
-<td>false</td>
-<td>Additional fees from transaction (if there is)</td>
-</tr>
-<tr>
-<td>» tax</td>
-<td>body</td>
-<td>number</td>
-<td>false</td>
-<td>Tax or custom fee (e.g bea cukai) (if there is)</td>
+<td>An ID of current transaction given by response of /authorize-transaction endpoint</td>
 </tr>
 <tr>
 <td>» installmentID</td>
@@ -3496,431 +3550,6 @@ fetch('https://api-staging.vospay.id/api/v2/my-profile',
 To perform this operation, you must be authenticated by means of one of the following methods:
 accessToken
 </aside>
-<h2 id='fetchusercontracts'>fetchUserContracts</h2>
-<p><a id="opIdfetchUserContracts"></a></p>
-
-<blockquote>
-<p>Code samples</p>
-</blockquote>
-<pre class="highlight plaintext"><code>const request = require('node-fetch');
-
-const headers = {
-  'Accept':'application/json',
-  'Authorization':'JWT &lt;&lt;accessToken&gt;&gt;'
-
-};
-
-fetch('https://api-staging.vospay.id/api/v2/my-contracts',
-{
-  method: 'GET',
-
-  headers: headers
-})
-.then(function(res) {
-    return res.json();
-}).then(function(body) {
-    console.log(body);
-});
-
-</code></pre>
-<p><code>GET /my-contracts</code></p>
-
-<p><em>Fetch user contract list</em></p>
-
-<p>This endpoint is for fetching user contract list.</p>
-
-<h3 id="fetchUserContracts-parameters">Parameters</h3>
-
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>In</th>
-<th>Type</th>
-<th>Required</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>Authorization</td>
-<td>header</td>
-<td>string</td>
-<td>true</td>
-<td>A generated JWT access token by <code>/authentication</code> endpoint</td>
-</tr>
-</tbody></table>
-
-<blockquote>
-<p>Example responses</p>
-</blockquote>
-<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"total"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"limit"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"skip"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-    </span><span class="p">{</span><span class="w">
-      </span><span class="s2">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5af192e30568b451b001188d"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"revision"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"IDR"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Pending"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"vospayNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2343060149428282"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"orderID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BL009"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"items"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-        </span><span class="p">{</span><span class="w">
-          </span><span class="s2">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5af192e30568b451b001188f"</span><span class="p">,</span><span class="w">
-          </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Charger Samsung A5"</span><span class="p">,</span><span class="w">
-          </span><span class="s2">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">100000</span><span class="p">,</span><span class="w">
-          </span><span class="s2">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
-        </span><span class="p">},</span><span class="w">
-        </span><span class="p">{</span><span class="w">
-          </span><span class="s2">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5af192e30568b451b001188e"</span><span class="p">,</span><span class="w">
-          </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Cover HeadPhone"</span><span class="p">,</span><span class="w">
-          </span><span class="s2">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">15000</span><span class="p">,</span><span class="w">
-          </span><span class="s2">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
-        </span><span class="p">}</span><span class="w">
-      </span><span class="p">],</span><span class="w">
-      </span><span class="s2">"grossAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">125000</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"shippingCost"</span><span class="p">:</span><span class="w"> </span><span class="mi">10000</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"insuranceCost"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"processingFee"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"tax"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-05-08T12:07:00.000Z"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"merchant"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="s2">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5af29f13e1bb9456a734bb21"</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Sociolla"</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"icon"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api-staging.vospay.id/api/v2/sociolla-icon.png"</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"logo"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api-staging.vospay.id/api/v2/sociolla-logo.png"</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"site"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.sociolla.com/"</span><span class="w">
-      </span><span class="p">},</span><span class="w">
-      </span><span class="s2">"multifinance"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="s2">"mfcID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"234"</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"period"</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"rate"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.08</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"monthlyPayment"</span><span class="p">:</span><span class="w"> </span><span class="mi">22500</span><span class="w">
-      </span><span class="p">}</span><span class="w">
-    </span><span class="p">}</span><span class="w">
-  </span><span class="p">]</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"className"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w">
-  </span><span class="s2">"errors"</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-<h3 id="fetchUserContracts-responses">Responses</h3>
-
-<table><thead>
-<tr>
-<th>Status</th>
-<th>Meaning</th>
-<th>Description</th>
-<th>Schema</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>200</td>
-<td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
-<td>OK response</td>
-<td>Inline</td>
-</tr>
-<tr>
-<td>401</td>
-<td><a href="https://tools.ietf.org/html/rfc7235#section-3.1">Unauthorized</a></td>
-<td>Response when access token is not provided as Authorization on request header</td>
-<td>Inline</td>
-</tr>
-</tbody></table>
-
-<h3 id="fetchUserContracts-responseschema">Response Schema</h3>
-
-<p>Status Code <strong>200</strong></p>
-
-<table><thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Required</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>» total</td>
-<td>number</td>
-<td>false</td>
-<td>Total contracts owned by user</td>
-</tr>
-<tr>
-<td>» limit</td>
-<td>number</td>
-<td>false</td>
-<td>Limit of contracts send by the backend to frontend (for pagination purpose)</td>
-</tr>
-<tr>
-<td>» skip</td>
-<td>number</td>
-<td>false</td>
-<td>Total contracts that skipped to not send by backend to frontend (for pagination purpose)</td>
-</tr>
-<tr>
-<td>» data</td>
-<td>[object]</td>
-<td>false</td>
-<td>List of contract owned by user</td>
-</tr>
-<tr>
-<td>»» _Id</td>
-<td>string</td>
-<td>false</td>
-<td>Transaction ID / No. Contract</td>
-</tr>
-<tr>
-<td>»» revision</td>
-<td>number</td>
-<td>false</td>
-<td>Revision ID</td>
-</tr>
-<tr>
-<td>»» currency</td>
-<td>string</td>
-<td>false</td>
-<td>Currency used for the transaction</td>
-</tr>
-<tr>
-<td>»» status</td>
-<td>string</td>
-<td>false</td>
-<td>Status of transaction / contract</td>
-</tr>
-<tr>
-<td>»» vospayNumber</td>
-<td>string</td>
-<td>false</td>
-<td>Vospay account number used for the transaction</td>
-</tr>
-<tr>
-<td>»» orderID</td>
-<td>string</td>
-<td>false</td>
-<td>Merchant&#39;s order ID</td>
-</tr>
-<tr>
-<td>»» grossAmount</td>
-<td>number</td>
-<td>false</td>
-<td>Transaction / Contract gross amount</td>
-</tr>
-<tr>
-<td>»» shippingCost</td>
-<td>number</td>
-<td>false</td>
-<td>Transaction shipping cost</td>
-</tr>
-<tr>
-<td>»» insuranceCost</td>
-<td>number</td>
-<td>false</td>
-<td>Transaction insurance cost</td>
-</tr>
-<tr>
-<td>»» processingFee</td>
-<td>number</td>
-<td>false</td>
-<td>Transaction additional cost</td>
-</tr>
-<tr>
-<td>»» tax</td>
-<td>number</td>
-<td>false</td>
-<td>Transaction tax or custom cost (for import purchase)</td>
-</tr>
-<tr>
-<td>»» items</td>
-<td>[object]</td>
-<td>false</td>
-<td>Purchased items</td>
-</tr>
-<tr>
-<td>»»» _id</td>
-<td>string</td>
-<td>false</td>
-<td>Item ID</td>
-</tr>
-<tr>
-<td>»»» name</td>
-<td>string</td>
-<td>false</td>
-<td>Item Name</td>
-</tr>
-<tr>
-<td>»»» price</td>
-<td>number</td>
-<td>false</td>
-<td>Item Price</td>
-</tr>
-<tr>
-<td>»»» quantity</td>
-<td>number</td>
-<td>false</td>
-<td>Item Quantity</td>
-</tr>
-<tr>
-<td>»» merchant</td>
-<td>object</td>
-<td>false</td>
-<td>No description</td>
-</tr>
-<tr>
-<td>»»» _id</td>
-<td>string</td>
-<td>false</td>
-<td>Merchant ID</td>
-</tr>
-<tr>
-<td>»»» name</td>
-<td>string</td>
-<td>false</td>
-<td>Merchant Name</td>
-</tr>
-<tr>
-<td>»»» icon</td>
-<td>string(uri)</td>
-<td>false</td>
-<td>Merchant icon URL</td>
-</tr>
-<tr>
-<td>»»» logo</td>
-<td>string(uri)</td>
-<td>false</td>
-<td>Merchant logo URL</td>
-</tr>
-<tr>
-<td>»»» site</td>
-<td>string(uri)</td>
-<td>false</td>
-<td>Merchant site URL</td>
-</tr>
-<tr>
-<td>»» multifinance</td>
-<td>object</td>
-<td>false</td>
-<td>No description</td>
-</tr>
-<tr>
-<td>»»» mfcID</td>
-<td>string</td>
-<td>false</td>
-<td>Multifinance code</td>
-</tr>
-<tr>
-<td>»»» period</td>
-<td>number</td>
-<td>false</td>
-<td>Contract period</td>
-</tr>
-<tr>
-<td>»»» rate</td>
-<td>number</td>
-<td>false</td>
-<td>Contract payment rate</td>
-</tr>
-<tr>
-<td>»»» monthlyPayment</td>
-<td>number</td>
-<td>false</td>
-<td>Contract monthyly payment including rate</td>
-</tr>
-</tbody></table>
-<h4 id='enumerated-values'>Enumerated Values</h4>
-<table><thead>
-<tr>
-<th>Property</th>
-<th>Value</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>status</td>
-<td>Pending</td>
-</tr>
-<tr>
-<td>status</td>
-<td>Approved</td>
-</tr>
-<tr>
-<td>status</td>
-<td>Edited</td>
-</tr>
-<tr>
-<td>status</td>
-<td>Cancelled</td>
-</tr>
-<tr>
-<td>status</td>
-<td>Refund</td>
-</tr>
-<tr>
-<td>status</td>
-<td>Fulfilled</td>
-</tr>
-<tr>
-<td>status</td>
-<td>Settled</td>
-</tr>
-</tbody></table>
-
-<p>Status Code <strong>401</strong></p>
-
-<table><thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Required</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>» name</td>
-<td>string</td>
-<td>false</td>
-<td>No description</td>
-</tr>
-<tr>
-<td>» message</td>
-<td>string</td>
-<td>false</td>
-<td>No description</td>
-</tr>
-<tr>
-<td>» code</td>
-<td>number</td>
-<td>false</td>
-<td>No description</td>
-</tr>
-<tr>
-<td>» className</td>
-<td>string</td>
-<td>false</td>
-<td>No description</td>
-</tr>
-<tr>
-<td>» data</td>
-<td>object</td>
-<td>false</td>
-<td>No description</td>
-</tr>
-<tr>
-<td>» errors</td>
-<td>object</td>
-<td>false</td>
-<td>No description</td>
-</tr>
-</tbody></table>
-
-<aside class="warning">
-To perform this operation, you must be authenticated by means of one of the following methods:
-accessToken
-</aside>
 <h1 id='schemas'>Schemas</h1>
 <h2 id="tocSauthotp">AuthOTP</h2>
 
@@ -4122,7 +3751,7 @@ accessToken
 <td>No description</td>
 </tr>
 </tbody></table>
-<h4 id='enumerated-values-2'>Enumerated Values</h4>
+<h4 id='enumerated-values'>Enumerated Values</h4>
 <table><thead>
 <tr>
 <th>Property</th>
@@ -4182,7 +3811,7 @@ accessToken
 <td>No description</td>
 </tr>
 </tbody></table>
-<h4 id='enumerated-values-3'>Enumerated Values</h4>
+<h4 id='enumerated-values-2'>Enumerated Values</h4>
 <table><thead>
 <tr>
 <th>Property</th>
@@ -4242,7 +3871,7 @@ accessToken
 <td>No description</td>
 </tr>
 </tbody></table>
-<h4 id='enumerated-values-4'>Enumerated Values</h4>
+<h4 id='enumerated-values-3'>Enumerated Values</h4>
 <table><thead>
 <tr>
 <th>Property</th>
