@@ -1637,6 +1637,182 @@ To perform this operation, you must be authenticated by means of one of the foll
 accessToken
 </aside>
 
+## fetchUserContracts
+
+<a id="opIdfetchUserContracts"></a>
+
+> Code samples
+
+```nodejs
+const request = require('node-fetch');
+
+const headers = {
+  'Accept':'application/json',
+  'Authorization':'JWT <<accessToken>>'
+
+};
+
+fetch('https://api-staging.vospay.id/api/v2/transactions',
+{
+  method: 'GET',
+
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
+
+`GET /transactions`
+
+*Fetch user contract list*
+
+This endpoint is for fetching user contract list.
+
+<h3 id="fetchUserContracts-parameters">Parameters</h3>
+
+|Parameter|In|Type|Required|Description|
+|---|---|---|---|---|
+|Authorization|header|string|true|A generated JWT access token by `/authentication` endpoint|
+
+> Example responses
+
+```json
+{
+  "total": 1,
+  "limit": 10,
+  "skip": 0,
+  "data": [
+    {
+      "contractNumber": "123456788901234567890",
+      "vospayNumber": "2340010000000001",
+      "period": 6,
+      "remainingPeriod": 3,
+      "installment": 21458.33,
+      "transactionAmount": 125000,
+      "interestRate": 0.03,
+      "nextPaymentDue": "20180610",
+      "transactionDate": "20180517",
+      "transactionDetail": {
+        "transactionID": "5afd23cdef3a002325832a8e",
+        "currency": "IDR",
+        "status": "Approved",
+        "revision": 1,
+        "mfcCode": "234",
+        "orderID": "BL001",
+        "items": [
+          {
+            "_id": "5af192e30568b451b001188f",
+            "name": "Charger Samsung A5",
+            "price": 100000,
+            "quantity": 1
+          },
+          {
+            "_id": "5af192e30568b451b001188e",
+            "name": "Cover HeadPhone",
+            "price": 15000,
+            "quantity": 1
+          }
+        ],
+        "shippingCost": 10000,
+        "insuranceCost": 0,
+        "processingFee": 0,
+        "tax": 0,
+        "modifiedAt": "2018-05-17T12:07:00.000Z"
+      },
+      "merchantDetail": {
+        "merchantID": "5af29f13e1bb9456a734bb21",
+        "name": "Sociolla",
+        "icon": "https://api-staging.vospay.id/api/v2/sociolla-icon.png",
+        "logo": "https://api-staging.vospay.id/api/v2/sociolla-logo.png",
+        "site": "https://www.sociolla.com/"
+      }
+    }
+  ]
+}
+```
+
+```json
+{
+  "name": "string",
+  "message": "string",
+  "code": 0,
+  "className": "string",
+  "data": {},
+  "errors": {}
+}
+```
+
+<h3 id="fetchUserContracts-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|OK response|Inline|
+|401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|Response when access token is not provided as Authorization on request header|Inline|
+
+<h3 id="fetchUserContracts-responseschema">Response Schema</h3>
+
+Status Code **200**
+
+|Name|Type|Required|Description|
+|---|---|---|---|
+|» total|number|false|Total contracts owned by user|
+|» limit|number|false|Limit of contracts send by the backend to frontend (for pagination purpose)|
+|» skip|number|false|Total contracts that skipped to not send by backend to frontend (for pagination purpose)|
+|» data|[object]|false|List of contract owned by user|
+|»» contractNumber|string|false|Contract number given by the multifinance|
+|»» vospayNumber|string|false|Vospay account number used for the transaction|
+|»» period|number|false|Contract period in month|
+|»» remainingPeriod|number|false|Remaining unpaid period|
+|»» installment|number|false|Monthly payment including interest|
+|»» transactionAmount|number|false|Transaction gross amount|
+|»» interestRate|number|false|Contract's interest rate|
+|»» nextPaymentDue|string|false|Deadline for next payment|
+|»» transactionDate|string|false|Date when transaction created|
+|»» transactionDetail|object|false|No description|
+|»»» transactionID|string|false|Transaction ID|
+|»»» currency|string|false|Currency used for the transaction|
+|»»» status|string|false|Status of transaction / contract|
+|»»» revision|number|false|Revision ID|
+|»»» mfcCode|string|false|Unique code of multifinance|
+|»»» orderID|string|false|Merchant's order ID|
+|»»» items|[object]|false|Purchased items|
+|»»»» _id|string|false|Item ID|
+|»»»» name|string|false|Item Name|
+|»»»» price|number|false|Item Price|
+|»»»» quantity|number|false|Item Quantity|
+
+#### Enumerated Values
+
+|Property|Value|
+|---|---|
+|status|Pending|
+|status|Approved|
+|status|Edited|
+|status|Cancelled|
+|status|Refund|
+|status|Fulfilled|
+|status|Settled|
+
+Status Code **401**
+
+|Name|Type|Required|Description|
+|---|---|---|---|
+|» name|string|false|No description|
+|» message|string|false|No description|
+|» code|number|false|No description|
+|» className|string|false|No description|
+|» data|object|false|No description|
+|» errors|object|false|No description|
+
+<aside class="warning">
+To perform this operation, you must be authenticated by means of one of the following methods:
+accessToken
+</aside>
+
 # Schemas
 
 <h2 id="tocSauthotp">AuthOTP</h2>
