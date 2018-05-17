@@ -299,6 +299,9 @@
                   <li>
                     <a href="#fetchuserprofile" class="toc-h2 toc-link" data-title="fetchuserprofile">fetchUserProfile</a>
                   </li>
+                  <li>
+                    <a href="#fetchusercontracts" class="toc-h2 toc-link" data-title="fetchusercontracts">fetchUserContracts</a>
+                  </li>
               </ul>
           </li>
           <li>
@@ -3550,6 +3553,399 @@ fetch('https://api-staging.vospay.id/api/v2/my-profile',
 To perform this operation, you must be authenticated by means of one of the following methods:
 accessToken
 </aside>
+<h2 id='fetchusercontracts'>fetchUserContracts</h2>
+<p><a id="opIdfetchUserContracts"></a></p>
+
+<blockquote>
+<p>Code samples</p>
+</blockquote>
+<pre class="highlight plaintext"><code>const request = require('node-fetch');
+
+const headers = {
+  'Accept':'application/json',
+  'Authorization':'JWT &lt;&lt;accessToken&gt;&gt;'
+
+};
+
+fetch('https://api-staging.vospay.id/api/v2/transactions',
+{
+  method: 'GET',
+
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+</code></pre>
+<p><code>GET /transactions</code></p>
+
+<p><em>Fetch user contract list</em></p>
+
+<p>This endpoint is for fetching user contract list.</p>
+
+<h3 id="fetchUserContracts-parameters">Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>In</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Authorization</td>
+<td>header</td>
+<td>string</td>
+<td>true</td>
+<td>A generated JWT access token by <code>/authentication</code> endpoint</td>
+</tr>
+</tbody></table>
+
+<blockquote>
+<p>Example responses</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"total"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"limit"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"skip"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"contractNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123456788901234567890"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"vospayNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2340010000000001"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"period"</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"remainingPeriod"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"installment"</span><span class="p">:</span><span class="w"> </span><span class="mf">21458.33</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"transactionAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">125000</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"interestRate"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.03</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"nextPaymentDue"</span><span class="p">:</span><span class="w"> </span><span class="s2">"20180610"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"transactionDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"20180517"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"transactionDetail"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"transactionID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5afd23cdef3a002325832a8e"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"IDR"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Approved"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"revision"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"mfcCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"234"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"orderID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BL001"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"items"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+          </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5af192e30568b451b001188f"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Charger Samsung A5"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">100000</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+          </span><span class="p">},</span><span class="w">
+          </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5af192e30568b451b001188e"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Cover HeadPhone"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">15000</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+          </span><span class="p">}</span><span class="w">
+        </span><span class="p">],</span><span class="w">
+        </span><span class="s2">"shippingCost"</span><span class="p">:</span><span class="w"> </span><span class="mi">10000</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"insuranceCost"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"processingFee"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"tax"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"modifiedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-05-17T12:07:00.000Z"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"merchantDetail"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"merchantID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5af29f13e1bb9456a734bb21"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Sociolla"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"icon"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api-staging.vospay.id/api/v2/sociolla-icon.png"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"logo"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api-staging.vospay.id/api/v2/sociolla-logo.png"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"site"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.sociolla.com/"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"className"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w">
+  </span><span class="s2">"errors"</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<h3 id="fetchUserContracts-responses">Responses</h3>
+
+<table><thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>200</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
+<td>OK response</td>
+<td>Inline</td>
+</tr>
+<tr>
+<td>401</td>
+<td><a href="https://tools.ietf.org/html/rfc7235#section-3.1">Unauthorized</a></td>
+<td>Response when access token is not provided as Authorization on request header</td>
+<td>Inline</td>
+</tr>
+</tbody></table>
+
+<h3 id="fetchUserContracts-responseschema">Response Schema</h3>
+
+<p>Status Code <strong>200</strong></p>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>» total</td>
+<td>number</td>
+<td>false</td>
+<td>Total contracts owned by user</td>
+</tr>
+<tr>
+<td>» limit</td>
+<td>number</td>
+<td>false</td>
+<td>Limit of contracts send by the backend to frontend (for pagination purpose)</td>
+</tr>
+<tr>
+<td>» skip</td>
+<td>number</td>
+<td>false</td>
+<td>Total contracts that skipped to not send by backend to frontend (for pagination purpose)</td>
+</tr>
+<tr>
+<td>» data</td>
+<td>[object]</td>
+<td>false</td>
+<td>List of contract owned by user</td>
+</tr>
+<tr>
+<td>»» contractNumber</td>
+<td>string</td>
+<td>false</td>
+<td>Contract number given by the multifinance</td>
+</tr>
+<tr>
+<td>»» vospayNumber</td>
+<td>string</td>
+<td>false</td>
+<td>Vospay account number used for the transaction</td>
+</tr>
+<tr>
+<td>»» period</td>
+<td>number</td>
+<td>false</td>
+<td>Contract period in month</td>
+</tr>
+<tr>
+<td>»» remainingPeriod</td>
+<td>number</td>
+<td>false</td>
+<td>Remaining unpaid period</td>
+</tr>
+<tr>
+<td>»» installment</td>
+<td>number</td>
+<td>false</td>
+<td>Monthly payment including interest</td>
+</tr>
+<tr>
+<td>»» transactionAmount</td>
+<td>number</td>
+<td>false</td>
+<td>Transaction gross amount</td>
+</tr>
+<tr>
+<td>»» interestRate</td>
+<td>number</td>
+<td>false</td>
+<td>Contract&#39;s interest rate</td>
+</tr>
+<tr>
+<td>»» nextPaymentDue</td>
+<td>string</td>
+<td>false</td>
+<td>Deadline for next payment</td>
+</tr>
+<tr>
+<td>»» transactionDate</td>
+<td>string</td>
+<td>false</td>
+<td>Date when transaction created</td>
+</tr>
+<tr>
+<td>»» transactionDetail</td>
+<td>object</td>
+<td>false</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>»»» transactionID</td>
+<td>string</td>
+<td>false</td>
+<td>Transaction ID</td>
+</tr>
+<tr>
+<td>»»» currency</td>
+<td>string</td>
+<td>false</td>
+<td>Currency used for the transaction</td>
+</tr>
+<tr>
+<td>»»» status</td>
+<td>string</td>
+<td>false</td>
+<td>Status of transaction / contract</td>
+</tr>
+<tr>
+<td>»»» revision</td>
+<td>number</td>
+<td>false</td>
+<td>Revision ID</td>
+</tr>
+<tr>
+<td>»»» mfcCode</td>
+<td>string</td>
+<td>false</td>
+<td>Unique code of multifinance</td>
+</tr>
+<tr>
+<td>»»» orderID</td>
+<td>string</td>
+<td>false</td>
+<td>Merchant&#39;s order ID</td>
+</tr>
+<tr>
+<td>»»» items</td>
+<td>[object]</td>
+<td>false</td>
+<td>Purchased items</td>
+</tr>
+<tr>
+<td>»»»» _id</td>
+<td>string</td>
+<td>false</td>
+<td>Item ID</td>
+</tr>
+<tr>
+<td>»»»» name</td>
+<td>string</td>
+<td>false</td>
+<td>Item Name</td>
+</tr>
+<tr>
+<td>»»»» price</td>
+<td>number</td>
+<td>false</td>
+<td>Item Price</td>
+</tr>
+<tr>
+<td>»»»» quantity</td>
+<td>number</td>
+<td>false</td>
+<td>Item Quantity</td>
+</tr>
+</tbody></table>
+<h4 id='enumerated-values'>Enumerated Values</h4>
+<table><thead>
+<tr>
+<th>Property</th>
+<th>Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>status</td>
+<td>Pending</td>
+</tr>
+<tr>
+<td>status</td>
+<td>Approved</td>
+</tr>
+<tr>
+<td>status</td>
+<td>Edited</td>
+</tr>
+<tr>
+<td>status</td>
+<td>Cancelled</td>
+</tr>
+<tr>
+<td>status</td>
+<td>Refund</td>
+</tr>
+<tr>
+<td>status</td>
+<td>Fulfilled</td>
+</tr>
+<tr>
+<td>status</td>
+<td>Settled</td>
+</tr>
+</tbody></table>
+
+<p>Status Code <strong>401</strong></p>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>» name</td>
+<td>string</td>
+<td>false</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>» message</td>
+<td>string</td>
+<td>false</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>» code</td>
+<td>number</td>
+<td>false</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>» className</td>
+<td>string</td>
+<td>false</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>» data</td>
+<td>object</td>
+<td>false</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>» errors</td>
+<td>object</td>
+<td>false</td>
+<td>No description</td>
+</tr>
+</tbody></table>
+
+<aside class="warning">
+To perform this operation, you must be authenticated by means of one of the following methods:
+accessToken
+</aside>
 <h1 id='schemas'>Schemas</h1>
 <h2 id="tocSauthotp">AuthOTP</h2>
 
@@ -3751,7 +4147,7 @@ accessToken
 <td>No description</td>
 </tr>
 </tbody></table>
-<h4 id='enumerated-values'>Enumerated Values</h4>
+<h4 id='enumerated-values-2'>Enumerated Values</h4>
 <table><thead>
 <tr>
 <th>Property</th>
@@ -3811,7 +4207,7 @@ accessToken
 <td>No description</td>
 </tr>
 </tbody></table>
-<h4 id='enumerated-values-2'>Enumerated Values</h4>
+<h4 id='enumerated-values-3'>Enumerated Values</h4>
 <table><thead>
 <tr>
 <th>Property</th>
@@ -3871,7 +4267,7 @@ accessToken
 <td>No description</td>
 </tr>
 </tbody></table>
-<h4 id='enumerated-values-3'>Enumerated Values</h4>
+<h4 id='enumerated-values-4'>Enumerated Values</h4>
 <table><thead>
 <tr>
 <th>Property</th>
