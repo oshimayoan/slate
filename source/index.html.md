@@ -1,5 +1,5 @@
 ---
-title: Vospay API Doc v0.1.9
+title: Vospay API Doc v2.1.0
 language_tabs:
   - nodejs: JavaScript
 toc_footers: []
@@ -10,7 +10,7 @@ headingLevel: 2
 
 ---
 
-<h1 id="Vospay-API-Doc">Vospay API Doc v0.1.9</h1>
+<h1 id="Vospay-API-Doc">Vospay API Doc v2.1.0</h1>
 
 > Scroll down for code samples, example requests and responses. Select a language for code samples from the tabs above or the mobile navigation menu.
 
@@ -235,15 +235,14 @@ This operation does not require authentication
 ```nodejs
 const request = require('node-fetch');
 const inputBody = '{
-  "mfcID": "234",
+  "mfcCode": "234",
   "nik": "6308044810820001",
   "phone": "08118289855",
-  "dateOfBirth": "1988-10-02"
+  "dateOfBirth": "19881002"
 }';
 const headers = {
   'Content-Type':'application/json',
-  'Accept':'application/json',
-  'Authorization':'JWT <<accessToken>>'
+  'Accept':'application/json'
 
 };
 
@@ -271,10 +270,10 @@ Use this endpoint when user submit their data on activation process.
 
 ```json
 {
-  "mfcID": "234",
+  "mfcCode": "234",
   "nik": "6308044810820001",
   "phone": "08118289855",
-  "dateOfBirth": "1988-10-02"
+  "dateOfBirth": "19881002"
 }
 ```
 
@@ -282,19 +281,17 @@ Use this endpoint when user submit their data on activation process.
 
 |Parameter|In|Type|Required|Description|
 |---|---|---|---|---|
-|Authorization|header|string|true|A generated JWT access token by `/authentication` endpoint|
 |body|body|object|true|No description|
-|» mfcID|body|string|true|MFC's ID that sent the activation link to user|
+|» mfcCode|body|string|true|MFC's Code that sent the activation link to user|
 |» nik|body|string|true|User's KTP number / NIK (Country ID card)|
 |» phone|body|string|true|User's phone number|
-|» dateOfBirth|body|string|true|User's date of birth|
+|» dateOfBirth|body|string|true|User's date of birth in format YYYYMMDD|
 
 > Example responses
 
 ```json
 {
-  "vospayNumber": "2340010000000002",
-  "isRegistered": false
+  "hasRegistered": false
 }
 ```
 
@@ -333,8 +330,7 @@ Status Code **201**
 
 |Name|Type|Required|Description|
 |---|---|---|---|
-|» vospayNumber|string|false|Auto generated vospay account number|
-|» isRegistered|boolean|false|Flag whether the user who activates new Vospay account number is registered or not|
+|» hsaRegistered|boolean|false|Flag whether the user who activates new Vospay account number is registered or not|
 
 Status Code **401**
 
@@ -357,9 +353,8 @@ Status Code **500**
 |» className|string|false|No description|
 |» errors|object|false|No description|
 
-<aside class="warning">
-To perform this operation, you must be authenticated by means of one of the following methods:
-accessToken
+<aside class="success">
+This operation does not require authentication
 </aside>
 
 <h1 id="Vospay-API-Doc-Registration">Registration</h1>
@@ -1054,25 +1049,48 @@ accessToken
 
 <h1 id="Vospay-API-Doc-Transaction">Transaction</h1>
 
-## fetchInstallmentPlans
+## authorizeTransaction
 
-<a id="opIdfetchInstallmentPlans"></a>
+<a id="opIdauthorizeTransaction"></a>
 
 > Code samples
 
 ```nodejs
 const request = require('node-fetch');
-
+const inputBody = '{
+  "vospayNumber": "2340010000000001",
+  "merchantKey": "f72e04d62fcbb5_EXAMPLE_2a8bcad8ac6be048",
+  "orderID": "B0001",
+  "currency": "IDR",
+  "items": [
+    {
+      "name": "Product A",
+      "quantity": 2,
+      "price": 10000
+    },
+    {
+      "name": "Product B",
+      "quantity": 1,
+      "price": 5000
+    }
+  ],
+  "shippingCost": 5000,
+  "insuranceCost": 100,
+  "processingFee": 0,
+  "tax": 0,
+  "grossAmount": 30100
+}';
 const headers = {
+  'Content-Type':'application/json',
   'Accept':'application/json',
   'Authorization':'JWT <<accessToken>>'
 
 };
 
-fetch('https://api-staging.vospay.id/api/v2/checkout/{vospayNumber}?merchantKey={merchantKey}&totalAmount={totalAmount}?merchantKey=1&totalAmount=100000?merchantKey=1&totalAmount=100000',
+fetch('https://api-staging.vospay.id/api/v2/authorize-transaction',
 {
-  method: 'GET',
-
+  method: 'POST',
+  body: inputBody,
   headers: headers
 })
 .then(function(res) {
@@ -1083,46 +1101,95 @@ fetch('https://api-staging.vospay.id/api/v2/checkout/{vospayNumber}?merchantKey=
 
 ```
 
-`GET /checkout/{vospayNumber}?merchantKey={merchantKey}&totalAmount={totalAmount}`
+`POST /authorize-transaction`
 
 *Fetch installment plans given by the multifinance*
 
-<h3 id="fetchInstallmentPlans-parameters">Parameters</h3>
+> Body parameter
+
+```json
+{
+  "vospayNumber": "2340010000000001",
+  "merchantKey": "f72e04d62fcbb5_EXAMPLE_2a8bcad8ac6be048",
+  "orderID": "B0001",
+  "currency": "IDR",
+  "items": [
+    {
+      "name": "Product A",
+      "quantity": 2,
+      "price": 10000
+    },
+    {
+      "name": "Product B",
+      "quantity": 1,
+      "price": 5000
+    }
+  ],
+  "shippingCost": 5000,
+  "insuranceCost": 100,
+  "processingFee": 0,
+  "tax": 0,
+  "grossAmount": 30100
+}
+```
+
+<h3 id="authorizeTransaction-parameters">Parameters</h3>
 
 |Parameter|In|Type|Required|Description|
 |---|---|---|---|---|
-|vospayNumber|path|string|true|User's selected vospay number|
-|merchantKey|query|string|true|Get merchantKey from endpoint `/merchants` or https://gist.github.com/sstur/521ea6259dee40e2da2a9d7ea782fdc7|
-|totalAmount|query|number|true|Total amount of purchase including shipping and additional cost|
 |Authorization|header|string|true|A generated JWT access token by `/authentication` endpoint|
+|body|body|object|true|No description|
+|» vospayNumber|body|string|true|Vospay account number that used for transaction|
+|» merchantKey|body|string|true|Merchant Key where transaction happens|
+|» orderID|body|string|true|Order ID from the merchant|
+|» currency|body|string|true|Currency used in the transaction|
+|» items|body|[object]|true|List of purchased items|
+|»» name|body|string|false|Name of purchased item|
+|»» quantity|body|string|false|Quantity of purchased item|
+|»» price|body|number|false|Total price of purchased item|
+|» shippingCost|body|number|true|Shipping cost from transaction|
+|» insuranceCost|body|number|true|Insurance cost from transaction|
+|» processingFee|body|number|true|Additional fees from transaction (if there is)|
+|» tax|body|number|true|Tax or custom fee (e.g bea cukai) (if there is)|
+|» grossAmount|body|number|true|Gross amount of the transaction, including shippingCost, insuranceCost, processingFee, and tax/custom|
 
 > Example responses
 
 ```json
 {
+  "vospayNumber": "2340010000000001",
+  "merchantIcon": "https://vospay.id/merchantIcon.png",
   "merchantLogo": "https://vospay.id/merchantLogo.png",
   "mfcLogo": "https://vospay.id/mfcLogo.png",
   "fullName": "Dominggus Sirius Octovianus",
+  "transactionID": "5afcfc4424c4cc0b829f0dee",
+  "availableCredit": 750000,
+  "creditLimit": 1000000,
+  "accountExpiry": "20181231",
   "installments": [
     {
       "installmentID": "1",
+      "rate": 0.4,
       "period": 3,
-      "monthlyPayment": 58333
+      "monthlyPayment": 52500.23
     },
     {
       "installmentID": "2",
+      "rate": 0.3,
       "period": 6,
-      "monthlyPayment": 27083
+      "monthlyPayment": 44232.33
     },
     {
       "installmentID": "3",
+      "rate": 0.2,
       "period": 9,
-      "monthlyPayment": 16667
+      "monthlyPayment": 30455.13
     },
     {
       "installmentID": "4",
+      "rate": 0.1,
       "period": 12,
-      "monthlyPayment": 11458
+      "monthlyPayment": 25023.56
     }
   ]
 }
@@ -1139,24 +1206,31 @@ fetch('https://api-staging.vospay.id/api/v2/checkout/{vospayNumber}?merchantKey=
 }
 ```
 
-<h3 id="fetchInstallmentPlans-responses">Responses</h3>
+<h3 id="authorizeTransaction-responses">Responses</h3>
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|OK response|Inline|
 |401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|Response when access token is not provided as Authorization on request header|Inline|
 
-<h3 id="fetchInstallmentPlans-responseschema">Response Schema</h3>
+<h3 id="authorizeTransaction-responseschema">Response Schema</h3>
 
 Status Code **200**
 
 |Name|Type|Required|Description|
 |---|---|---|---|
+|» vospayNumber|string|false|No description|
+|» merchantIcon|string(uri)|false|No description|
 |» merchantLogo|string(uri)|false|No description|
 |» mfcLogo|string(uri)|false|No description|
 |» fullName|string|false|No description|
+|» transactionID|string|false|No description|
+|» availableCredit|number|false|No description|
+|» creditLimit|number|false|No description|
+|» accountExpiry|string|false|No description|
 |» installments|[object]|false|No description|
 |»» installmentID|string|false|No description|
+|»» rate|number|false|No description|
 |»» period|number|false|No description|
 |»» monthlyPayment|number|false|No description|
 
@@ -1186,26 +1260,8 @@ accessToken
 const request = require('node-fetch');
 const inputBody = '{
   "notifyEndpoint": "https://merchant.com/notify",
-  "vospayNumber": "2340010000000001",
-  "merchantKey": "f72e04d62fcbb5_EXAMPLE_2a8bcad8ac6be048",
-  "orderID": "B0001",
-  "items": [
-    {
-      "name": "Product A",
-      "quantity": 2,
-      "price": 10000
-    },
-    {
-      "name": "Product B",
-      "quantity": 1,
-      "price": 5000
-    }
-  ],
-  "shippingCost": 5000,
-  "insuranceCost": 1000,
-  "processingFee": 2500,
-  "tax": 0,
-  "installmentID": 1
+  "transactionID": "5afcfc4424c4cc0b829f0dee",
+  "installmentID": "1"
 }';
 const headers = {
   'Content-Type':'application/json',
@@ -1214,7 +1270,7 @@ const headers = {
 
 };
 
-fetch('https://api-staging.vospay.id/api/v2/checkout',
+fetch('https://api-staging.vospay.id/api/v2/finalize-transaction',
 {
   method: 'POST',
   body: inputBody,
@@ -1228,7 +1284,7 @@ fetch('https://api-staging.vospay.id/api/v2/checkout',
 
 ```
 
-`POST /checkout`
+`POST /finalize-transaction`
 
 *Finalize transaction data*
 
@@ -1239,26 +1295,8 @@ Use this endpoint to send transaction detail on submit a checkout
 ```json
 {
   "notifyEndpoint": "https://merchant.com/notify",
-  "vospayNumber": "2340010000000001",
-  "merchantKey": "f72e04d62fcbb5_EXAMPLE_2a8bcad8ac6be048",
-  "orderID": "B0001",
-  "items": [
-    {
-      "name": "Product A",
-      "quantity": 2,
-      "price": 10000
-    },
-    {
-      "name": "Product B",
-      "quantity": 1,
-      "price": 5000
-    }
-  ],
-  "shippingCost": 5000,
-  "insuranceCost": 1000,
-  "processingFee": 2500,
-  "tax": 0,
-  "installmentID": 1
+  "transactionID": "5afcfc4424c4cc0b829f0dee",
+  "installmentID": "1"
 }
 ```
 
@@ -1268,18 +1306,8 @@ Use this endpoint to send transaction detail on submit a checkout
 |---|---|---|---|---|
 |Authorization|header|string|true|A generated JWT access token by `/authentication` endpoint|
 |body|body|object|true|No description|
-|» notifyEndpoint|body|string(uri)|false|Merchant's endpoint to be accessed by backend after transaction finalized|
-|» vospayNumber|body|string|true|Vospay account number that used for transaction|
-|» merchantKey|body|string|true|Merchant Key where transaction happens|
-|» orderID|body|string|true|Order ID from the merchant|
-|» items|body|[object]|true|List of purchased items|
-|»» name|body|string|false|Name of purchased item|
-|»» quantity|body|string|false|Quantity of purchased item|
-|»» price|body|number|false|Total price of purchased item|
-|» shippingCost|body|number|true|Shipping cost from transaction|
-|» insuranceCost|body|number|false|Insurance cost from transaction|
-|» processingFee|body|number|false|Additional fees from transaction (if there is)|
-|» tax|body|number|false|Tax or custom fee (e.g bea cukai) (if there is)|
+|» notifyEndpoint|body|string(uri)|true|Merchant's endpoint to be accessed by backend after transaction finalized|
+|» transactionID|body|string|true|An ID of current transaction given by response of /authorize-transaction endpoint|
 |» installmentID|body|string|true|ID of selected installment plan for the transaction|
 
 > Example responses
@@ -1592,184 +1620,6 @@ Status Code **200**
 |»»» name|string|false|Multifinance name|
 |»»» phone|string|false|Multifinance phone|
 |»»» email|string(email)|false|Multifinance email|
-
-Status Code **401**
-
-|Name|Type|Required|Description|
-|---|---|---|---|
-|» name|string|false|No description|
-|» message|string|false|No description|
-|» code|number|false|No description|
-|» className|string|false|No description|
-|» data|object|false|No description|
-|» errors|object|false|No description|
-
-<aside class="warning">
-To perform this operation, you must be authenticated by means of one of the following methods:
-accessToken
-</aside>
-
-## fetchUserContracts
-
-<a id="opIdfetchUserContracts"></a>
-
-> Code samples
-
-```nodejs
-const request = require('node-fetch');
-
-const headers = {
-  'Accept':'application/json',
-  'Authorization':'JWT <<accessToken>>'
-
-};
-
-fetch('https://api-staging.vospay.id/api/v2/my-contracts',
-{
-  method: 'GET',
-
-  headers: headers
-})
-.then(function(res) {
-    return res.json();
-}).then(function(body) {
-    console.log(body);
-});
-
-```
-
-`GET /my-contracts`
-
-*Fetch user contract list*
-
-This endpoint is for fetching user contract list.
-
-<h3 id="fetchUserContracts-parameters">Parameters</h3>
-
-|Parameter|In|Type|Required|Description|
-|---|---|---|---|---|
-|Authorization|header|string|true|A generated JWT access token by `/authentication` endpoint|
-
-> Example responses
-
-```json
-{
-  "total": 1,
-  "limit": 10,
-  "skip": 0,
-  "data": [
-    {
-      "_id": "5af192e30568b451b001188d",
-      "revision": 1,
-      "currency": "IDR",
-      "status": "Pending",
-      "vospayNumber": "2343060149428282",
-      "orderID": "BL009",
-      "items": [
-        {
-          "_id": "5af192e30568b451b001188f",
-          "name": "Charger Samsung A5",
-          "price": 100000,
-          "quantity": 1
-        },
-        {
-          "_id": "5af192e30568b451b001188e",
-          "name": "Cover HeadPhone",
-          "price": 15000,
-          "quantity": 1
-        }
-      ],
-      "grossAmount": 125000,
-      "shippingCost": 10000,
-      "insuranceCost": 0,
-      "processingFee": 0,
-      "tax": 0,
-      "createdAt": "2018-05-08T12:07:00.000Z",
-      "merchant": {
-        "_id": "5af29f13e1bb9456a734bb21",
-        "name": "Sociolla",
-        "icon": "https://api-staging.vospay.id/api/v2/sociolla-icon.png",
-        "logo": "https://api-staging.vospay.id/api/v2/sociolla-logo.png",
-        "site": "https://www.sociolla.com/"
-      },
-      "multifinance": {
-        "mfcID": "234",
-        "period": 6,
-        "rate": 0.08,
-        "monthlyPayment": 22500
-      }
-    }
-  ]
-}
-```
-
-```json
-{
-  "name": "string",
-  "message": "string",
-  "code": 0,
-  "className": "string",
-  "data": {},
-  "errors": {}
-}
-```
-
-<h3 id="fetchUserContracts-responses">Responses</h3>
-
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|OK response|Inline|
-|401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|Response when access token is not provided as Authorization on request header|Inline|
-
-<h3 id="fetchUserContracts-responseschema">Response Schema</h3>
-
-Status Code **200**
-
-|Name|Type|Required|Description|
-|---|---|---|---|
-|» total|number|false|Total contracts owned by user|
-|» limit|number|false|Limit of contracts send by the backend to frontend (for pagination purpose)|
-|» skip|number|false|Total contracts that skipped to not send by backend to frontend (for pagination purpose)|
-|» data|[object]|false|List of contract owned by user|
-|»» _Id|string|false|Transaction ID / No. Contract|
-|»» revision|number|false|Revision ID|
-|»» currency|string|false|Currency used for the transaction|
-|»» status|string|false|Status of transaction / contract|
-|»» vospayNumber|string|false|Vospay account number used for the transaction|
-|»» orderID|string|false|Merchant's order ID|
-|»» grossAmount|number|false|Transaction / Contract gross amount|
-|»» shippingCost|number|false|Transaction shipping cost|
-|»» insuranceCost|number|false|Transaction insurance cost|
-|»» processingFee|number|false|Transaction additional cost|
-|»» tax|number|false|Transaction tax or custom cost (for import purchase)|
-|»» items|[object]|false|Purchased items|
-|»»» _id|string|false|Item ID|
-|»»» name|string|false|Item Name|
-|»»» price|number|false|Item Price|
-|»»» quantity|number|false|Item Quantity|
-|»» merchant|object|false|No description|
-|»»» _id|string|false|Merchant ID|
-|»»» name|string|false|Merchant Name|
-|»»» icon|string(uri)|false|Merchant icon URL|
-|»»» logo|string(uri)|false|Merchant logo URL|
-|»»» site|string(uri)|false|Merchant site URL|
-|»» multifinance|object|false|No description|
-|»»» mfcID|string|false|Multifinance code|
-|»»» period|number|false|Contract period|
-|»»» rate|number|false|Contract payment rate|
-|»»» monthlyPayment|number|false|Contract monthyly payment including rate|
-
-#### Enumerated Values
-
-|Property|Value|
-|---|---|
-|status|Pending|
-|status|Approved|
-|status|Edited|
-|status|Cancelled|
-|status|Refund|
-|status|Fulfilled|
-|status|Settled|
 
 Status Code **401**
 
