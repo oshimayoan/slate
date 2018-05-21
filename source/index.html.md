@@ -1,5 +1,5 @@
 ---
-title: Vospay API Doc v2.1.3
+title: Vospay API Doc v2.1.4
 language_tabs:
   - nodejs: JavaScript
 toc_footers: []
@@ -10,7 +10,7 @@ headingLevel: 2
 
 ---
 
-<h1 id="Vospay-API-Doc">Vospay API Doc v2.1.3</h1>
+<h1 id="Vospay-API-Doc">Vospay API Doc v2.1.4</h1>
 
 > Scroll down for code samples, example requests and responses. Select a language for code samples from the tabs above or the mobile navigation menu.
 
@@ -149,7 +149,7 @@ const headers = {
 
 };
 
-fetch('https://api-staging.vospay.id/api/v2/otp/{phoneNumber}?action=transaction&merchantKey=f72e04d62fcccbb52a8bcad8ac6be048&grossAmount=2000000',
+fetch('https://api-staging.vospay.id/api/v2/otp/{phoneNumber}?action={action}&merchantKey={merchantKey}&grossAmount={grossAmount}?action=transaction&merchantKey=f72e04d62fcccbb52a8bcad8ac6be048&grossAmount=2000000?action=transaction&merchantKey=f72e04d62fcccbb52a8bcad8ac6be048&grossAmount=2000000',
 {
   method: 'GET',
 
@@ -163,7 +163,7 @@ fetch('https://api-staging.vospay.id/api/v2/otp/{phoneNumber}?action=transaction
 
 ```
 
-`GET /otp/{phoneNumber}`
+`GET /otp/{phoneNumber}?action={action}&merchantKey={merchantKey}&grossAmount={grossAmount}`
 
 *Trigger backend to send otp for transaction*
 
