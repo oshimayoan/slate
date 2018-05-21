@@ -1,5 +1,5 @@
 ---
-title: Vospay API Doc v2.1.4
+title: Vospay API Doc v2.1.5
 language_tabs:
   - nodejs: JavaScript
 toc_footers: []
@@ -10,7 +10,7 @@ headingLevel: 2
 
 ---
 
-<h1 id="Vospay-API-Doc">Vospay API Doc v2.1.4</h1>
+<h1 id="Vospay-API-Doc">Vospay API Doc v2.1.5</h1>
 
 > Scroll down for code samples, example requests and responses. Select a language for code samples from the tabs above or the mobile navigation menu.
 
@@ -135,6 +135,98 @@ This operation does not require authentication
 
 <h1 id="Vospay-API-Doc-OTP">OTP</h1>
 
+## sendOTPActivation
+
+<a id="opIdsendOTPActivation"></a>
+
+> Code samples
+
+```nodejs
+const request = require('node-fetch');
+
+const headers = {
+  'Accept':'application/json'
+
+};
+
+fetch('https://api-staging.vospay.id/api/v2/otp/{phoneNumber}?action={action}?action=activation?action=activation',
+{
+  method: 'GET',
+
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
+
+`GET /otp/{phoneNumber}?action={action}`
+
+*Trigger backend to send otp for transaction*
+
+Use this endpoint to trigger the backend for send the otp to a user.
+
+<h3 id="sendOTPActivation-parameters">Parameters</h3>
+
+|Parameter|In|Type|Required|Description|
+|---|---|---|---|---|
+|phoneNumber|path|string|true|User's phone number|
+|action|query|string|true|The action of OTP for, like for activation or transaction|
+
+> Example responses
+
+```json
+{
+  "code": "1234",
+  "expiry": "2018-05-21T06:44:01.874Z"
+}
+```
+
+```json
+{
+  "name": "string",
+  "message": "string",
+  "code": 0,
+  "className": "string",
+  "data": {},
+  "errors": {}
+}
+```
+
+<h3 id="sendOTPActivation-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Backend successfuly resend the otp|Inline|
+|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|Response when phone number is not found or invalid|Inline|
+
+<h3 id="sendOTPActivation-responseschema">Response Schema</h3>
+
+Status Code **200**
+
+|Name|Type|Required|Description|
+|---|---|---|---|
+|» code|string|false|OTP code|
+|» expiry|string|false|OTP expiry time in ISO string|
+
+Status Code **500**
+
+|Name|Type|Required|Description|
+|---|---|---|---|
+|» name|string|false|No description|
+|» message|string|false|No description|
+|» code|number|false|No description|
+|» className|string|false|No description|
+|» data|object|false|No description|
+|» errors|object|false|No description|
+
+<aside class="success">
+This operation does not require authentication
+</aside>
+
 ## sendOTPTransaction
 
 <a id="opIdsendOTPTransaction"></a>
@@ -182,7 +274,8 @@ Use this endpoint to trigger the backend for send the otp to a user.
 
 ```json
 {
-  "message": "Success"
+  "code": "1234",
+  "expiry": "2018-05-21T06:44:01.874Z"
 }
 ```
 
@@ -210,7 +303,8 @@ Status Code **200**
 
 |Name|Type|Required|Description|
 |---|---|---|---|
-|» message|string|false|No description|
+|» code|string|false|OTP code|
+|» expiry|string|false|OTP expiry time in ISO string|
 
 Status Code **500**
 
@@ -333,7 +427,7 @@ Status Code **201**
 
 |Name|Type|Required|Description|
 |---|---|---|---|
-|» hsaRegistered|boolean|false|Flag whether the user who activates new Vospay account number is registered or not|
+|» hasRegistered|boolean|false|Flag whether the user who activates new Vospay account number is registered or not|
 
 Status Code **401**
 
