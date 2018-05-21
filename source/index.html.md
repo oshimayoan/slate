@@ -1,5 +1,5 @@
 ---
-title: Vospay API Doc v2.1.2
+title: Vospay API Doc v2.1.3
 language_tabs:
   - nodejs: JavaScript
 toc_footers: []
@@ -10,7 +10,7 @@ headingLevel: 2
 
 ---
 
-<h1 id="Vospay-API-Doc">Vospay API Doc v2.1.2</h1>
+<h1 id="Vospay-API-Doc">Vospay API Doc v2.1.3</h1>
 
 > Scroll down for code samples, example requests and responses. Select a language for code samples from the tabs above or the mobile navigation menu.
 
@@ -135,9 +135,9 @@ This operation does not require authentication
 
 <h1 id="Vospay-API-Doc-OTP">OTP</h1>
 
-## sendOTP
+## sendOTPActivation
 
-<a id="opIdsendOTP"></a>
+<a id="opIdsendOTPActivation"></a>
 
 > Code samples
 
@@ -149,7 +149,7 @@ const headers = {
 
 };
 
-fetch('https://api-staging.vospay.id/api/v2/otp/{phoneNumber}',
+fetch('https://api-staging.vospay.id/api/v2/otp/{phoneNumber}&action={action}?action=activation',
 {
   method: 'GET',
 
@@ -163,17 +163,18 @@ fetch('https://api-staging.vospay.id/api/v2/otp/{phoneNumber}',
 
 ```
 
-`GET /otp/{phoneNumber}`
+`GET /otp/{phoneNumber}&action={action}`
 
-*Trigger backend to resend otp*
+*Trigger backend to send otp for activation*
 
 Use this endpoint to trigger the backend for send the otp to a user.
 
-<h3 id="sendOTP-parameters">Parameters</h3>
+<h3 id="sendOTPActivation-parameters">Parameters</h3>
 
 |Parameter|In|Type|Required|Description|
 |---|---|---|---|---|
 |phoneNumber|path|string|true|User's phone number|
+|action|query|string|true|The action of OTP for, like for activation or transaction|
 
 > Example responses
 
@@ -194,14 +195,106 @@ Use this endpoint to trigger the backend for send the otp to a user.
 }
 ```
 
-<h3 id="sendOTP-responses">Responses</h3>
+<h3 id="sendOTPActivation-responses">Responses</h3>
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Backend successfuly resend the otp|Inline|
 |500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|Response when phone number is not found or invalid|Inline|
 
-<h3 id="sendOTP-responseschema">Response Schema</h3>
+<h3 id="sendOTPActivation-responseschema">Response Schema</h3>
+
+Status Code **200**
+
+|Name|Type|Required|Description|
+|---|---|---|---|
+|» message|string|false|No description|
+
+Status Code **500**
+
+|Name|Type|Required|Description|
+|---|---|---|---|
+|» name|string|false|No description|
+|» message|string|false|No description|
+|» code|number|false|No description|
+|» className|string|false|No description|
+|» data|object|false|No description|
+|» errors|object|false|No description|
+
+<aside class="success">
+This operation does not require authentication
+</aside>
+
+## sendOTPTransaction
+
+<a id="opIdsendOTPTransaction"></a>
+
+> Code samples
+
+```nodejs
+const request = require('node-fetch');
+
+const headers = {
+  'Accept':'application/json'
+
+};
+
+fetch('https://api-staging.vospay.id/api/v2/otp/{phoneNumber}&action={action}&merchantKey={merchantKey}&grossAmount={grossAmount}?action=transaction&merchantKey=string&grossAmount=string',
+{
+  method: 'GET',
+
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
+
+`GET /otp/{phoneNumber}&action={action}&merchantKey={merchantKey}&grossAmount={grossAmount}`
+
+*Trigger backend to send otp for transaction*
+
+Use this endpoint to trigger the backend for send the otp to a user.
+
+<h3 id="sendOTPTransaction-parameters">Parameters</h3>
+
+|Parameter|In|Type|Required|Description|
+|---|---|---|---|---|
+|phoneNumber|path|string|true|User's phone number|
+|action|query|string|true|The action of OTP for, like for activation or transaction|
+|merchantKey|query|string|true|Merchant key where the user's do the transaction|
+|grossAmount|query|string|true|Gross amount of user's transaction|
+
+> Example responses
+
+```json
+{
+  "message": "Success"
+}
+```
+
+```json
+{
+  "name": "string",
+  "message": "string",
+  "code": 0,
+  "className": "string",
+  "data": {},
+  "errors": {}
+}
+```
+
+<h3 id="sendOTPTransaction-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Backend successfuly resend the otp|Inline|
+|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|Response when phone number is not found or invalid|Inline|
+
+<h3 id="sendOTPTransaction-responseschema">Response Schema</h3>
 
 Status Code **200**
 
