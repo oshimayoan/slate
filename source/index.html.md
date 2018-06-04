@@ -1,5 +1,5 @@
 ---
-title: Vospay API Doc v2.1.5
+title: Vospay API Doc v2.1.6
 language_tabs:
   - nodejs: JavaScript
 toc_footers: []
@@ -10,7 +10,7 @@ headingLevel: 2
 
 ---
 
-<h1 id="Vospay-API-Doc">Vospay API Doc v2.1.5</h1>
+<h1 id="Vospay-API-Doc">Vospay API Doc v2.1.6</h1>
 
 > Scroll down for code samples, example requests and responses. Select a language for code samples from the tabs above or the mobile navigation menu.
 
@@ -174,14 +174,15 @@ Use this endpoint to trigger the backend for send the otp to a user.
 |Parameter|In|Type|Required|Description|
 |---|---|---|---|---|
 |phoneNumber|path|string|true|User's phone number|
-|action|query|string|true|The action of OTP for, like for activation or transaction|
+|action|query|string|true|The action of OTP for, like for activation, transaction, or registration|
 
 > Example responses
 
 ```json
 {
   "code": "1234",
-  "expiry": "2018-05-21T06:44:01.874Z"
+  "expiry": "2018-05-21T06:44:01.874Z",
+  "resendTimeout": 1
 }
 ```
 
@@ -209,8 +210,9 @@ Status Code **200**
 
 |Name|Type|Required|Description|
 |---|---|---|---|
-|» code|string|false|OTP code|
+|» code|string|false|OTP code (Only returned for dummy phone number)|
 |» expiry|string|false|OTP expiry time in ISO string|
+|» resendTimeout|number|false|Re-send OTP timeout (in minutes)|
 
 Status Code **500**
 
@@ -266,7 +268,7 @@ Use this endpoint to trigger the backend for send the otp to a user.
 |Parameter|In|Type|Required|Description|
 |---|---|---|---|---|
 |phoneNumber|path|string|true|User's phone number|
-|action|query|string|true|The action of OTP for, like for activation or transaction|
+|action|query|string|true|The action of OTP for, like for activation, transaction, or registration|
 |merchantKey|query|string|true|Merchant key where the user's do the transaction|
 |grossAmount|query|number|true|Gross amount of user's transaction|
 
@@ -275,7 +277,8 @@ Use this endpoint to trigger the backend for send the otp to a user.
 ```json
 {
   "code": "1234",
-  "expiry": "2018-05-21T06:44:01.874Z"
+  "expiry": "2018-05-21T06:44:01.874Z",
+  "resendTimeout": 1
 }
 ```
 
@@ -303,8 +306,9 @@ Status Code **200**
 
 |Name|Type|Required|Description|
 |---|---|---|---|
-|» code|string|false|OTP code|
+|» code|string|false|OTP code (Only returned for dummy phone number)|
 |» expiry|string|false|OTP expiry time in ISO string|
+|» resendTimeout|number|false|Re-send OTP timeout (in minutes)|
 
 Status Code **500**
 
@@ -388,7 +392,8 @@ Use this endpoint when user submit their data on activation process.
 
 ```json
 {
-  "hasRegistered": false
+  "hasRegistered": false,
+  "hasActivated": false
 }
 ```
 
@@ -428,6 +433,7 @@ Status Code **201**
 |Name|Type|Required|Description|
 |---|---|---|---|
 |» hasRegistered|boolean|false|Flag whether the user who activates new Vospay account number is registered or not|
+|» hasActivated|boolean|false|Flag whether the phone number is activated or not|
 
 Status Code **401**
 
@@ -465,7 +471,6 @@ This operation does not require authentication
 ```nodejs
 const request = require('node-fetch');
 const inputBody = '{
-  "vospayNumber": "2340010000000002",
   "email": "john@doe.com",
   "password": "abcd1234"
 }';
@@ -500,7 +505,6 @@ Use this endpoint to send registrant data when register submit is clicked.
 
 ```json
 {
-  "vospayNumber": "2340010000000002",
   "email": "john@doe.com",
   "password": "abcd1234"
 }
@@ -1465,7 +1469,6 @@ Status Code **200**
 |---|---|---|---|
 |» *anonymous*|[FinalizeTransactionLocked](#schemafinalizetransactionlocked)|false|No description|
 |»» message|string|false|No description|
-|»» vospayNumber|string|false|Vospay account number used for transaction|
 |»» isLocked|boolean|false|Flag whether Vospay account number is locked or not|
 |»» isLimited|boolean|false|No description|
 
@@ -1475,7 +1478,6 @@ Status Code **200**
 |---|---|---|---|
 |» *anonymous*|[FinalizeTransactionLimited](#schemafinalizetransactionlimited)|false|No description|
 |»» message|string|false|No description|
-|»» vospayNumber|string|false|Vospay account number used for transaction|
 |»» isLocked|boolean|false|Flag whether Vospay account number is locked or not|
 |»» isLimited|boolean|false|No description|
 
@@ -1484,11 +1486,11 @@ Status Code **200**
 |Property|Value|
 |---|---|
 |message|Success|
-|message|Fail|
+|message|Failed|
 |message|Success|
-|message|Fail|
+|message|Failed|
 |message|Success|
-|message|Fail|
+|message|Failed|
 
 Status Code **401**
 
@@ -1771,6 +1773,132 @@ To perform this operation, you must be authenticated by means of one of the foll
 accessToken
 </aside>
 
+## updateUserProfile
+
+<a id="opIdupdateUserProfile"></a>
+
+> Code samples
+
+```nodejs
+const request = require('node-fetch');
+const inputBody = '{
+  "email": "new.email@gmail.com"
+}';
+const headers = {
+  'Content-Type':'application/json',
+  'Accept':'application/json',
+  'Authorization':'JWT <<accessToken>>'
+
+};
+
+fetch('https://api-staging.vospay.id/api/v2/my-profile',
+{
+  method: 'POST',
+  body: inputBody,
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
+
+`POST /my-profile`
+
+*Post user's data to update user's profile*
+
+Use this endpoint to update profile, like email and password.
+
+> Body parameter
+
+```json
+{
+  "email": "new.email@gmail.com"
+}
+```
+
+<h3 id="updateUserProfile-parameters">Parameters</h3>
+
+|Parameter|In|Type|Required|Description|
+|---|---|---|---|---|
+|Authorization|header|string|true|A generated JWT access token by `/authentication` endpoint|
+|body|body|object|true|No description|
+|» email|body|string(email)|false|User's new email (Do not send it if you don't want to change it)|
+|» password|body|string|false|User's code access (Do not send it if you don't want to change it)|
+
+> Example responses
+
+```json
+{
+  "message": "Success"
+}
+```
+
+```json
+{
+  "name": "string",
+  "message": "string",
+  "code": 0,
+  "className": "string",
+  "data": {},
+  "errors": {}
+}
+```
+
+```json
+{
+  "name": "string",
+  "message": "string",
+  "code": 0,
+  "className": "string",
+  "errors": {}
+}
+```
+
+<h3 id="updateUserProfile-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|201|[Created](https://tools.ietf.org/html/rfc7231#section-6.3.2)|Backend successfuly store updated profile data to database|Inline|
+|401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|Response when access token is not provided as Authorization on request header|Inline|
+|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|Response when Content-Type is not provided on request header or required request body is not provided|Inline|
+
+<h3 id="updateUserProfile-responseschema">Response Schema</h3>
+
+Status Code **201**
+
+|Name|Type|Required|Description|
+|---|---|---|---|
+|» message|string|false|No description|
+
+Status Code **401**
+
+|Name|Type|Required|Description|
+|---|---|---|---|
+|» name|string|false|No description|
+|» message|string|false|No description|
+|» code|number|false|No description|
+|» className|string|false|No description|
+|» data|object|false|No description|
+|» errors|object|false|No description|
+
+Status Code **500**
+
+|Name|Type|Required|Description|
+|---|---|---|---|
+|» name|string|false|No description|
+|» message|string|false|No description|
+|» code|number|false|No description|
+|» className|string|false|No description|
+|» errors|object|false|No description|
+
+<aside class="warning">
+To perform this operation, you must be authenticated by means of one of the following methods:
+accessToken
+</aside>
+
 ## fetchUserContracts
 
 <a id="opIdfetchUserContracts"></a>
@@ -1947,131 +2075,6 @@ To perform this operation, you must be authenticated by means of one of the foll
 accessToken
 </aside>
 
-## changeAccessCode
-
-<a id="opIdchangeAccessCode"></a>
-
-> Code samples
-
-```nodejs
-const request = require('node-fetch');
-const inputBody = '{
-  "password": "1234abcd"
-}';
-const headers = {
-  'Content-Type':'application/json',
-  'Accept':'application/json',
-  'Authorization':'JWT <<accessToken>>'
-
-};
-
-fetch('https://api-staging.vospay.id/api/v2/change-password',
-{
-  method: 'POST',
-  body: inputBody,
-  headers: headers
-})
-.then(function(res) {
-    return res.json();
-}).then(function(body) {
-    console.log(body);
-});
-
-```
-
-`POST /change-password`
-
-*Change user's access code*
-
-Use this endpoint to change user's access code.
-
-> Body parameter
-
-```json
-{
-  "password": "1234abcd"
-}
-```
-
-<h3 id="changeAccessCode-parameters">Parameters</h3>
-
-|Parameter|In|Type|Required|Description|
-|---|---|---|---|---|
-|Authorization|header|string|true|A generated JWT access token by `/authentication` endpoint|
-|body|body|object|true|No description|
-|» password|body|string|false|User's new access code|
-
-> Example responses
-
-```json
-{
-  "message": "Success"
-}
-```
-
-```json
-{
-  "name": "string",
-  "message": "string",
-  "code": 0,
-  "className": "string",
-  "data": {},
-  "errors": {}
-}
-```
-
-```json
-{
-  "name": "string",
-  "message": "string",
-  "code": 0,
-  "className": "string",
-  "errors": {}
-}
-```
-
-<h3 id="changeAccessCode-responses">Responses</h3>
-
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Backend successfuly change user's access code|Inline|
-|401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|Response when access token is not provided as Authorization on request header|Inline|
-|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Response when vospay account number is not provided or not found|Inline|
-
-<h3 id="changeAccessCode-responseschema">Response Schema</h3>
-
-Status Code **200**
-
-|Name|Type|Required|Description|
-|---|---|---|---|
-|» message|string|false|No description|
-
-Status Code **401**
-
-|Name|Type|Required|Description|
-|---|---|---|---|
-|» name|string|false|No description|
-|» message|string|false|No description|
-|» code|number|false|No description|
-|» className|string|false|No description|
-|» data|object|false|No description|
-|» errors|object|false|No description|
-
-Status Code **404**
-
-|Name|Type|Required|Description|
-|---|---|---|---|
-|» name|string|false|No description|
-|» message|string|false|No description|
-|» code|number|false|No description|
-|» className|string|false|No description|
-|» errors|object|false|No description|
-
-<aside class="warning">
-To perform this operation, you must be authenticated by means of one of the following methods:
-accessToken
-</aside>
-
 # Schemas
 
 <h2 id="tocSauthotp">AuthOTP</h2>
@@ -2140,7 +2143,6 @@ accessToken
 
 ```json
 {
-  "vospayNumber": "2340010000000002",
   "email": "john@doe.com",
   "password": "abcd1234"
 }
@@ -2150,7 +2152,6 @@ accessToken
 
 |Name|Type|Required|Description|
 |---|---|---|---|
-|vospayNumber|string|true|Registrant vospay account number|
 |email|string(email)|false|Registrant email|
 |password|string|true|Registrant access code|
 
@@ -2193,7 +2194,7 @@ accessToken
 |Property|Value|
 |---|---|
 |message|Success|
-|message|Fail|
+|message|Failed|
 
 <h2 id="tocSfinalizetransactionlocked">FinalizeTransactionLocked</h2>
 
@@ -2201,8 +2202,7 @@ accessToken
 
 ```json
 {
-  "message": "Fail",
-  "vospayNumber": "2340010000000001",
+  "message": "Failed",
   "isLocked": true,
   "isLimited": false
 }
@@ -2213,7 +2213,6 @@ accessToken
 |Name|Type|Required|Description|
 |---|---|---|---|
 |message|string|false|No description|
-|vospayNumber|string|false|Vospay account number used for transaction|
 |isLocked|boolean|false|Flag whether Vospay account number is locked or not|
 |isLimited|boolean|false|No description|
 
@@ -2222,7 +2221,7 @@ accessToken
 |Property|Value|
 |---|---|
 |message|Success|
-|message|Fail|
+|message|Failed|
 
 <h2 id="tocSfinalizetransactionlimited">FinalizeTransactionLimited</h2>
 
@@ -2230,8 +2229,7 @@ accessToken
 
 ```json
 {
-  "message": "Fail",
-  "vospayNumber": "2340010000000001",
+  "message": "Failed",
   "isLocked": false,
   "isLimited": true
 }
@@ -2242,7 +2240,6 @@ accessToken
 |Name|Type|Required|Description|
 |---|---|---|---|
 |message|string|false|No description|
-|vospayNumber|string|false|Vospay account number used for transaction|
 |isLocked|boolean|false|Flag whether Vospay account number is locked or not|
 |isLimited|boolean|false|No description|
 
@@ -2251,5 +2248,5 @@ accessToken
 |Property|Value|
 |---|---|
 |message|Success|
-|message|Fail|
+|message|Failed|
 
