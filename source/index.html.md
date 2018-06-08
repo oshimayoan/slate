@@ -1,5 +1,5 @@
 ---
-title: Vospay API Doc v2.1.6
+title: Vospay API Docs v2.1.6
 language_tabs:
   - nodejs: JavaScript
 toc_footers: []
@@ -10,7 +10,7 @@ headingLevel: 2
 
 ---
 
-<h1 id="Vospay-API-Doc">Vospay API Doc v2.1.6</h1>
+<h1 id="Vospay-API-Docs">Vospay API Docs v2.1.6</h1>
 
 > Scroll down for code samples, example requests and responses. Select a language for code samples from the tabs above or the mobile navigation menu.
 
@@ -24,7 +24,7 @@ Base URLs:
 
 - HTTP Authentication, scheme: bearer A generated JWT access token by `/authentication` endpoint
 
-<h1 id="Vospay-API-Doc-Token">Token</h1>
+<h1 id="Vospay-API-Docs-Token">Token</h1>
 
 ## createAccessToken
 
@@ -133,7 +133,7 @@ Status Code **400**
 This operation does not require authentication
 </aside>
 
-<h1 id="Vospay-API-Doc-OTP">OTP</h1>
+<h1 id="Vospay-API-Docs-OTP">OTP</h1>
 
 ## sendOTPActivation
 
@@ -325,7 +325,7 @@ Status Code **500**
 This operation does not require authentication
 </aside>
 
-<h1 id="Vospay-API-Doc-Activation">Activation</h1>
+<h1 id="Vospay-API-Docs-Activation">Activation</h1>
 
 ## activateNewVospayNumber
 
@@ -424,7 +424,7 @@ Use this endpoint when user submit their data on activation process.
 |---|---|---|---|
 |201|[Created](https://tools.ietf.org/html/rfc7231#section-6.3.2)|OK response|Inline|
 |401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|Response when access token is not provided as Authorization on request header|Inline|
-|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|Response when Content-Type is not provided on request header or required request body is not provided|Inline|
+|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|Response when Content-Type or required request body is not provided|Inline|
 
 <h3 id="activateNewVospayNumber-responseschema">Response Schema</h3>
 
@@ -460,7 +460,7 @@ Status Code **500**
 This operation does not require authentication
 </aside>
 
-<h1 id="Vospay-API-Doc-Registration">Registration</h1>
+<h1 id="Vospay-API-Docs-Registration">Registration</h1>
 
 ## registerNewUser
 
@@ -588,7 +588,7 @@ To perform this operation, you must be authenticated by means of one of the foll
 accessToken
 </aside>
 
-<h1 id="Vospay-API-Doc-Account">Account</h1>
+<h1 id="Vospay-API-Docs-Account">Account</h1>
 
 ## fetchAccountList
 
@@ -895,7 +895,7 @@ To perform this operation, you must be authenticated by means of one of the foll
 accessToken
 </aside>
 
-<h1 id="Vospay-API-Doc-Merchant">Merchant</h1>
+<h1 id="Vospay-API-Docs-Merchant">Merchant</h1>
 
 ## fetchMerchantList
 
@@ -1148,7 +1148,7 @@ To perform this operation, you must be authenticated by means of one of the foll
 accessToken
 </aside>
 
-<h1 id="Vospay-API-Doc-Transaction">Transaction</h1>
+<h1 id="Vospay-API-Docs-Transaction">Transaction</h1>
 
 ## authorizeTransaction
 
@@ -1447,7 +1447,7 @@ Use this endpoint to send transaction detail on submit a checkout
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|OK response|Inline|
 |401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|Response when access token is not provided as Authorization on request header|Inline|
-|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|Response when Content-Type is not provided on request header or required request body not provided|Inline|
+|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|Response when Content-Type or required request body not provided|Inline|
 
 <h3 id="finalizeTransaction-responseschema">Response Schema</h3>
 
@@ -1611,7 +1611,7 @@ Use this endpoint verify the transaction ID and order details with VOSPAY to ens
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|OK response|Inline|
 |404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Response when transaction is not found|Inline|
-|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|Response when Content-Type is not provided on request header or required request body is not provided|Inline|
+|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|Response when Content-Type or required request body is not provided|Inline|
 
 <h3 id="verifyTransaction-responseschema">Response Schema</h3>
 
@@ -1642,7 +1642,7 @@ Status Code **500**
 This operation does not require authentication
 </aside>
 
-<h1 id="Vospay-API-Doc-User-Dashboard">User Dashboard</h1>
+<h1 id="Vospay-API-Docs-User-Dashboard">User Dashboard</h1>
 
 ## fetchUserProfile
 
@@ -1861,9 +1861,9 @@ Use this endpoint to update profile, like email and password.
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
-|201|[Created](https://tools.ietf.org/html/rfc7231#section-6.3.2)|Backend successfuly store updated profile data to database|Inline|
+|201|[Created](https://tools.ietf.org/html/rfc7231#section-6.3.2)|Backend successfuly stored updated profile data to database|Inline|
 |401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|Response when access token is not provided as Authorization on request header|Inline|
-|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|Response when Content-Type is not provided on request header or required request body is not provided|Inline|
+|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|Response when Content-Type or required request body is not provided|Inline|
 
 <h3 id="updateUserProfile-responseschema">Response Schema</h3>
 
